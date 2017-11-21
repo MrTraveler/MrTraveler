@@ -1,2 +1,2 @@
 # MrTraveler
-MFC Travel diary program
+MFC Travel Diary Program
