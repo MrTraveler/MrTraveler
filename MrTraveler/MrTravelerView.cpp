@@ -1,10 +1,10 @@
 
-// MrTravelerView.cpp : CMrTravelerView Å¬·¡½ºÀÇ ±¸Çö
+// MrTravelerView.cpp : CMrTravelerView í´ë˜ìŠ¤ì˜ êµ¬í˜„
 //
 
 #include "stdafx.h"
-// SHARED_HANDLERS´Â ¹Ì¸® º¸±â, Ãà¼ÒÆÇ ±×¸² ¹× °Ë»ö ÇÊÅÍ Ã³¸®±â¸¦ ±¸ÇöÇÏ´Â ATL ÇÁ·ÎÁ§Æ®¿¡¼­ Á¤ÀÇÇÒ ¼ö ÀÖÀ¸¸ç
-// ÇØ´ç ÇÁ·ÎÁ§Æ®¿Í ¹®¼­ ÄÚµå¸¦ °øÀ¯ÇÏµµ·Ï ÇØ Áİ´Ï´Ù.
+// SHARED_HANDLERSëŠ” ë¯¸ë¦¬ ë³´ê¸°, ì¶•ì†ŒíŒ ê·¸ë¦¼ ë° ê²€ìƒ‰ í•„í„° ì²˜ë¦¬ê¸°ë¥¼ êµ¬í˜„í•˜ëŠ” ATL í”„ë¡œì íŠ¸ì—ì„œ ì •ì˜í•  ìˆ˜ ìˆìœ¼ë©°
+// í•´ë‹¹ í”„ë¡œì íŠ¸ì™€ ë¬¸ì„œ ì½”ë“œë¥¼ ê³µìœ í•˜ë„ë¡ í•´ ì¤ë‹ˆë‹¤.
 #ifndef SHARED_HANDLERS
 #include "MrTraveler.h"
 #endif
@@ -22,17 +22,18 @@
 IMPLEMENT_DYNCREATE(CMrTravelerView, CView)
 
 BEGIN_MESSAGE_MAP(CMrTravelerView, CView)
-	// Ç¥ÁØ ÀÎ¼â ¸í·ÉÀÔ´Ï´Ù.
+	// í‘œì¤€ ì¸ì‡„ ëª…ë ¹ì…ë‹ˆë‹¤.
 	ON_COMMAND(ID_FILE_PRINT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
+	ON_WM_LBUTTONUP()
 END_MESSAGE_MAP()
 
-// CMrTravelerView »ı¼º/¼Ò¸ê
+// CMrTravelerView ìƒì„±/ì†Œë©¸
 
 CMrTravelerView::CMrTravelerView()
 {
-	// TODO: ¿©±â¿¡ »ı¼º ÄÚµå¸¦ Ãß°¡ÇÕ´Ï´Ù.
+	// TODO: ì—¬ê¸°ì— ìƒì„± ì½”ë“œë¥¼ ì¶”ê°€í•©ë‹ˆë‹¤.
 
 }
 
@@ -42,45 +43,100 @@ CMrTravelerView::~CMrTravelerView()
 
 BOOL CMrTravelerView::PreCreateWindow(CREATESTRUCT& cs)
 {
-	// TODO: CREATESTRUCT cs¸¦ ¼öÁ¤ÇÏ¿© ¿©±â¿¡¼­
-	//  Window Å¬·¡½º ¶Ç´Â ½ºÅ¸ÀÏÀ» ¼öÁ¤ÇÕ´Ï´Ù.
+	// TODO: CREATESTRUCT csë¥¼ ìˆ˜ì •í•˜ì—¬ ì—¬ê¸°ì—ì„œ
+	//  Window í´ë˜ìŠ¤ ë˜ëŠ” ìŠ¤íƒ€ì¼ì„ ìˆ˜ì •í•©ë‹ˆë‹¤.
 
 	return CView::PreCreateWindow(cs);
 }
 
-// CMrTravelerView ±×¸®±â
+// CMrTravelerView ê·¸ë¦¬ê¸°
 
-void CMrTravelerView::OnDraw(CDC* /*pDC*/)
+void CMrTravelerView::OnDraw(CDC* pDC)
 {
 	CMrTravelerDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
 
-	// TODO: ¿©±â¿¡ ¿ø½Ã µ¥ÀÌÅÍ¿¡ ´ëÇÑ ±×¸®±â ÄÚµå¸¦ Ãß°¡ÇÕ´Ï´Ù.
+	CRect window;
+	GetWindowRect(&window);
+
+	CTime cTime = CTime::GetCurrentTime();
+	int curYear, curMonth, curDate;
+	curYear = cTime.GetYear();
+	curMonth= cTime.GetMonth();
+	curDate = cTime.GetDay();
+
+	CRgn monthRgn;
+	monthRgn.CreateEllipticRgn((1400 - 150) / 2, 0, (1400 - 150) / 2+ 150, 150);
+	pDC->FillRgn(&monthRgn, &CBrush(RGB(154, 202, 235)));
+
+	int curDay = cTime.GetDayOfWeek();
+
+	CRgn dayRgn[7];
+	for (int day = 0; day < 7; day++) {
+		dayRgn[day].CreateRoundRectRgn(day % 7 * 200, 150, (day % 7 + 1) * 200, 200, 20, 20);
+		pDC->FillRgn(&dayRgn[day], &CBrush(RGB(154, 202, 235)));
+	}
+
+	int end_of_mon[12] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
+	if (!(curYear % 4) && ((curYear % 100) || !(curYear % 400))) end_of_mon[1] = 29;
+	
+	CRgn dateRgn[43];
+	for (int day = 0; day < end_of_mon[curMonth-1]; day++) {
+		dateRgn[day + curDay].CreateRoundRectRgn((day + curDay) % 7 * 200, 200+(day + curDay )/7*100,
+			((day + curDay) % 7 + 1) * 200, 200 + ((day + curDay) / 7+1) * 100, 20, 20);
+		pDC->FillRgn(&dateRgn[day], &CBrush(RGB(255, 255, 255)));
+		pDC->FrameRgn(&dateRgn[day], &CBrush(RGB(154, 202, 235)), 1.5, 1.5);
+	}
+
+	CRgn tapRgn[6];
+	for (int i = 0; i < 6; i++) {
+		tapRgn[i].CreateRoundRectRgn(i % 7 * 200, 800, (i % 7 + 1) * 200, 850, 20, 20);
+		pDC->FillRgn(&tapRgn[i], &CBrush(RGB(154, 202, 235)));
+	}
+
+	//CRgn dayRgn[32];//
+/*
+	for (int day = 0; day <= 35; day++) {
+		CRect rt();
+		dayRgn[day].CreateRectRgnIndirect(&rt);
+		pDC->FillRgn(&dayRgn[day], &CBrush(RGB(255, 255, 255)));
+		pDC->FrameRgn(&dayRgn[day], &CBrush(RGB(255, 197, 108)), 1, 1);
+		dayRgn[day].DeleteObject();
+	}
+	*/
+	//CRgn tapRgn[6];
+	/*
+	for (int i = 0; i < 6; i++) {
+		CRect rt(i%6*window.right/6,window.bottom-100, (i % 6+1) * window.right / 6, window.bottom );
+		tapRgn[i].CreateRectRgnIndirect(&rt);
+		pDC->FillRgn(&tapRgn[i], &CBrush(RGB(255, 255, 255)));
+		pDC->FrameRgn(&tapRgn[i], &CBrush(RGB(255, 197, 108)), 1, 1);
+		tapRgn[i].DeleteObject();
+	}*/
+	// TODO: ì—¬ê¸°ì— ì›ì‹œ ë°ì´í„°ì— ëŒ€í•œ ê·¸ë¦¬ê¸° ì½”ë“œë¥¼ ì¶”ê°€í•©ë‹ˆë‹¤.
 }
 
 
-// CMrTravelerView ÀÎ¼â
-
 BOOL CMrTravelerView::OnPreparePrinting(CPrintInfo* pInfo)
 {
-	// ±âº»ÀûÀÎ ÁØºñ
+	// ê¸°ë³¸ì ì¸ ì¤€ë¹„
 	return DoPreparePrinting(pInfo);
 }
 
 void CMrTravelerView::OnBeginPrinting(CDC* /*pDC*/, CPrintInfo* /*pInfo*/)
 {
-	// TODO: ÀÎ¼âÇÏ±â Àü¿¡ Ãß°¡ ÃÊ±âÈ­ ÀÛ¾÷À» Ãß°¡ÇÕ´Ï´Ù.
+	// TODO: ì¸ì‡„í•˜ê¸° ì „ì— ì¶”ê°€ ì´ˆê¸°í™” ì‘ì—…ì„ ì¶”ê°€í•©ë‹ˆë‹¤.
 }
 
 void CMrTravelerView::OnEndPrinting(CDC* /*pDC*/, CPrintInfo* /*pInfo*/)
 {
-	// TODO: ÀÎ¼â ÈÄ Á¤¸® ÀÛ¾÷À» Ãß°¡ÇÕ´Ï´Ù.
+	// TODO: ì¸ì‡„ í›„ ì •ë¦¬ ì‘ì—…ì„ ì¶”ê°€í•©ë‹ˆë‹¤.
 }
 
 
-// CMrTravelerView Áø´Ü
+// CMrTravelerView ì§„ë‹¨
 
 #ifdef _DEBUG
 void CMrTravelerView::AssertValid() const
@@ -93,7 +149,7 @@ void CMrTravelerView::Dump(CDumpContext& dc) const
 	CView::Dump(dc);
 }
 
-CMrTravelerDoc* CMrTravelerView::GetDocument() const // µğ¹ö±×µÇÁö ¾ÊÀº ¹öÀüÀº ÀÎ¶óÀÎÀ¸·Î ÁöÁ¤µË´Ï´Ù.
+CMrTravelerDoc* CMrTravelerView::GetDocument() const // ë””ë²„ê·¸ë˜ì§€ ì•Šì€ ë²„ì „ì€ ì¸ë¼ì¸ìœ¼ë¡œ ì§€ì •ë©ë‹ˆë‹¤.
 {
 	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CMrTravelerDoc)));
 	return (CMrTravelerDoc*)m_pDocument;
@@ -101,4 +157,12 @@ CMrTravelerDoc* CMrTravelerView::GetDocument() const // µğ¹ö±×µÇÁö ¾ÊÀº ¹öÀüÀº À
 #endif //_DEBUG
 
 
-// CMrTravelerView ¸Ş½ÃÁö Ã³¸®±â
+// CMrTravelerView ë©”ì‹œì§€ ì²˜ë¦¬ê¸°
+
+
+void CMrTravelerView::OnLButtonUp(UINT nFlags, CPoint point)
+{
+	// TODO: ì—¬ê¸°ì— ë©”ì‹œì§€ ì²˜ë¦¬ê¸° ì½”ë“œë¥¼ ì¶”ê°€ ë°/ë˜ëŠ” ê¸°ë³¸ê°’ì„ í˜¸ì¶œí•©ë‹ˆë‹¤.
+
+	CView::OnLButtonUp(nFlags, point);
+}
