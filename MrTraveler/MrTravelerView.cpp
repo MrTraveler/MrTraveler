@@ -1,4 +1,4 @@
-
+﻿
 // MrTravelerView.cpp : CMrTravelerView 클래스의 구현
 //
 
@@ -66,60 +66,105 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 	CTime cTime = CTime::GetCurrentTime();
 	int curYear, curMonth, curDate;
 	curYear = cTime.GetYear();
-	curMonth= cTime.GetMonth();
+	curMonth = cTime.GetMonth();
 	curDate = cTime.GetDay();
+	int curDay = cTime.GetDayOfWeek();
+	int firstDay = curDay - (curDate % 7 - 1);//���� �� 1�� ����
 
 	CRgn monthRgn;
-	monthRgn.CreateEllipticRgn((1400 - 150) / 2, 0, (1400 - 150) / 2+ 150, 150);
+	monthRgn.CreateEllipticRgn((1400 - 150) / 2 + 25, 50 - 50, (1400 - 150) / 2 + 150 + 25, 200 - 50);
 	pDC->FillRgn(&monthRgn, &CBrush(RGB(154, 202, 235)));
 
-	int curDay = cTime.GetDayOfWeek();
+	CFont font;
+	font.CreatePointFont(400, _T("����ü"));
+	CString strMonth;
+	strMonth.Format(_T("%d"), curMonth);
+	pDC->SetBkColor(RGB(154, 202, 235));
+	pDC->SetTextColor(RGB(255, 255, 255));
+	pDC->SelectObject(&font);
+	pDC->TextOut((1400 - 150) / 2 + 32 + 25, 50 + 32 + 5 - 50, strMonth);
 
 	CRgn dayRgn[7];
 	for (int day = 0; day < 7; day++) {
-		dayRgn[day].CreateRoundRectRgn(day % 7 * 200, 150, (day % 7 + 1) * 200, 200, 20, 20);
+		dayRgn[day].CreateRoundRectRgn(day % 7 * 200 + 25, 200, (day % 7 + 1) * 200 + 25, 250, 20, 20);
 		pDC->FillRgn(&dayRgn[day], &CBrush(RGB(154, 202, 235)));
+
+		CFont font;
+		font.CreatePointFont(150, _T("바탕"));
+		pDC->SetBkColor(RGB(154, 202, 235));
+		pDC->SetTextColor(RGB(255, 255, 255));
+		pDC->SelectObject(&font);
+		if (day == 0)
+			pDC->TextOut(25 + day * 200 + 80, 210, _T("SUN"));
+		else if (day == 1)
+			pDC->TextOut(25 + day * 200 + 80, 210, _T("MON"));
+		else if (day == 2)
+			pDC->TextOut(25 + day * 200 + 80, 210, _T("TUE"));
+		else if (day == 3) {
+			pDC->TextOut(25 + day * 200 + 80, 210, _T("WED"));
+			pDC->SetBkColor(RGB(255, 255, 255));
+			pDC->SetTextColor(RGB(0, 0, 0));
+			CString strYear;
+			strYear.Format(_T("%d"), curYear);
+			pDC->TextOut(15 + day * 200 + 80, 160, strYear);
+		}
+		else if (day == 4)
+			pDC->TextOut(25 + day * 200 + 80, 210, _T("THU"));
+		else if (day == 5)
+			pDC->TextOut(25 + day * 200 + 80, 210, _T("FRI"));
+		else if (day == 6)
+			pDC->TextOut(25 + day * 200 + 80, 210, _T("SAT"));
+
 	}
 
 	int end_of_mon[12] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
 	if (!(curYear % 4) && ((curYear % 100) || !(curYear % 400))) end_of_mon[1] = 29;
-	
+
 	CRgn dateRgn[43];
-	for (int day = 0; day < end_of_mon[curMonth-1]; day++) {
-		dateRgn[day + curDay].CreateRoundRectRgn((day + curDay) % 7 * 200, 200+(day + curDay )/7*100,
-			((day + curDay) % 7 + 1) * 200, 200 + ((day + curDay) / 7+1) * 100, 20, 20);
+	for (int day = firstDay - 1; day < end_of_mon[curMonth - 1] + firstDay - 1; day++) {
+		dateRgn[day].CreateRoundRectRgn((day) % 7 * 200 + 25,
+			250 + (day) / 7 * 100,
+			((day) % 7 + 1) * 200 + 25,
+			250 + ((day) / 7 + 1) * 100,
+			20, 20);
 		pDC->FillRgn(&dateRgn[day], &CBrush(RGB(255, 255, 255)));
-		pDC->FrameRgn(&dateRgn[day], &CBrush(RGB(154, 202, 235)), 1.5, 1.5);
+		pDC->FrameRgn(&dateRgn[day], &CBrush(RGB(216, 216, 216)), 2, 2);
+
+		CFont font;
+		font.CreatePointFont(100, _T("바탕"));
+		CString strDate;
+		strDate.Format(_T("%d"), day - firstDay + 2);
+		pDC->SetBkColor(RGB(255, 255, 255));
+		pDC->SetTextColor(RGB(0, 0, 0));
+		pDC->SelectObject(&font);
+		pDC->TextOut((day) % 7 * 200 + 25 + 10,
+			250 + (day) / 7 * 100 + 10, strDate);
 	}
 
 	CRgn tapRgn[6];
 	for (int i = 0; i < 6; i++) {
-		tapRgn[i].CreateRoundRectRgn(i % 7 * 200, 800, (i % 7 + 1) * 200, 850, 20, 20);
+		tapRgn[i].CreateRoundRectRgn(i % 7 * 200, 850, (i % 7 + 1) * 200, 900, 20, 20);
 		pDC->FillRgn(&tapRgn[i], &CBrush(RGB(154, 202, 235)));
-	}
 
-	//CRgn dayRgn[32];//
-/*
-	for (int day = 0; day <= 35; day++) {
-		CRect rt();
-		dayRgn[day].CreateRectRgnIndirect(&rt);
-		pDC->FillRgn(&dayRgn[day], &CBrush(RGB(255, 255, 255)));
-		pDC->FrameRgn(&dayRgn[day], &CBrush(RGB(255, 197, 108)), 1, 1);
-		dayRgn[day].DeleteObject();
+		CFont font;
+		font.CreatePointFont(100, _T("바탕"));
+		pDC->SetBkColor(RGB(154, 202, 235));
+		pDC->SetTextColor(RGB(255, 255, 255));
+		pDC->SelectObject(&font);
+		if (i == 0)
+			pDC->TextOut(25 + i * 200 + 40, 860, _T("캘린더"));
+		else if (i == 1)
+			pDC->TextOut(25 + i * 200 + 50, 860, _T("일정"));
+		else if (i == 2)
+			pDC->TextOut(25 + i * 200 + 30, 860, _T("TO DO List"));
+		else if (i == 3)
+			pDC->TextOut(25 + i * 200 + 40, 860, _T("가계부"));
+		else if (i == 4)
+			pDC->TextOut(25 + i * 200 + 35, 860, _T("다이어리"));
+		else if (i == 5)
+			pDC->TextOut(25 + i * 200 + 45, 860, _T("INFO"));
 	}
-	*/
-	//CRgn tapRgn[6];
-	/*
-	for (int i = 0; i < 6; i++) {
-		CRect rt(i%6*window.right/6,window.bottom-100, (i % 6+1) * window.right / 6, window.bottom );
-		tapRgn[i].CreateRectRgnIndirect(&rt);
-		pDC->FillRgn(&tapRgn[i], &CBrush(RGB(255, 255, 255)));
-		pDC->FrameRgn(&tapRgn[i], &CBrush(RGB(255, 197, 108)), 1, 1);
-		tapRgn[i].DeleteObject();
-	}*/
-	// TODO: 여기에 원시 데이터에 대한 그리기 코드를 추가합니다.
 }
-
 
 BOOL CMrTravelerView::OnPreparePrinting(CPrintInfo* pInfo)
 {
