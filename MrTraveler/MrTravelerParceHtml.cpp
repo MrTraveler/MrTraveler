@@ -12,7 +12,7 @@ CMrTravelerParceHtml::~CMrTravelerParceHtml()
 {
 }
 
-void CMrTravelerParceHtml::ParceHtml(CString strUrl) {
+void CMrTravelerParceHtml::ParceHtml(CString strUrl,CString strFile) {
 
 	CInternetSession session;
 	CHttpFile* pHttpFile = NULL;
@@ -32,8 +32,6 @@ void CMrTravelerParceHtml::ParceHtml(CString strUrl) {
 		// 한 줄씩 읽어서 합치기
 		while (pHttpFile->ReadString(strTemp))
 		{
-			// 웹 페이지 인코딩이 UTF-8이므로 유니코드로 변경
-//			strHtml += CA2W((LPCSTR)strTemp.GetBuffer(), CP_UTF8);
 			strHtml += strTemp.GetBuffer();
 			strTemp.ReleaseBuffer();
 		}
@@ -46,8 +44,20 @@ void CMrTravelerParceHtml::ParceHtml(CString strUrl) {
 		_tprintf(_T("pFile is NULL.\n"));
 	}
 	CFile file;
-	file.Open(_T("ExchangeRate.json"), CFile::modeCreate | CFile::modeWrite, NULL);
+	file.Open(strFile, CFile::modeCreate | CFile::modeWrite, NULL);
 	file.Write(strHtml, strHtml.GetLength() * sizeof(TCHAR)); 
-
 	file.Close();
+
+}
+void CMrTravelerParceHtml::RoadExchangeRate() {
+	char iso3166[94][5] = {"AED","AMD","ANG","AOA","ARS","AUD","BBD","BDT","BGN","BHD","BRL","BSD","BWP","BYN","CAD","CHF","CLP","CNY","COP","CZK","DKK","DOP","EGP","ETB","EUR","FJD","GBP","GHS","GTQ","HKD","HNL","HRK","HUF","IDR","ILS","INR","IQD","IRR","ISK","JMD","JOD","JPY","KES","KHR","KWD","KZT","LAK","LBP","LKR","MAD","MKD","MMK","MUR","MXN","MYR","NAD","NGN","NOK","NZD","OMR","PAB","PEN","PGK","PHP","PKR","PLN","PYG","QAR","RON","RSD","RUB","SAR","SCR","SEK","SGD","THB","TJS","TND","TRY","TTD","TWD","TZS","UAH","USD","UYU","UZS","VEF","VND","XAF","XCD","XOF","XPF","ZAR","ZMW"};
+	std::ifstream stream;
+	stream.open("ExchangeRate.json");
+	Json::Value root;
+	stream >> root; // 읽어온 데이터를 root에 넣는다.
+	Json::Value rates = root["rates"];
+	for (int i = 0; i < 94; i++) 
+		ExchangeRate[i] = rates[iso3166[i]].asDouble();
+	for (int i = 0; i < 94; i++)
+		TRACE("%s : %lf\n", &iso3166[i][0], ExchangeRate[i]);
 }
