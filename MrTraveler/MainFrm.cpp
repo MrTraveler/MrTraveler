@@ -74,9 +74,11 @@ void CMainFrame::Dump(CDumpContext& dc) const
 
 BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 {
+
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
-	cs.cx = 1450; 
-	cs.cy = 900;
+	cs.cx = 1475; 
+	cs.cy = 950;
+
 
 	return CFrameWnd::PreCreateWindow(cs);
 }
@@ -85,9 +87,9 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 void CMainFrame::OnGetMinMaxInfo(MINMAXINFO* lpMMI)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
-	lpMMI->ptMinTrackSize.x = 1450; 
-	lpMMI->ptMinTrackSize.y = 900;
-	lpMMI->ptMaxTrackSize.x = 1450; 
-	lpMMI->ptMaxTrackSize.y = 900; 
+	lpMMI->ptMinTrackSize.x = 1475; 
+	lpMMI->ptMinTrackSize.y = 950;
+	lpMMI->ptMaxTrackSize.x = 1475; 
+	lpMMI->ptMaxTrackSize.y = 950; 
 	CFrameWnd::OnGetMinMaxInfo(lpMMI);
 }
