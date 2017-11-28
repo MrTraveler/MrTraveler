@@ -11,6 +11,7 @@
 
 #include "MrTravelerDoc.h"
 #include "MrTravelerView.h"
+#include "MrTravelerParceHtml.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -34,7 +35,8 @@ END_MESSAGE_MAP()
 CMrTravelerView::CMrTravelerView()
 {
 	// TODO: 여기에 생성 코드를 추가합니다.
-
+	CMrTravelerParceHtml *x = new CMrTravelerParceHtml();
+	x->ParceHtml(_T("https://v3.exchangerate-api.com/bulk/3090405efae2c21d79cc569c/KRW"));
 }
 
 CMrTravelerView::~CMrTravelerView()

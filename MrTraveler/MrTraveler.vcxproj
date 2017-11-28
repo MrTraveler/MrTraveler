@@ -188,6 +188,7 @@
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="MrTraveler.h" />
     <ClInclude Include="MrTravelerDoc.h" />
+    <ClInclude Include="MrTravelerParceHtml.h" />
     <ClInclude Include="MrTravelerView.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -197,6 +198,7 @@
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="MrTraveler.cpp" />
     <ClCompile Include="MrTravelerDoc.cpp" />
+    <ClCompile Include="MrTravelerParceHtml.cpp" />
     <ClCompile Include="MrTravelerView.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
