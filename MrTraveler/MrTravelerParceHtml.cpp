@@ -58,6 +58,4 @@ void CMrTravelerParceHtml::RoadExchangeRate() {
 	Json::Value rates = root["rates"];
 	for (int i = 0; i < 94; i++) 
 		ExchangeRate[i] = rates[iso3166[i]].asDouble();
-	for (int i = 0; i < 94; i++)
-		TRACE("%s : %lf\n", &iso3166[i][0], ExchangeRate[i]);
 }
