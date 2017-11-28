@@ -1,10 +1,10 @@
 
-// MrTravelerView.cpp : CMrTravelerView Å¬·¡½ºÀÇ ±¸Çö
+// MrTravelerView.cpp : CMrTravelerView í´ë˜ìŠ¤ì˜ êµ¬í˜„
 //
 
 #include "stdafx.h"
-// SHARED_HANDLERS´Â ¹Ì¸® º¸±â, Ãà¼ÒÆÇ ±×¸² ¹× °Ë»ö ÇÊÅÍ Ã³¸®±â¸¦ ±¸ÇöÇÏ´Â ATL ÇÁ·ÎÁ§Æ®¿¡¼­ Á¤ÀÇÇÒ ¼ö ÀÖÀ¸¸ç
-// ÇØ´ç ÇÁ·ÎÁ§Æ®¿Í ¹®¼­ ÄÚµå¸¦ °øÀ¯ÇÏµµ·Ï ÇØ Áİ´Ï´Ù.
+// SHARED_HANDLERSëŠ” ë¯¸ë¦¬ ë³´ê¸°, ì¶•ì†ŒíŒ ê·¸ë¦¼ ë° ê²€ìƒ‰ í•„í„° ì²˜ë¦¬ê¸°ë¥¼ êµ¬í˜„í•˜ëŠ” ATL í”„ë¡œì íŠ¸ì—ì„œ ì •ì˜í•  ìˆ˜ ìˆìœ¼ë©°
+// í•´ë‹¹ í”„ë¡œì íŠ¸ì™€ ë¬¸ì„œ ì½”ë“œë¥¼ ê³µìœ í•˜ë„ë¡ í•´ ì¤ë‹ˆë‹¤.
 #ifndef SHARED_HANDLERS
 #include "MrTraveler.h"
 #endif
@@ -22,18 +22,18 @@
 IMPLEMENT_DYNCREATE(CMrTravelerView, CView)
 
 BEGIN_MESSAGE_MAP(CMrTravelerView, CView)
-	// Ç¥ÁØ ÀÎ¼â ¸í·ÉÀÔ´Ï´Ù.
+	// í‘œì¤€ ì¸ì‡„ ëª…ë ¹ì…ë‹ˆë‹¤.
 	ON_COMMAND(ID_FILE_PRINT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
 	ON_WM_LBUTTONUP()
 END_MESSAGE_MAP()
 
-// CMrTravelerView »ı¼º/¼Ò¸ê
+// CMrTravelerView ìƒì„±/ì†Œë©¸
 
 CMrTravelerView::CMrTravelerView()
 {
-	// TODO: ¿©±â¿¡ »ı¼º ÄÚµå¸¦ Ãß°¡ÇÕ´Ï´Ù.
+	// TODO: ì—¬ê¸°ì— ìƒì„± ì½”ë“œë¥¼ ì¶”ê°€í•©ë‹ˆë‹¤.
 
 }
 
@@ -43,13 +43,13 @@ CMrTravelerView::~CMrTravelerView()
 
 BOOL CMrTravelerView::PreCreateWindow(CREATESTRUCT& cs)
 {
-	// TODO: CREATESTRUCT cs¸¦ ¼öÁ¤ÇÏ¿© ¿©±â¿¡¼­
-	//  Window Å¬·¡½º ¶Ç´Â ½ºÅ¸ÀÏÀ» ¼öÁ¤ÇÕ´Ï´Ù.
+	// TODO: CREATESTRUCT csë¥¼ ìˆ˜ì •í•˜ì—¬ ì—¬ê¸°ì—ì„œ
+	//  Window í´ë˜ìŠ¤ ë˜ëŠ” ìŠ¤íƒ€ì¼ì„ ìˆ˜ì •í•©ë‹ˆë‹¤.
 
 	return CView::PreCreateWindow(cs);
 }
 
-// CMrTravelerView ±×¸®±â
+// CMrTravelerView ê·¸ë¦¬ê¸°
 
 void CMrTravelerView::OnDraw(CDC* pDC)
 {
@@ -67,14 +67,14 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 	curMonth= cTime.GetMonth();
 	curDate = cTime.GetDay();
 	int curDay = cTime.GetDayOfWeek();
-	int firstDay = curDay - (curDate % 7 - 1);//ÇöÀç ¿ù 1ÀÏ ¿äÀÏ
+	int firstDay = curDay - (curDate % 7 - 1);//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 	CRgn monthRgn;
 	monthRgn.CreateEllipticRgn((1400 - 150) / 2+25, 50-50, (1400 - 150) / 2+ 150+25, 200-50);
 	pDC->FillRgn(&monthRgn, &CBrush(RGB(154, 202, 235)));
 	
 	CFont font;
-	font.CreatePointFont(400, _T("±¼¸²Ã¼")); 
+	font.CreatePointFont(400, _T("ï¿½ï¿½ï¿½ï¿½Ã¼")); 
 	CString strMonth;
 	strMonth.Format(_T("%d"), curMonth);
 	pDC->SetBkColor(RGB(154, 202, 235));
@@ -88,7 +88,7 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 		pDC->FillRgn(&dayRgn[day], &CBrush(RGB(154, 202, 235)));
 
 		CFont font;
-		font.CreatePointFont(150, _T("±¼¸²Ã¼"));
+		font.CreatePointFont(150, _T("ï¿½ï¿½ï¿½ï¿½Ã¼"));
 		pDC->SetBkColor(RGB(154, 202, 235));
 		pDC->SetTextColor(RGB(255, 255, 255));
 		pDC->SelectObject(&font);
@@ -129,7 +129,7 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 		pDC->FrameRgn(&dateRgn[day], &CBrush(RGB(216,216,216)), 2, 2);
 
 		CFont font;
-		font.CreatePointFont(100, _T("»õµ¸¿ò"));
+		font.CreatePointFont(100, _T("ï¿½ï¿½ï¿½"));
 		CString strDate;
 		strDate.Format(_T("%d"), day-firstDay+2);
 		pDC->SetBkColor(RGB(255, 255, 255));
@@ -145,44 +145,43 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 		pDC->FillRgn(&tapRgn[i], &CBrush(RGB(154, 202, 235)));
 
 		CFont font;
-		font.CreatePointFont(100, _T("±¼¸²Ã¼"));
+		font.CreatePointFont(100, _T("ï¿½ï¿½ï¿½ï¿½Ã¼"));
 		pDC->SetBkColor(RGB(154, 202, 235));
 		pDC->SetTextColor(RGB(255, 255, 255));
 		pDC->SelectObject(&font);
 		if (i == 0)
-			pDC->TextOut(25 + i * 200 + 40, 860, _T("Ä¶¸°´õ"));
+			pDC->TextOut(25 + i * 200 + 40, 860, _T("Ä¶ï¿½ï¿½ï¿½ï¿½"));
 		else if (i == 1)
-			pDC->TextOut(25 + i * 200 + 50, 860, _T("ÇÒ ÀÏ"));
+			pDC->TextOut(25 + i * 200 + 50, 860, _T("ï¿½ï¿½ ï¿½ï¿½"));
 		else if (i == 2)
 			pDC->TextOut(25 + i * 200 + 30, 860, _T("TO DO List"));
 		else if (i == 3)
-			pDC->TextOut(25 + i * 200 + 40, 860, _T("°¡°èºÎ"));
+			pDC->TextOut(25 + i * 200 + 40, 860, _T("ï¿½ï¿½ï¿½ï¿½ï¿½"));
 		else if (i == 4)
-			pDC->TextOut(25 + i * 200 + 35, 860, _T("´ÙÀÌ¾î¸®"));
+			pDC->TextOut(25 + i * 200 + 35, 860, _T("ï¿½ï¿½ï¿½Ì¾î¸®"));
 		else if (i == 5)
 			pDC->TextOut(25 + i * 200 + 45, 860, _T("INFO"));
 	}
-}
 
 
 BOOL CMrTravelerView::OnPreparePrinting(CPrintInfo* pInfo)
 {
-	// ±âº»ÀûÀÎ ÁØºñ
+	// ê¸°ë³¸ì ì¸ ì¤€ë¹„
 	return DoPreparePrinting(pInfo);
 }
 
 void CMrTravelerView::OnBeginPrinting(CDC* /*pDC*/, CPrintInfo* /*pInfo*/)
 {
-	// TODO: ÀÎ¼âÇÏ±â Àü¿¡ Ãß°¡ ÃÊ±âÈ­ ÀÛ¾÷À» Ãß°¡ÇÕ´Ï´Ù.
+	// TODO: ì¸ì‡„í•˜ê¸° ì „ì— ì¶”ê°€ ì´ˆê¸°í™” ì‘ì—…ì„ ì¶”ê°€í•©ë‹ˆë‹¤.
 }
 
 void CMrTravelerView::OnEndPrinting(CDC* /*pDC*/, CPrintInfo* /*pInfo*/)
 {
-	// TODO: ÀÎ¼â ÈÄ Á¤¸® ÀÛ¾÷À» Ãß°¡ÇÕ´Ï´Ù.
+	// TODO: ì¸ì‡„ í›„ ì •ë¦¬ ì‘ì—…ì„ ì¶”ê°€í•©ë‹ˆë‹¤.
 }
 
 
-// CMrTravelerView Áø´Ü
+// CMrTravelerView ì§„ë‹¨
 
 #ifdef _DEBUG
 void CMrTravelerView::AssertValid() const
@@ -195,7 +194,7 @@ void CMrTravelerView::Dump(CDumpContext& dc) const
 	CView::Dump(dc);
 }
 
-CMrTravelerDoc* CMrTravelerView::GetDocument() const // µğ¹ö±×µÇÁö ¾ÊÀº ¹öÀüÀº ÀÎ¶óÀÎÀ¸·Î ÁöÁ¤µË´Ï´Ù.
+CMrTravelerDoc* CMrTravelerView::GetDocument() const // ë””ë²„ê·¸ë˜ì§€ ì•Šì€ ë²„ì „ì€ ì¸ë¼ì¸ìœ¼ë¡œ ì§€ì •ë©ë‹ˆë‹¤.
 {
 	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CMrTravelerDoc)));
 	return (CMrTravelerDoc*)m_pDocument;
@@ -203,12 +202,12 @@ CMrTravelerDoc* CMrTravelerView::GetDocument() const // µğ¹ö±×µÇÁö ¾ÊÀº ¹öÀüÀº À
 #endif //_DEBUG
 
 
-// CMrTravelerView ¸Ş½ÃÁö Ã³¸®±â
+// CMrTravelerView ë©”ì‹œì§€ ì²˜ë¦¬ê¸°
 
 
 void CMrTravelerView::OnLButtonUp(UINT nFlags, CPoint point)
 {
-	// TODO: ¿©±â¿¡ ¸Ş½ÃÁö Ã³¸®±â ÄÚµå¸¦ Ãß°¡ ¹×/¶Ç´Â ±âº»°ªÀ» È£ÃâÇÕ´Ï´Ù.
+	// TODO: ì—¬ê¸°ì— ë©”ì‹œì§€ ì²˜ë¦¬ê¸° ì½”ë“œë¥¼ ì¶”ê°€ ë°/ë˜ëŠ” ê¸°ë³¸ê°’ì„ í˜¸ì¶œí•©ë‹ˆë‹¤.
 
 	CView::OnLButtonUp(nFlags, point);
 }
