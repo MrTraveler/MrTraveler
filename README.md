@@ -10,3 +10,4 @@ MFC Travel Diary Program
 * MIT 라이선스 입니다. 마음껏 사용하십시오
 ## 외부 리소스
 * 외부리소스는 웹에서 파싱해오는 자료입니다.
+* [jsoncpp](https://github.com/open-source-parsers/jsoncpp) // json 파싱을 돕는 라이브러리입니다.
