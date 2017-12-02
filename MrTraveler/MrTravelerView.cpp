@@ -12,6 +12,9 @@
 #include "MrTravelerDoc.h"
 #include "MrTravelerView.h"
 #include "MrTravelerParceHtml.h"
+#include "DrawView.h"
+#include "TodoListView.h"
+#include "ScheduleView.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -42,12 +45,44 @@ CMrTravelerView::CMrTravelerView()
 	CMrTravelerParceHtml *x = new CMrTravelerParceHtml();
 	x->ParceHtml(_T("https://v3.exchangerate-api.com/bulk/3090405efae2c21d79cc569c/KRW"), _T("ExchangeRate.json"));
 	x->RoadExchangeRate();
+	testinit();
+
 }
 
 CMrTravelerView::~CMrTravelerView()
 {
 }
 
+void CMrTravelerView::testinit()	//테스트 용도로 만든거
+{
+	todoListView = new TodoListView();
+	scheduleView = new ScheduleView();
+	Todo todo1;
+	todo1.color = RGB(10, 10, 240);
+	todo1.title = _T("Title_1");
+	Todo todo2;
+	todo2.color = RGB(20, 20, 230);
+	todo2.title = _T("Title_2");
+	Todo todo3;
+	todo3.color = RGB(30,30, 220);
+	todo3.title = _T("Title_3");
+	Todo todo4;
+	todo4.color = RGB(40,40, 210);
+	todo4.title = _T("Title_4");
+	Todo todo5;
+	todo5.color = RGB(50, 50, 200);
+	todo5.title = _T("Title_5");
+	Todo todo6;
+	todo6.color = RGB(60, 60, 190);
+	todo6.title = _T("Title_6");
+	todoListView->todoList.push_back(todo1);
+	todoListView->todoList.push_back(todo2);
+	todoListView->todoList.push_back(todo3);
+	todoListView->todoList.push_back(todo4);
+	todoListView->todoList.push_back(todo5);
+	todoListView->todoList.push_back(todo6);
+
+}
 BOOL CMrTravelerView::PreCreateWindow(CREATESTRUCT& cs)
 {
 	// TODO: CREATESTRUCT cs를 수정하여 여기에서
@@ -70,12 +105,25 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 
 	CRect window;
 	GetWindowRect(&window);
-
-	if (clickedTapIndex == 0) {
+	if (clickedTapIndex == 0)
+	{
 		drawCalendar(pDC);
 	}
-	else if (clickedTapIndex == 1) {}
-	else if (clickedTapIndex == 2) {}
+	else if (clickedTapIndex == 1) 
+	{
+		CRect rect;
+		GetClientRect(&rect);
+		scheduleView->StartView(rect);
+		scheduleView->OnDraw(pDC);
+
+	}
+	else if (clickedTapIndex == 2)
+	{
+		CRect rect;
+		GetClientRect(&rect);
+		todoListView->StartView(rect);
+		todoListView->OnDraw(pDC);
+	}
 	else if (clickedTapIndex == 3) {}
 	else if (clickedTapIndex == 4) {}
 	else if (clickedTapIndex == 5) {}
