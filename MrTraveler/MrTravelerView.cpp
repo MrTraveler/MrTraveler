@@ -28,6 +28,9 @@ BEGIN_MESSAGE_MAP(CMrTravelerView, CView)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
 	ON_WM_LBUTTONUP()
+//	ON_WM_PAINT()
+ON_WM_LBUTTONDOWN()
+ON_WM_MOUSEMOVE()
 END_MESSAGE_MAP()
 
 // CMrTravelerView 생성/소멸
@@ -35,6 +38,7 @@ END_MESSAGE_MAP()
 CMrTravelerView::CMrTravelerView()
 {
 	// TODO: 여기에 생성 코드를 추가합니다.
+	dragFlag = false;
 	CMrTravelerParceHtml *x = new CMrTravelerParceHtml();
 	x->ParceHtml(_T("https://v3.exchangerate-api.com/bulk/3090405efae2c21d79cc569c/KRW"), _T("ExchangeRate.json"));
 	x->RoadExchangeRate();
@@ -52,6 +56,9 @@ BOOL CMrTravelerView::PreCreateWindow(CREATESTRUCT& cs)
 	return CView::PreCreateWindow(cs);
 }
 
+
+
+
 // CMrTravelerView 그리기
 
 void CMrTravelerView::OnDraw(CDC* pDC)
@@ -64,32 +71,61 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 	CRect window;
 	GetWindowRect(&window);
 
-	CTime cTime = CTime::GetCurrentTime();
-	int curYear, curMonth, curDate;
-	curYear = cTime.GetYear();
-	curMonth = cTime.GetMonth();
-	curDate = cTime.GetDay();
-	int curDay = cTime.GetDayOfWeek();
-	int firstDay = curDay - (curDate % 7 - 1);//���� �� 1�� ����
+	if (clickedTapIndex == 0) {
+		drawCalendar(pDC);
+	}
+	else if (clickedTapIndex == 1) {}
+	else if (clickedTapIndex == 2) {}
+	else if (clickedTapIndex == 3) {}
+	else if (clickedTapIndex == 4) {}
+	else if (clickedTapIndex == 5) {}
+}
 
-	CRgn monthRgn;
+void CMrTravelerView::drawCalendar(CDC * pDC)
+{
+	//화면 고정 규격 : 1475 * 950
+	drawMonthRgn(pDC);//월 리전 생성
+	drawMonthText(pDC);
+	//요일 리전 생성 및 출력
+	drawDayRgn(pDC);
+	drawDayText(pDC);
+	//날짜 리전 생성 및 출력
+	drawDateRgn(pDC);
+	drawDateText(pDC);
+	//탭 리전 생성 및 출력
+	drawTapRgn(pDC);
+	drawTapText(pDC);
+}
+
+void CMrTravelerView::drawMonthRgn(CDC * pDC){
 	monthRgn.CreateEllipticRgn((1400 - 150) / 2 + 25, 50 - 50, (1400 - 150) / 2 + 150 + 25, 200 - 50);
 	pDC->FillRgn(&monthRgn, &CBrush(RGB(154, 202, 235)));
+}
 
+void CMrTravelerView::drawMonthText(CDC * pDC)
+{
 	CFont font;
-	font.CreatePointFont(400, _T("����ü"));
+	font.CreatePointFont(400, _T("바탕체"));
 	CString strMonth;
 	strMonth.Format(_T("%d"), curMonth);
 	pDC->SetBkColor(RGB(154, 202, 235));
 	pDC->SetTextColor(RGB(255, 255, 255));
 	pDC->SelectObject(&font);
 	pDC->TextOut((1400 - 150) / 2 + 32 + 25, 50 + 32 + 5 - 50, strMonth);
+}
 
-	CRgn dayRgn[7];
+void CMrTravelerView::drawDayRgn(CDC * pDC)
+{
 	for (int day = 0; day < 7; day++) {
 		dayRgn[day].CreateRoundRectRgn(day % 7 * 200 + 25, 200, (day % 7 + 1) * 200 + 25, 250, 20, 20);
 		pDC->FillRgn(&dayRgn[day], &CBrush(RGB(154, 202, 235)));
+	}
 
+}
+
+void CMrTravelerView::drawDayText(CDC * pDC)
+{
+	for (int day = 0; day < 7; day++) {
 		CFont font;
 		font.CreatePointFont(150, _T("바탕"));
 		pDC->SetBkColor(RGB(154, 202, 235));
@@ -103,6 +139,9 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 			pDC->TextOut(25 + day * 200 + 80, 210, _T("TUE"));
 		else if (day == 3) {
 			pDC->TextOut(25 + day * 200 + 80, 210, _T("WED"));
+
+			//현재년도 출력
+			//월 리전 밑에 출력하려했더니 좌표가 꼬여서 수요일 리전 위에다 생성
 			pDC->SetBkColor(RGB(255, 255, 255));
 			pDC->SetTextColor(RGB(0, 0, 0));
 			CString strYear;
@@ -115,22 +154,37 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 			pDC->TextOut(25 + day * 200 + 80, 210, _T("FRI"));
 		else if (day == 6)
 			pDC->TextOut(25 + day * 200 + 80, 210, _T("SAT"));
-
 	}
+}
 
-	int end_of_mon[12] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
+void CMrTravelerView::drawDateRgn(CDC * pDC)
+{
+
+	//월별 일수 및 윤년 처리
 	if (!(curYear % 4) && ((curYear % 100) || !(curYear % 400))) end_of_mon[1] = 29;
 
-	CRgn dateRgn[43];
+	//일 리전 생성 및 출력
+	//헤더에 전역변수 dateRgn[day] 생성
+	//dateRgn[0]=1일 참조
+	//dateRgn[1]=2일 참조
 	for (int day = firstDay - 1; day < end_of_mon[curMonth - 1] + firstDay - 1; day++) {
-		dateRgn[day].CreateRoundRectRgn((day) % 7 * 200 + 25,
-			250 + (day) / 7 * 100,
-			((day) % 7 + 1) * 200 + 25,
-			250 + ((day) / 7 + 1) * 100,
-			20, 20);
-		pDC->FillRgn(&dateRgn[day], &CBrush(RGB(255, 255, 255)));
-		pDC->FrameRgn(&dateRgn[day], &CBrush(RGB(216, 216, 216)), 2, 2);
+		dateRgn[day - firstDay + 1].CreateRoundRectRgn((day) % 7 * 200 + 25, 250 + (day) / 7 * 100, ((day) % 7 + 1) * 200 + 25, 250 + ((day) / 7 + 1) * 100, 20, 20);
+		pDC->FillRgn(&dateRgn[day - firstDay + 1], &CBrush(RGB(255, 255, 255)));
+		pDC->FrameRgn(&dateRgn[day - firstDay + 1], &CBrush(RGB(216, 216, 216)), 2, 2);
+	}
+}
 
+void CMrTravelerView::drawDateText(CDC * pDC)
+{
+
+	//월별 일수 및 윤년 처리
+	if (!(curYear % 4) && ((curYear % 100) || !(curYear % 400))) end_of_mon[1] = 29;
+
+	//일 리전 생성 및 출력
+	//헤더에 전역변수 dateRgn[day] 생성
+	//dateRgn[0]=1일 참조
+	//dateRgn[1]=2일 참조
+	for (int day = firstDay - 1; day < end_of_mon[curMonth - 1] + firstDay - 1; day++) {
 		CFont font;
 		font.CreatePointFont(100, _T("바탕"));
 		CString strDate;
@@ -138,15 +192,22 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 		pDC->SetBkColor(RGB(255, 255, 255));
 		pDC->SetTextColor(RGB(0, 0, 0));
 		pDC->SelectObject(&font);
-		pDC->TextOut((day) % 7 * 200 + 25 + 10,
-			250 + (day) / 7 * 100 + 10, strDate);
+		pDC->TextOut((day) % 7 * 200 + 25 + 10, 250 + (day) / 7 * 100 + 10, strDate);
 	}
+}
 
-	CRgn tapRgn[6];
+void CMrTravelerView::drawTapRgn(CDC * pDC)
+{
+	//CRgn tapRgn[6] 탭 리전 전역변수 선언
 	for (int i = 0; i < 6; i++) {
 		tapRgn[i].CreateRoundRectRgn(i % 7 * 200, 850, (i % 7 + 1) * 200, 900, 20, 20);
 		pDC->FillRgn(&tapRgn[i], &CBrush(RGB(154, 202, 235)));
+	}
+}
 
+void CMrTravelerView::drawTapText(CDC * pDC)
+{
+	for (int i = 0; i < 6; i++) {
 		CFont font;
 		font.CreatePointFont(100, _T("바탕"));
 		pDC->SetBkColor(RGB(154, 202, 235));
@@ -166,6 +227,64 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 			pDC->TextOut(25 + i * 200 + 45, 860, _T("INFO"));
 	}
 }
+
+void CMrTravelerView::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	CClientDC dc(this);
+	m_pt = point;
+	//일 리전 드래그 처리
+	for (int i = 0; i < 31; i++) {
+		if (dateRgn[i].PtInRegion(m_pt)) {
+			dragFlag = true;
+			startPos = i;//드래그 시작 일 리전 인덱스
+			dc.FillRgn(&dateRgn[startPos], &CBrush(RGB(230, 230, 230)));
+			//drawDateText(pDC);
+			break;
+		}
+	}
+	//탭 리전 클릭 처리
+	for (int i = 0; i < 6; i++) {
+		if (tapRgn[i].PtInRegion(m_pt)) {
+			clickedTapIndex = i;//드래그 시작 일 리전 인덱스
+			//drawTapRgn(pDC);
+			dc.FillRgn(&tapRgn[clickedTapIndex], &CBrush(RGB(216, 216, 216)));
+			//drawTapText(pDC);
+			break;
+		}
+	}
+	CView::OnLButtonDown(nFlags, point);
+}
+
+void CMrTravelerView::OnMouseMove(UINT nFlags, CPoint point)
+{
+	CView::OnMouseMove(nFlags, point);
+}
+
+void CMrTravelerView::OnLButtonUp(UINT nFlags, CPoint point)
+{
+	CClientDC dc(this);
+	m_pt = point;
+	if (dragFlag) {//드래그 처리
+		for (int i = 0; i < 31; i++) {
+			if (dateRgn[i].PtInRegion(m_pt)) {
+				endPos = i;
+				if (startPos > endPos) {//스와핑
+					int tmp; tmp = startPos; startPos = endPos; endPos = tmp;
+				}
+				break;
+			}
+		}
+
+		for (int i = startPos; i <= endPos; i++) {
+			dc.FillRgn(&dateRgn[i], &CBrush(RGB(230, 230, 230)));
+		}
+		//drawDateText(pDC);
+		dragFlag = false;
+	}
+
+	CView::OnLButtonUp(nFlags, point);
+}
+
 
 BOOL CMrTravelerView::OnPreparePrinting(CPrintInfo* pInfo)
 {
@@ -187,6 +306,8 @@ void CMrTravelerView::OnEndPrinting(CDC* /*pDC*/, CPrintInfo* /*pInfo*/)
 // CMrTravelerView 진단
 
 #ifdef _DEBUG
+
+
 void CMrTravelerView::AssertValid() const
 {
 	CView::AssertValid();
@@ -208,9 +329,3 @@ CMrTravelerDoc* CMrTravelerView::GetDocument() const // 디버그되지 않은 �
 // CMrTravelerView 메시지 처리기
 
 
-void CMrTravelerView::OnLButtonUp(UINT nFlags, CPoint point)
-{
-	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
-
-	CView::OnLButtonUp(nFlags, point);
-}
