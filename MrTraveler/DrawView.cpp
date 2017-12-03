@@ -21,3 +21,5 @@ void DrawView::EndView()
 {
 	
 }
+void DrawView::OnLButtonDown(CPoint point) {}
+void DrawView::OnRButtonDown(CPoint point) {}

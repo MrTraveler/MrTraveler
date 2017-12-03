@@ -123,6 +123,7 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 	{
 		CRect rect;
 		GetClientRect(&rect);
+		rect.bottom = 840;
 		scheduleView->StartView(rect);
 		scheduleView->OnDraw(pDC);
 
@@ -131,6 +132,7 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 	{
 		CRect rect;
 		GetClientRect(&rect);
+		rect.bottom = 840;
 		todoListView->StartView(rect);
 		todoListView->OnDraw(pDC);
 	}
