@@ -15,6 +15,7 @@
 #include "DrawView.h"
 #include "TodoListView.h"
 #include "ScheduleView.h"
+#include "CalendarView.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -62,6 +63,7 @@ void CMrTravelerView::testinit()	//테스트 용도로 만든거
 {
 	todoListView = new TodoListView();
 	scheduleView = new ScheduleView();
+	calendarView = new CalendarView();
 	Todo todo1;
 	todo1.color = RGB(10, 10, 240);
 	todo1.title = _T("Title_1");
@@ -115,7 +117,7 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 	GetWindowRect(&window);
 	if (clickedTapIndex == 0)
 	{
-		drawCalendar(pDC);
+		calendarView->drawCalendar(pDC);
 	}
 	else if (clickedTapIndex == 1) 
 	{
@@ -137,118 +139,6 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 	else if (clickedTapIndex == 5) {}
 }
 
-void CMrTravelerView::drawCalendar(CDC * pDC)
-{
-	//화면 고정 규격 : 1475 * 950
-	drawMonthRgn(pDC);//월 리전 생성
-	drawMonthText(pDC);
-	//요일 리전 생성 및 출력
-	drawDayRgn(pDC);
-	drawDayText(pDC);
-	//날짜 리전 생성 및 출력
-	drawDateRgn(pDC);
-	drawDateText(pDC);
-
-}
-
-void CMrTravelerView::drawMonthRgn(CDC * pDC){
-	monthRgn.CreateEllipticRgn((1400 - 150) / 2 + 25, 50 - 50, (1400 - 150) / 2 + 150 + 25, 200 - 50);
-	pDC->FillRgn(&monthRgn, &CBrush(RGB(154, 202, 235)));
-}
-
-void CMrTravelerView::drawMonthText(CDC * pDC)
-{
-	CFont font;
-	font.CreatePointFont(400, _T("바탕체"));
-	CString strMonth;
-	strMonth.Format(_T("%d"), curMonth);
-	pDC->SetBkColor(RGB(154, 202, 235));
-	pDC->SetTextColor(RGB(255, 255, 255));
-	pDC->SelectObject(&font);
-	pDC->TextOut((1400 - 150) / 2 + 32 + 25, 50 + 32 + 5 - 50, strMonth);
-}
-
-void CMrTravelerView::drawDayRgn(CDC * pDC)
-{
-	for (int day = 0; day < 7; day++) {
-		dayRgn[day].CreateRoundRectRgn(day % 7 * 200 + 25, 200, (day % 7 + 1) * 200 + 25, 250, 20, 20);
-		pDC->FillRgn(&dayRgn[day], &CBrush(RGB(154, 202, 235)));
-	}
-
-}
-
-void CMrTravelerView::drawDayText(CDC * pDC)
-{
-	for (int day = 0; day < 7; day++) {
-		CFont font;
-		font.CreatePointFont(150, _T("바탕"));
-		pDC->SetBkColor(RGB(154, 202, 235));
-		pDC->SetTextColor(RGB(255, 255, 255));
-		pDC->SelectObject(&font);
-		if (day == 0)
-			pDC->TextOut(25 + day * 200 + 80, 210, _T("SUN"));
-		else if (day == 1)
-			pDC->TextOut(25 + day * 200 + 80, 210, _T("MON"));
-		else if (day == 2)
-			pDC->TextOut(25 + day * 200 + 80, 210, _T("TUE"));
-		else if (day == 3) {
-			pDC->TextOut(25 + day * 200 + 80, 210, _T("WED"));
-
-			//현재년도 출력
-			//월 리전 밑에 출력하려했더니 좌표가 꼬여서 수요일 리전 위에다 생성
-			pDC->SetBkColor(RGB(255, 255, 255));
-			pDC->SetTextColor(RGB(0, 0, 0));
-			CString strYear;
-			strYear.Format(_T("%d"), curYear);
-			pDC->TextOut(15 + day * 200 + 80, 160, strYear);
-		}
-		else if (day == 4)
-			pDC->TextOut(25 + day * 200 + 80, 210, _T("THU"));
-		else if (day == 5)
-			pDC->TextOut(25 + day * 200 + 80, 210, _T("FRI"));
-		else if (day == 6)
-			pDC->TextOut(25 + day * 200 + 80, 210, _T("SAT"));
-	}
-}
-
-void CMrTravelerView::drawDateRgn(CDC * pDC)
-{
-
-	//월별 일수 및 윤년 처리
-	if (!(curYear % 4) && ((curYear % 100) || !(curYear % 400))) end_of_mon[1] = 29;
-
-	//일 리전 생성 및 출력
-	//헤더에 전역변수 dateRgn[day] 생성
-	//dateRgn[0]=1일 참조
-	//dateRgn[1]=2일 참조
-	for (int day = firstDay - 1; day < end_of_mon[curMonth - 1] + firstDay - 1; day++) {
-		dateRgn[day - firstDay + 1].CreateRoundRectRgn((day) % 7 * 200 + 25, 250 + (day) / 7 * 100, ((day) % 7 + 1) * 200 + 25, 250 + ((day) / 7 + 1) * 100, 20, 20);
-		pDC->FillRgn(&dateRgn[day - firstDay + 1], &CBrush(RGB(255, 255, 255)));
-		pDC->FrameRgn(&dateRgn[day - firstDay + 1], &CBrush(RGB(216, 216, 216)), 2, 2);
-	}
-}
-
-void CMrTravelerView::drawDateText(CDC * pDC)
-{
-
-	//월별 일수 및 윤년 처리
-	if (!(curYear % 4) && ((curYear % 100) || !(curYear % 400))) end_of_mon[1] = 29;
-
-	//일 리전 생성 및 출력
-	//헤더에 전역변수 dateRgn[day] 생성
-	//dateRgn[0]=1일 참조
-	//dateRgn[1]=2일 참조
-	for (int day = firstDay - 1; day < end_of_mon[curMonth - 1] + firstDay - 1; day++) {
-		CFont font;
-		font.CreatePointFont(100, _T("바탕"));
-		CString strDate;
-		strDate.Format(_T("%d"), day - firstDay + 2);
-		pDC->SetBkColor(RGB(255, 255, 255));
-		pDC->SetTextColor(RGB(0, 0, 0));
-		pDC->SelectObject(&font);
-		pDC->TextOut((day) % 7 * 200 + 25 + 10, 250 + (day) / 7 * 100 + 10, strDate);
-	}
-}
 
 void CMrTravelerView::drawTapRgn(CDC * pDC)
 {
@@ -287,10 +177,10 @@ void CMrTravelerView::OnLButtonDown(UINT nFlags, CPoint point)
 	m_pt = point;
 	//일 리전 드래그 처리
 	for (int i = 0; i < 31; i++) {
-		if (dateRgn[i].PtInRegion(m_pt)) {
+		if (calendarView->dateRgn[i].PtInRegion(m_pt)&&clickedTapIndex==0) {
 			dragFlag = true;
 			startPos = i;//드래그 시작 일 리전 인덱스
-			dc.FillRgn(&dateRgn[startPos], &CBrush(RGB(230, 230, 230)));
+			dc.FillRgn(&calendarView->dateRgn[startPos], &CBrush(RGB(230, 230, 230)));
 			//drawDateText(pDC);
 			break;
 		}
@@ -299,6 +189,15 @@ void CMrTravelerView::OnLButtonDown(UINT nFlags, CPoint point)
 	for (int i = 0; i < 6; i++) {
 		if (tapRgn[i].PtInRegion(m_pt)) {
 			clickedTapIndex = i;//드래그 시작 일 리전 인덱스
+			if (clickedTapIndex == 0) {
+				calendarView->monthRgn.DeleteObject();
+				for (int i = 0; i < 7; i++) {
+					calendarView->dayRgn[i].DeleteObject();
+				}
+				for (int i = 0; i < 31; i++) {
+					calendarView->dateRgn[i].DeleteObject();
+				}
+			}
 			Invalidate();
 			//drawTapRgn(pDC);
 			dc.FillRgn(&tapRgn[clickedTapIndex], &CBrush(RGB(216, 216, 216)));
@@ -320,7 +219,7 @@ void CMrTravelerView::OnLButtonUp(UINT nFlags, CPoint point)
 	m_pt = point;
 	if (dragFlag) {//드래그 처리
 		for (int i = 0; i < 31; i++) {
-			if (dateRgn[i].PtInRegion(m_pt)) {
+			if (calendarView->dateRgn[i].PtInRegion(m_pt)) {
 				endPos = i;
 				if (startPos > endPos) {//스와핑
 					int tmp; tmp = startPos; startPos = endPos; endPos = tmp;
@@ -330,7 +229,7 @@ void CMrTravelerView::OnLButtonUp(UINT nFlags, CPoint point)
 		}
 
 		for (int i = startPos; i <= endPos; i++) {
-			dc.FillRgn(&dateRgn[i], &CBrush(RGB(230, 230, 230)));
+			dc.FillRgn(&calendarView->dateRgn[i], &CBrush(RGB(230, 230, 230)));
 		}
 		//drawDateText(pDC);
 		dragFlag = false;

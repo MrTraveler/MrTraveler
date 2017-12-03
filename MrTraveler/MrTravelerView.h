@@ -6,6 +6,7 @@
 class CMrTravelerParceHtml;
 class TodoListView;
 class ScheduleView;
+class CalendarView;
 class CMrTravelerView : public CView
 {
 protected: // serialization에서만 만들어집니다.
@@ -20,33 +21,20 @@ public:
 public:
 	TodoListView* todoListView;
 	ScheduleView* scheduleView;
+	CalendarView* calendarView;
 	CPoint m_pt;
-	bool dragFlag;
-	CRgn dateRgn[43];
-	CRgn dayRgn[7];//요일 리전
+
 	CRgn tapRgn[6];
-	CRgn monthRgn;//월 리전
+	bool dragFlag;
 	int startPos, endPos;
 	int clickedTapIndex;//클릭된 탭 인덱스
-	CTime cTime = CTime::GetCurrentTime();//현재 정보 불러오기
-	int curYear = cTime.GetYear();//현재 년도
-	int curMonth = cTime.GetMonth();//현재 월
-	int curDate = cTime.GetDay();//현재 날짜
-	int curDay = cTime.GetDayOfWeek();//현재 요일
-	int firstDay = curDay - (curDate % 7 - 1);//현재 월의 1일의 요일 구하기
-	int end_of_mon[12] = { 31,28,31,30,31,30,31,31,30,31,30,31 };//월별 총 일수
+
 	CDC *pDC;
 // 재정의입니다.
 public:
 	virtual void OnDraw(CDC* pDC);  // 이 뷰를 그리기 위해 재정의되었습니다.
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
-	void drawCalendar(CDC* pDC);
-	void drawMonthRgn(CDC* pDC);
-	void drawMonthText(CDC* pDC);
-	void drawDayRgn(CDC* pDC);
-	void drawDayText(CDC* pDC);
-	void drawDateRgn(CDC* pDC);
-	void drawDateText(CDC* pDC);
+
 	void drawTapRgn(CDC* pDC);
 	void drawTapText(CDC* pDC);
 	void testinit();

@@ -17,7 +17,7 @@ void ScheduleView::DrawTable(CDC * dc)
 	CPen *oldPen = dc->SelectObject(&pen);
 	for (int i = 0; i < 25; i++)
 		for (int j = 0; j < 4; j++)
-			dc->Rectangle(1000 / 4 * j, 1000 / 25 * i, 1000 / 4 * (j + 1), 1000 / 25 * (i + 1));
+			dc->Rectangle(1000 / 4 * j, 945 / 25 * i, 1000 / 4 * (j + 1), 945 / 25 * (i + 1));
 	dc->SelectObject(oldPen);
 }
 void ScheduleView::DrawLabel(CDC * dc)
