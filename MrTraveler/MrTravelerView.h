@@ -1,10 +1,11 @@
-
 // MrTravelerView.h : CMrTravelerView 클래스의 인터페이스
 //
 
 #pragma once
 
 class CMrTravelerParceHtml;
+class TodoListView;
+class ScheduleView;
 class CMrTravelerView : public CView
 {
 protected: // serialization에서만 만들어집니다.
@@ -17,6 +18,8 @@ public:
 
 // 작업입니다.
 public:
+	TodoListView* todoListView;
+	ScheduleView* scheduleView;
 	CPoint m_pt;
 	bool dragFlag;
 	CRgn dateRgn[43];
@@ -46,6 +49,7 @@ public:
 	void drawDateText(CDC* pDC);
 	void drawTapRgn(CDC* pDC);
 	void drawTapText(CDC* pDC);
+	void testinit();
 protected:
 	virtual BOOL OnPreparePrinting(CPrintInfo* pInfo);
 	virtual void OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo);
