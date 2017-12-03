@@ -1,29 +1,31 @@
-#pragma once
+ï»¿#pragma once
 
-
-// CalendarView ºäÀÔ´Ï´Ù.
+// CalendarView ë·°ì…ë‹ˆë‹¤.
 
 class CalendarView : public CView
 {
 	DECLARE_DYNCREATE(CalendarView)
 
 public:
-	CalendarView();           // µ¿Àû ¸¸µé±â¿¡ »ç¿ëµÇ´Â protected »ı¼ºÀÚÀÔ´Ï´Ù.
+	CalendarView();           // ë™ì  ë§Œë“¤ê¸°ì— ì‚¬ìš©ë˜ëŠ” protected ìƒì„±ìì…ë‹ˆë‹¤.
 	virtual ~CalendarView();
 public:
-	CTime cTime = CTime::GetCurrentTime();//ÇöÀç Á¤º¸ ºÒ·¯¿À±â
-	int curYear = cTime.GetYear();//ÇöÀç ³âµµ
-	int curMonth = cTime.GetMonth();//ÇöÀç ¿ù
-	int curDate = cTime.GetDay();//ÇöÀç ³¯Â¥
-	int curDay = cTime.GetDayOfWeek();//ÇöÀç ¿äÀÏ
-	int firstDay = curDay - (curDate % 7 - 1);//ÇöÀç ¿ùÀÇ 1ÀÏÀÇ ¿äÀÏ ±¸ÇÏ±â
-	int end_of_mon[12] = { 31,28,31,30,31,30,31,31,30,31,30,31 };//¿ùº° ÃÑ ÀÏ¼ö
-	CRgn monthRgn;//¿ù ¸®Àü
+	CTime cTime = CTime::GetCurrentTime();//í˜„ì¬ ì •ë³´ ë¶ˆëŸ¬ì˜¤ê¸°
+	int curYear = cTime.GetYear();//í˜„ì¬ ë…„ë„
+	int curMonth = cTime.GetMonth();//í˜„ì¬ ì›”
+	int curDate = cTime.GetDay();//í˜„ì¬ ë‚ ì§œ
+	int curDay = cTime.GetDayOfWeek();//í˜„ì¬ ìš”ì¼
+	int firstDay = curDay - (curDate % 7 - 1);//í˜„ì¬ ì›”ì˜ 1ì¼ì˜ ìš”ì¼ êµ¬í•˜ê¸°
+	int end_of_mon[12] = { 31,28,31,30,31,30,31,31,30,31,30,31 };//ì›”ë³„ ì´ ì¼ìˆ˜
+	CRgn monthRgn;//ì›” ë¦¬ì „
+	CRgn nextMonthRgn;
+	CRgn prevMonthRgn;
 	bool dragFlag;
 	CRgn dateRgn[43];
-	CRgn dayRgn[7];//¿äÀÏ ¸®Àü
+	CRgn dayRgn[7];//ìš”ì¼ ë¦¬ì „
+	CFont font;
 public:
-	virtual void OnDraw(CDC* pDC);      // ÀÌ ºä¸¦ ±×¸®±â À§ÇØ ÀçÁ¤ÀÇµÇ¾ú½À´Ï´Ù.
+	virtual void OnDraw(CDC* pDC);      // ì´ ë·°ë¥¼ ê·¸ë¦¬ê¸° ìœ„í•´ ì¬ì •ì˜ë˜ì—ˆìŠµë‹ˆë‹¤.
 	void drawCalendar(CDC* pDC);
 	void drawMonthRgn(CDC* pDC);
 	void drawMonthText(CDC* pDC);
@@ -31,6 +33,9 @@ public:
 	void drawDayText(CDC* pDC);
 	void drawDateRgn(CDC* pDC);
 	void drawDateText(CDC* pDC);
+	void drawNextMonth(CDC* pDC);
+	void drawPrevMonth(CDC* pDC);
+	void drawLogo(CDC* pDC);
 #ifdef _DEBUG
 	virtual void AssertValid() const;
 #ifndef _WIN32_WCE

@@ -1,4 +1,4 @@
-// CalendarView.cpp : ±¸Çö ÆÄÀÏÀÔ´Ï´Ù.
+ï»¿// CalendarView.cpp : êµ¬í˜„ íŒŒì¼ì…ë‹ˆë‹¤.
 //
 
 #include "stdafx.h"
@@ -23,16 +23,16 @@ BEGIN_MESSAGE_MAP(CalendarView, CView)
 END_MESSAGE_MAP()
 
 
-// CalendarView ±×¸®±âÀÔ´Ï´Ù.
+// CalendarView ê·¸ë¦¬ê¸°ì…ë‹ˆë‹¤.
 
 void CalendarView::OnDraw(CDC* pDC)
 {
 	CDocument* pDoc = GetDocument();
-	// TODO: ¿©±â¿¡ ±×¸®±â ÄÚµå¸¦ Ãß°¡ÇÕ´Ï´Ù.
+	// TODO: ì—¬ê¸°ì— ê·¸ë¦¬ê¸° ì½”ë“œë¥¼ ì¶”ê°€í•©ë‹ˆë‹¤.
 }
 
 
-// CalendarView Áø´ÜÀÔ´Ï´Ù.
+// CalendarView ì§„ë‹¨ì…ë‹ˆë‹¤.
 
 #ifdef _DEBUG
 void CalendarView::AssertValid() const
@@ -49,16 +49,18 @@ void CalendarView::Dump(CDumpContext& dc) const
 #endif //_DEBUG
 
 
-// CalendarView ¸Ş½ÃÁö Ã³¸®±âÀÔ´Ï´Ù.
+// CalendarView ë©”ì‹œì§€ ì²˜ë¦¬ê¸°ì…ë‹ˆë‹¤.
 void CalendarView::drawCalendar(CDC * pDC)
 {
-	//È­¸é °íÁ¤ ±Ô°İ : 1475 * 950
-	drawMonthRgn(pDC);//¿ù ¸®Àü »ı¼º
+	//í™”ë©´ ê³ ì • ê·œê²© : 1475 * 950
+	drawMonthRgn(pDC);//ì›” ë¦¬ì „ ìƒì„±
 	drawMonthText(pDC);
-	//¿äÀÏ ¸®Àü »ı¼º ¹× Ãâ·Â
+	drawNextMonth(pDC);
+	drawPrevMonth(pDC);
+	//ìš”ì¼ ë¦¬ì „ ìƒì„± ë° ì¶œë ¥
 	drawDayRgn(pDC);
 	drawDayText(pDC);
-	//³¯Â¥ ¸®Àü »ı¼º ¹× Ãâ·Â
+	//ë‚ ì§œ ë¦¬ì „ ìƒì„± ë° ì¶œë ¥
 	drawDateRgn(pDC);
 	drawDateText(pDC);
 
@@ -72,7 +74,7 @@ void CalendarView::drawMonthRgn(CDC * pDC) {
 void CalendarView::drawMonthText(CDC * pDC)
 {
 	CFont font;
-	font.CreatePointFont(400, _T("¹ÙÅÁÃ¼"));
+	font.CreatePointFont(400, _T("ë°”íƒ•ì²´"));
 	CString strMonth;
 	strMonth.Format(_T("%d"), curMonth);
 	pDC->SetBkColor(RGB(154, 202, 235));
@@ -94,7 +96,7 @@ void CalendarView::drawDayText(CDC * pDC)
 {
 	for (int day = 0; day < 7; day++) {
 		CFont font;
-		font.CreatePointFont(150, _T("¹ÙÅÁ"));
+		font.CreatePointFont(150, _T("ë°”íƒ•"));
 		pDC->SetBkColor(RGB(154, 202, 235));
 		pDC->SetTextColor(RGB(255, 255, 255));
 		pDC->SelectObject(&font);
@@ -107,8 +109,8 @@ void CalendarView::drawDayText(CDC * pDC)
 		else if (day == 3) {
 			pDC->TextOut(25 + day * 200 + 80, 210, _T("WED"));
 
-			//ÇöÀç³âµµ Ãâ·Â
-			//¿ù ¸®Àü ¹Ø¿¡ Ãâ·ÂÇÏ·ÁÇß´õ´Ï ÁÂÇ¥°¡ ²¿¿©¼­ ¼ö¿äÀÏ ¸®Àü À§¿¡´Ù »ı¼º
+			//í˜„ì¬ë…„ë„ ì¶œë ¥
+			//ì›” ë¦¬ì „ ë°‘ì— ì¶œë ¥í•˜ë ¤í–ˆë”ë‹ˆ ì¢Œí‘œê°€ ê¼¬ì—¬ì„œ ìˆ˜ìš”ì¼ ë¦¬ì „ ìœ„ì—ë‹¤ ìƒì„±
 			pDC->SetBkColor(RGB(255, 255, 255));
 			pDC->SetTextColor(RGB(0, 0, 0));
 			CString strYear;
@@ -127,17 +129,18 @@ void CalendarView::drawDayText(CDC * pDC)
 void CalendarView::drawDateRgn(CDC * pDC)
 {
 
-	//¿ùº° ÀÏ¼ö ¹× À±³â Ã³¸®
+	//ì›”ë³„ ì¼ìˆ˜ ë° ìœ¤ë…„ ì²˜ë¦¬
 	if (!(curYear % 4) && ((curYear % 100) || !(curYear % 400))) end_of_mon[1] = 29;
 
-	//ÀÏ ¸®Àü »ı¼º ¹× Ãâ·Â
-	//Çì´õ¿¡ Àü¿ªº¯¼ö dateRgn[day] »ı¼º
-	//dateRgn[0]=1ÀÏ ÂüÁ¶
-	//dateRgn[1]=2ÀÏ ÂüÁ¶
+	//ì¼ ë¦¬ì „ ìƒì„± ë° ì¶œë ¥
+	//í—¤ë”ì— ì „ì—­ë³€ìˆ˜ dateRgn[day] ìƒì„±
+	//dateRgn[0]=1ì¼ ì°¸ì¡°
+	//dateRgn[1]=2ì¼ ì°¸ì¡°
 	if (firstDay < 0)firstDay += 7;
 	for (int day = firstDay - 1; day < end_of_mon[curMonth - 1] + firstDay - 1; day++) {
 		dateRgn[day - firstDay + 1].CreateRoundRectRgn((day) % 7 * 200 + 25, 250 + (day) / 7 * 100, ((day) % 7 + 1) * 200 + 25, 250 + ((day) / 7 + 1) * 100, 20, 20);
-		pDC->FillRgn(&dateRgn[day - firstDay + 1], &CBrush(RGB(255, 255, 255)));
+		if(day - firstDay + 2 ==curDate) pDC->FillRgn(&dateRgn[day - firstDay + 1], &CBrush(RGB(219, 236, 255)));
+		else pDC->FillRgn(&dateRgn[day - firstDay + 1], &CBrush(RGB(255, 255, 255)));
 		pDC->FrameRgn(&dateRgn[day - firstDay + 1], &CBrush(RGB(216, 216, 216)), 2, 2);
 	}
 }
@@ -145,22 +148,55 @@ void CalendarView::drawDateRgn(CDC * pDC)
 void CalendarView::drawDateText(CDC * pDC)
 {
 
-	//¿ùº° ÀÏ¼ö ¹× À±³â Ã³¸®
+	//ì›”ë³„ ì¼ìˆ˜ ë° ìœ¤ë…„ ì²˜ë¦¬
 	if (!(curYear % 4) && ((curYear % 100) || !(curYear % 400))) end_of_mon[1] = 29;
 
-	//ÀÏ ¸®Àü »ı¼º ¹× Ãâ·Â
-	//Çì´õ¿¡ Àü¿ªº¯¼ö dateRgn[day] »ı¼º
-	//dateRgn[0]=1ÀÏ ÂüÁ¶
-	//dateRgn[1]=2ÀÏ ÂüÁ¶
+	//ì¼ ë¦¬ì „ ìƒì„± ë° ì¶œë ¥
+	//í—¤ë”ì— ì „ì—­ë³€ìˆ˜ dateRgn[day] ìƒì„±
+	//dateRgn[0]=1ì¼ ì°¸ì¡°
+	//dateRgn[1]=2ì¼ ì°¸ì¡°
 	for (int day = firstDay - 1; day < end_of_mon[curMonth - 1] + firstDay - 1; day++) {
 		CFont font;
-		font.CreatePointFont(100, _T("¹ÙÅÁ"));
+		font.CreatePointFont(100, _T("ë°”íƒ•"));
 		CString strDate;
 		strDate.Format(_T("%d"), day - firstDay + 2);
-		pDC->SetBkColor(RGB(255, 255, 255));
+		if (day - firstDay + 2 == curDate) pDC->SetBkColor(RGB(219, 236, 255));
+		else pDC->SetBkColor(RGB(255, 255, 255));
 		pDC->SetTextColor(RGB(0, 0, 0));
 		pDC->SelectObject(&font);
 		pDC->TextOut((day) % 7 * 200 + 25 + 10, 250 + (day) / 7 * 100 + 10, strDate);
 	}
+}
+
+void CalendarView::drawNextMonth(CDC * pDC)
+{
+	nextMonthRgn.CreateEllipticRgn((1400 - 150) / 2 + 25 - 200 + 50 + 25 + 300, 50 - 50 + 25, (1400 - 150) / 2 + 150 + 25 - 200 + 25 + 300, 200 - 50 - 25);
+	pDC->FillRgn(&nextMonthRgn, &CBrush(RGB(216, 216, 216)));
+	
+	CFont font;
+	font.CreatePointFont(400, _T("ë°”íƒ•ì²´"));
+	pDC->SetBkColor(RGB(216, 216, 216));
+	pDC->SetTextColor(RGB(255, 255, 255));
+	pDC->SelectObject(&font);
+	pDC->TextOut((1400 - 150) / 2 + 25 - 200 + 50 + 25 + 20 + 5 + 300 + 10, 50 - 50 + 25 + 10, _T(">"));
+	
+}
+
+void CalendarView::drawPrevMonth(CDC * pDC)
+{
+	prevMonthRgn.CreateEllipticRgn((1400 - 150) / 2 + 25 - 200 + 50 + 25, 50 - 50 + 25, (1400 - 150) / 2 + 150 + 25 - 200 + 25, 200 - 50 - 25);
+	pDC->FillRgn(&prevMonthRgn, &CBrush(RGB(216, 216, 216)));
+	
+	CFont font;
+	font.CreatePointFont(400, _T("ë°”íƒ•ì²´"));
+	pDC->SetBkColor(RGB(216, 216, 216));
+	pDC->SetTextColor(RGB(255, 255, 255));
+	pDC->SelectObject(&font);
+	pDC->TextOut((1400 - 150) / 2 + 25 - 200 + 50 + 25 + 20 + 5, 50 - 50 + 25 + 10, _T("<"));	
+	
+}
+
+void CalendarView::drawLogo(CDC * pDC)
+{
 }
 

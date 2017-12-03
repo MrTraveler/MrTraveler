@@ -28,7 +28,7 @@ public:
 	bool dragFlag;
 	int startPos, endPos;
 	int clickedTapIndex;//클릭된 탭 인덱스
-
+	CFont font;
 	CDC *pDC;
 // 재정의입니다.
 public:
@@ -37,6 +37,8 @@ public:
 
 	void drawTapRgn(CDC* pDC);
 	void drawTapText(CDC* pDC);
+
+	void deleteRgn();
 	void testinit();
 protected:
 	virtual BOOL OnPreparePrinting(CPrintInfo* pInfo);

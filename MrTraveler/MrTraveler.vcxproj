@@ -225,6 +225,7 @@
     <None Include="res\MrTraveler.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\bitmap1.bmp" />
     <Image Include="res\MrTraveler.ico" />
     <Image Include="res\MrTravelerDoc.ico" />
     <Image Include="res\Toolbar.bmp" />
