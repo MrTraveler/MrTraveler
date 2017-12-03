@@ -41,6 +41,7 @@ END_MESSAGE_MAP()
 CMrTravelerView::CMrTravelerView()
 {
 	// TODO: 여기에 생성 코드를 추가합니다.
+	clickedTapIndex=0;//클릭된 탭 인덱스
 	dragFlag = false;
 	CMrTravelerParceHtml *x = new CMrTravelerParceHtml();
 	x->ParceHtml(_T("https://v3.exchangerate-api.com/bulk/3090405efae2c21d79cc569c/KRW"), _T("ExchangeRate.json"));
@@ -294,6 +295,7 @@ void CMrTravelerView::OnLButtonDown(UINT nFlags, CPoint point)
 	for (int i = 0; i < 6; i++) {
 		if (tapRgn[i].PtInRegion(m_pt)) {
 			clickedTapIndex = i;//드래그 시작 일 리전 인덱스
+			Invalidate();
 			//drawTapRgn(pDC);
 			dc.FillRgn(&tapRgn[clickedTapIndex], &CBrush(RGB(216, 216, 216)));
 			//drawTapText(pDC);

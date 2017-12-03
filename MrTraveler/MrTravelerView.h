@@ -27,7 +27,7 @@ public:
 	CRgn tapRgn[6];
 	CRgn monthRgn;//월 리전
 	int startPos, endPos;
-	int clickedTapIndex=0;//클릭된 탭 인덱스
+	int clickedTapIndex;//클릭된 탭 인덱스
 	CTime cTime = CTime::GetCurrentTime();//현재 정보 불러오기
 	int curYear = cTime.GetYear();//현재 년도
 	int curMonth = cTime.GetMonth();//현재 월
