@@ -47,6 +47,10 @@ CMrTravelerView::CMrTravelerView()
 	x->ParceHtml(_T("https://v3.exchangerate-api.com/bulk/3090405efae2c21d79cc569c/KRW"), _T("ExchangeRate.json"));
 	x->RoadExchangeRate();
 	testinit();
+	//rgn 생성
+	for (int i = 0; i < 6; i++) 
+		tapRgn[i].CreateRoundRectRgn(i % 7 * 200, 850, (i % 7 + 1) * 200, 900, 20, 20);
+
 
 }
 
@@ -103,6 +107,9 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
+		//탭 리전 생성 및 출력
+	drawTapRgn(pDC);
+	drawTapText(pDC);
 
 	CRect window;
 	GetWindowRect(&window);
@@ -141,9 +148,7 @@ void CMrTravelerView::drawCalendar(CDC * pDC)
 	//날짜 리전 생성 및 출력
 	drawDateRgn(pDC);
 	drawDateText(pDC);
-	//탭 리전 생성 및 출력
-	drawTapRgn(pDC);
-	drawTapText(pDC);
+
 }
 
 void CMrTravelerView::drawMonthRgn(CDC * pDC){
@@ -249,7 +254,6 @@ void CMrTravelerView::drawTapRgn(CDC * pDC)
 {
 	//CRgn tapRgn[6] 탭 리전 전역변수 선언
 	for (int i = 0; i < 6; i++) {
-		tapRgn[i].CreateRoundRectRgn(i % 7 * 200, 850, (i % 7 + 1) * 200, 900, 20, 20);
 		pDC->FillRgn(&tapRgn[i], &CBrush(RGB(154, 202, 235)));
 	}
 }
