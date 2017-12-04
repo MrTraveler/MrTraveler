@@ -23,7 +23,6 @@ public:
 	ScheduleView* scheduleView;
 	CalendarView* calendarView;
 	CPoint m_pt;
-
 	CRgn tapRgn[6];
 	bool dragFlag;
 	int startPos, endPos;
@@ -40,6 +39,9 @@ public:
 
 	void deleteRgn();
 	void testinit();
+	void setDrag(int i);
+	void setPrevMonth();
+	void setNextMonth();
 protected:
 	virtual BOOL OnPreparePrinting(CPrintInfo* pInfo);
 	virtual void OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo);

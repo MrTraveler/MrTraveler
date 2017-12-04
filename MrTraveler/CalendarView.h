@@ -20,6 +20,8 @@ public:
 	CRgn monthRgn;//월 리전
 	CRgn nextMonthRgn;
 	CRgn prevMonthRgn;
+	CRgn plusButtonRgn;
+	bool isCurrent = TRUE;
 	bool dragFlag;
 	CRgn dateRgn[43];
 	CRgn dayRgn[7];//요일 리전
@@ -27,6 +29,7 @@ public:
 public:
 	virtual void OnDraw(CDC* pDC);      // 이 뷰를 그리기 위해 재정의되었습니다.
 	void drawCalendar(CDC* pDC);
+	void drawPlusButton(CDC* pDC);
 	void drawMonthRgn(CDC* pDC);
 	void drawMonthText(CDC* pDC);
 	void drawDayRgn(CDC* pDC);

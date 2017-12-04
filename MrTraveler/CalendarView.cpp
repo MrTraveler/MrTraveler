@@ -57,12 +57,29 @@ void CalendarView::drawCalendar(CDC * pDC)
 	drawMonthText(pDC);
 	drawNextMonth(pDC);
 	drawPrevMonth(pDC);
+	drawPlusButton(pDC);
 	//요일 리전 생성 및 출력
 	drawDayRgn(pDC);
 	drawDayText(pDC);
 	//날짜 리전 생성 및 출력
 	drawDateRgn(pDC);
 	drawDateText(pDC);
+
+}
+
+void CalendarView::drawPlusButton(CDC * pDC)
+{
+
+	plusButtonRgn.CreateEllipticRgn(1275, 75, 1375, 175);
+	//prevMonthRgn.CreateEllipticRgn((1400 - 150) / 2 + 25 - 200 + 50 + 25, 50 - 50 + 25, (1400 - 150) / 2 + 150 + 25 - 200 + 25, 200 - 50 - 25);
+	pDC->FillRgn(&plusButtonRgn, &CBrush(RGB(216, 216, 216)));
+
+	CFont font;
+	font.CreatePointFont(400, _T("바탕체"));
+	pDC->SetBkColor(RGB(216, 216, 216));
+	pDC->SetTextColor(RGB(255, 255, 255));
+	pDC->SelectObject(&font);
+	pDC->TextOut(1305, 85, _T("+"));
 
 }
 
@@ -80,7 +97,10 @@ void CalendarView::drawMonthText(CDC * pDC)
 	pDC->SetBkColor(RGB(154, 202, 235));
 	pDC->SetTextColor(RGB(255, 255, 255));
 	pDC->SelectObject(&font);
-	pDC->TextOut((1400 - 150) / 2 + 32 + 25, 50 + 32 + 5 - 50, strMonth);
+	if (curMonth > 9)
+		pDC->TextOut((1400 - 150) / 2 + 32 + 25, 50 + 32 + 5 - 50, strMonth);
+	else
+		pDC->TextOut((1400 - 150) / 2 + 32 + 25+25, 50 + 32 + 5 - 50, strMonth);
 }
 
 void CalendarView::drawDayRgn(CDC * pDC)
@@ -139,7 +159,7 @@ void CalendarView::drawDateRgn(CDC * pDC)
 	if (firstDay < 0)firstDay += 7;
 	for (int day = firstDay - 1; day < end_of_mon[curMonth - 1] + firstDay - 1; day++) {
 		dateRgn[day - firstDay + 1].CreateRoundRectRgn((day) % 7 * 200 + 25, 250 + (day) / 7 * 100, ((day) % 7 + 1) * 200 + 25, 250 + ((day) / 7 + 1) * 100, 20, 20);
-		if(day - firstDay + 2 ==curDate) pDC->FillRgn(&dateRgn[day - firstDay + 1], &CBrush(RGB(219, 236, 255)));
+		if((day - firstDay + 2 ==curDate)&& isCurrent) pDC->FillRgn(&dateRgn[day - firstDay + 1], &CBrush(RGB(219, 236, 255)));
 		else pDC->FillRgn(&dateRgn[day - firstDay + 1], &CBrush(RGB(255, 255, 255)));
 		pDC->FrameRgn(&dateRgn[day - firstDay + 1], &CBrush(RGB(216, 216, 216)), 2, 2);
 	}
