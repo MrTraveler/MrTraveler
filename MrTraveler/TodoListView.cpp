@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "TodoListView.h"
-
+#include "TodoData.h"
 
 TodoListView::TodoListView()
 {
@@ -30,22 +30,22 @@ void TodoListView::OnDraw(CDC * dc)
 	CRect orgViewRect = { 0,0,viewRect.right - viewRect.left, viewRect.bottom - viewRect.top };	//view의 원래 크기
 	dc->SetWindowExt(1000, 1000);
 	dc->SetViewportExt(orgViewRect.right, orgViewRect.bottom);
-	int countTodo = todoList.size();
+	int countTodo = TodoData::GetInstance()->todoList.size();
 
 	//int designType = 0;
 	for (int i = 0; i < countTodo; i += 2)
 	{
 		if ((i / 2) % 2 == 0)
 		{
-			DrawMetroRect(dc, CRect(0, i / 2 * 150, 1000 / 3 * 2, (i / 2 + 1) * 150) , &todoList[i]);
+			DrawMetroRect(dc, CRect(0, i / 2 * 150, 1000 / 3 * 2, (i / 2 + 1) * 150) , &TodoData::GetInstance()->todoList[i]);
 			if(i % 2 != 1)
-				DrawMetroRect(dc, CRect(1000 / 3 * 2, i / 2 * 150, 1000, (i / 2 + 1) * 150) ,&todoList[i + 1]);
+				DrawMetroRect(dc, CRect(1000 / 3 * 2, i / 2 * 150, 1000, (i / 2 + 1) * 150) ,&TodoData::GetInstance()->todoList[i + 1]);
 		}
 		else
 		{
-			DrawMetroRect(dc, CRect(0, i / 2 * 150, 1000 / 3, (i / 2 + 1) * 150), &todoList[i]);
+			DrawMetroRect(dc, CRect(0, i / 2 * 150, 1000 / 3, (i / 2 + 1) * 150), &TodoData::GetInstance()->todoList[i]);
 			if (i % 2 != 1)
-				DrawMetroRect(dc, CRect(1000 / 3, i / 2 * 150, 1000, (i / 2 + 1) * 150), &todoList[i + 1]);
+				DrawMetroRect(dc, CRect(1000 / 3, i / 2 * 150, 1000, (i / 2 + 1) * 150), &TodoData::GetInstance()->todoList[i + 1]);
 		}
 	}
 }

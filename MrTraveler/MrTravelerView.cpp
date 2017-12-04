@@ -16,7 +16,7 @@
 #include "TodoListView.h"
 #include "ScheduleView.h"
 #include "CalendarView.h"
-
+#include "TodoData.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -82,12 +82,12 @@ void CMrTravelerView::testinit()	//테스트 용도로 만든거
 	Todo todo6;
 	todo6.color = RGB(60, 60, 190);
 	todo6.title = _T("Title_6");
-	todoListView->todoList.push_back(todo1);
-	todoListView->todoList.push_back(todo2);
-	todoListView->todoList.push_back(todo3);
-	todoListView->todoList.push_back(todo4);
-	todoListView->todoList.push_back(todo5);
-	todoListView->todoList.push_back(todo6);
+	TodoData::GetInstance()->todoList.push_back(todo1);
+	TodoData::GetInstance()->todoList.push_back(todo2);
+	TodoData::GetInstance()->todoList.push_back(todo3);
+	TodoData::GetInstance()->todoList.push_back(todo4);
+	TodoData::GetInstance()->todoList.push_back(todo5);
+	TodoData::GetInstance()->todoList.push_back(todo6);
 
 }
 BOOL CMrTravelerView::PreCreateWindow(CREATESTRUCT& cs)

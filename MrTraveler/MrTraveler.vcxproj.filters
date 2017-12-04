@@ -60,6 +60,12 @@
     <ClInclude Include="CalendarView.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="TodoData.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="PlanData.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MrTraveler.cpp">
@@ -93,6 +99,12 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="CalendarView.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TodoData.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="PlanData.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

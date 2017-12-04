@@ -9,10 +9,13 @@ public:
 	virtual void OnLButtonDown(CPoint point);
 	void DrawTable(CDC * dc);
 	void DrawLabel(CDC * dc);
+	void DrawBackGround(CDC * dc);
 	void DrawButton(CDC * dc);
 
 public:
-	int selectedCellX;
-	int selectedCellY;
+	CTime today;
+//	int selectedCellX;
+//	int selectedCellY;
+
 };
 

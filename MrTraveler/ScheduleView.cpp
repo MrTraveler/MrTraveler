@@ -3,12 +3,19 @@
 
 
 ScheduleView::ScheduleView()
-{
+{	
+	today = CTime::GetCurrentTime();
 }
 
 
 ScheduleView::~ScheduleView()
 {
+}
+void ScheduleView::DrawBackGround(CDC * dc)
+{
+	CBrush brush(RGB(100,100,255));
+	dc->FillRect(CRect(0, 0, 1000, 1000), &brush);
+
 }
 void ScheduleView::DrawButton(CDC * dc)
 {
@@ -24,7 +31,7 @@ void ScheduleView::DrawButton(CDC * dc)
 void ScheduleView::DrawTable(CDC * dc)
 {
 	CPen pen;
-	pen.CreatePen(PS_SOLID, 1, RGB(20,20,20));
+	pen.CreatePen(PS_SOLID, 1, RGB(120,120,120));
 	CPen *oldPen = dc->SelectObject(&pen);
 	for (int i = 0; i < 26; i++)
 	{
@@ -50,14 +57,19 @@ void ScheduleView::DrawLabel(CDC * dc)
 	dc->SetBkMode(TRANSPARENT);
 	dc->SetTextColor(RGB(0, 0, 0));
 	//여기 아래부터 나중에 데이터로 자동화
-	dc->TextOut((int)((float)900 / 3 / 2 * 1 + 100), 100, _T("3월 21일"));
-	dc->TextOut((int)((float)900 / 3 / 2 * 3 + 100), 100, _T("3월 22일"));
-	dc->TextOut((int)((float)900 / 3 / 2 * 5 + 100), 100, _T("3월 23일"));
+	CTimeSpan oneDay = CTimeSpan(1, 0, 0, 0);
+	dc->TextOut((int)((float)900 / 3 / 2 * 1 + 100), 100, (today - oneDay).Format(_T("%m 월 %d 일")));
+	dc->TextOut((int)((float)900 / 3 / 2 * 3 + 100), 100, today.Format(_T("%m 월 %d 일")));
+	dc->TextOut((int)((float)900 / 3 / 2 * 5 + 100), 100, (today + oneDay).Format(_T("%m 월 %d 일")));
+	CFont font2;
+	font2.CreatePointFont(70, _T("맑은 고딕"));
+	dc->SelectObject(&font2);
+	dc->SetTextAlign(TA_RIGHT);
 	for (int i = 1; i <= 24; i++)
 	{
 		CString str;
-		str.Format(_T("%02d::00"),i);
-		dc->TextOutW(50, 900 / 25 / 2 * (i * 2 + 1) - 20 + 100, str);
+		str.Format(_T("%02d:00"),i);
+		dc->TextOutW(100, 900 / 25 / 2 * (i * 2 + 1) + 105, str);
 	}
 	dc->SelectObject(oldFont);
 }
@@ -67,11 +79,12 @@ void ScheduleView::OnDraw(CDC * dc)
 	CRect orgViewRect = { 0,0,viewRect.right - viewRect.left, viewRect.bottom - viewRect.top };	//view의 원래 크기
 	dc->SetWindowExt(1000, 1000);
 	dc->SetViewportExt(orgViewRect.right, orgViewRect.bottom);
+	DrawBackGround(dc);
 	DrawTable(dc);
 	DrawLabel(dc);
 	DrawButton(dc);
 }
 void ScheduleView::OnLButtonDown(CPoint point)
 {
-
+	
 }
