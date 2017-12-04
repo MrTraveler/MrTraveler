@@ -38,7 +38,22 @@ std::vector<Plan> PlanData::FindInPlan(CTime from, CTime to)
 			findedPlanList.push_back(planList[i]);
 	return findedPlanList;
 }
-void PlanData::AddPlan(CTime from, CTime to, CString title, CString content, COLORREF color = RGB(255, 170, 50))
+void PlanData::ChangePlanData(Plan oldPlan, Plan newPlan)
 {
-	Plan plan = { from, to, title, content, color };
+	for (int i = 0; i < planList.size(); i++)
+		if (oldPlan.from == planList[i].from && oldPlan.to == planList[i].to)
+		{
+			planList.erase(planList.begin() + i);
+			AddPlan(newPlan);
+			break;
+		}
+}
+void PlanData::AddPlan(CTime from, CTime to, CString title, CString content, COLORREF color,int budget)
+{
+	Plan plan = { from, to, title, content, color ,budget};
+	planList.push_back(plan);
+}
+void PlanData::AddPlan(Plan plan)
+{
+	planList.push_back(plan);
 }

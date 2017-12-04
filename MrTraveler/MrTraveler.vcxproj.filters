@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="리소스 파일\img">
+      <UniqueIdentifier>{4d69f241-e2b3-4505-9ee6-de4ea0a49df6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -66,6 +69,12 @@
     <ClInclude Include="PlanData.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Util.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="PlanDlg.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MrTraveler.cpp">
@@ -107,6 +116,12 @@
     <ClCompile Include="PlanData.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Util.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="PlanDlg.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MrTraveler.rc">
@@ -127,6 +142,12 @@
     </Image>
     <Image Include="res\Toolbar.bmp">
       <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="img\LeftArrow.png">
+      <Filter>리소스 파일\img</Filter>
+    </Image>
+    <Image Include="img\RightArrow.png">
+      <Filter>리소스 파일\img</Filter>
     </Image>
   </ItemGroup>
 </Project>

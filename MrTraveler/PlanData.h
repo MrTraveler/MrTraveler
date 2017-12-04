@@ -21,7 +21,9 @@ public:
 	static PlanData* GetInstance();
 	std::vector<Plan> FindInPlan(CTime from , CTime to);
 	std::vector<Plan> FindBorderPlan(CTime from, CTime to);
-	void AddPlan(CTime from, CTime to, CString title, CString content, COLORREF color);
+	void ChangePlanData(Plan oldPlan, Plan newPlan);
+	void AddPlan(CTime from, CTime to, CString title, CString content, COLORREF color,int budget);
+	void AddPlan(Plan plan);
 	~PlanData();
 };
 

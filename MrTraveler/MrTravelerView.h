@@ -8,6 +8,7 @@ class TodoListView;
 class ScheduleView;
 class CalendarView;
 class TodoData;
+class CMrTravelerDoc;
 class CMrTravelerView : public CView
 {
 protected: // serialization에서만 만들어집니다.
