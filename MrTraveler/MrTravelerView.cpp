@@ -59,7 +59,6 @@ CMrTravelerView::CMrTravelerView()
 CMrTravelerView::~CMrTravelerView()
 {
 }
-
 void CMrTravelerView::testinit()	//테스트 용도로 만든거
 {
 	todoListView = new TodoListView();
@@ -120,6 +119,7 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 	GetWindowRect(&window);
 	if (clickedTapIndex == 0)
 	{
+		//deleteRgn();
 		calendarView->drawCalendar(pDC);
 	}
 	else if (clickedTapIndex == 1) 
@@ -176,6 +176,18 @@ void CMrTravelerView::drawTapText(CDC * pDC)
 	}
 }
 
+void CMrTravelerView::deleteRgn(){
+	calendarView->prevMonthRgn.DeleteObject();
+	calendarView->nextMonthRgn.DeleteObject();
+	calendarView->monthRgn.DeleteObject();
+	for (int i = 0; i < 7; i++) {
+		calendarView->dayRgn[i].DeleteObject();
+	}
+	for (int i = 0; i < calendarView->end_of_mon[calendarView->curMonth-1]; i++) {
+		calendarView->dateRgn[i].DeleteObject();
+	}
+}
+
 void CMrTravelerView::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	CClientDC dc(this);
@@ -189,32 +201,64 @@ void CMrTravelerView::OnLButtonDown(UINT nFlags, CPoint point)
 	}
 	
 	//일 리전 드래그 처리
-	for (int i = 0; i < 31; i++) {
-		if (calendarView->dateRgn[i].PtInRegion(m_pt)&&clickedTapIndex==0) {
+	for (int i = 0; i < calendarView->end_of_mon[calendarView->curMonth - 1]; i++) {
+		if (calendarView->dateRgn[i].PtInRegion(m_pt) && clickedTapIndex == 0) {
 			dragFlag = true;
+			//deleteRgn();
+			//Invalidate();
+			//dateWindow();
 			startPos = i;//드래그 시작 일 리전 인덱스
 			dc.FillRgn(&calendarView->dateRgn[startPos], &CBrush(RGB(230, 230, 230)));
 			//drawDateText(pDC);
 			break;
 		}
+		//Invalidate();
 	}
+
+	//이전 달 넘어가기
+	if (calendarView->prevMonthRgn.PtInRegion(m_pt) && clickedTapIndex == 0) {
+		//새로그리기
+		deleteRgn();
+		if (calendarView->curMonth == 1) {
+			calendarView->curYear -= 1;
+			calendarView->curMonth = 12;
+		}
+		else calendarView->curMonth -= 1;
+		Invalidate();
+		//return TRUE;
+		//UpdateWindow();
+	}	//다음 달 넘어가기
+	else if (calendarView->nextMonthRgn.PtInRegion(m_pt) && clickedTapIndex == 0) {
+		//다음 달 처리
+		deleteRgn();
+		if (calendarView->curMonth == 12) {
+			calendarView->curYear += 1;
+			calendarView->curMonth = 1;
+		}
+		else calendarView->curMonth += 1;
+		//새로그리기
+		//calendarView->drawCalendar(pDC);
+		Invalidate();
+		//UpdateWindow();
+	}
+	
 	//탭 리전 클릭 처리
 	for (int i = 0; i < 6; i++) {
 		if (tapRgn[i].PtInRegion(m_pt)) {
 			clickedTapIndex = i;//드래그 시작 일 리전 인덱스
 			if (clickedTapIndex == 0) {
-				calendarView->monthRgn.DeleteObject();
+				deleteRgn();
+	/*			calendarView->monthRgn.DeleteObject();
 				for (int i = 0; i < 7; i++) {
 					calendarView->dayRgn[i].DeleteObject();
 				}
 				for (int i = 0; i < 31; i++) {
 					calendarView->dateRgn[i].DeleteObject();
-				}
+				}*/
 			}
 			Invalidate();
-			//drawTapRgn(pDC);
 			dc.FillRgn(&tapRgn[clickedTapIndex], &CBrush(RGB(216, 216, 216)));
-			//drawTapText(pDC);
+			
 			break;
 		}
 	}
