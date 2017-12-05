@@ -185,6 +185,23 @@ BEGIN
     DEFPUSHBUTTON   "확인",IDOK,113,41,50,14,WS_GROUP
 END
 
+IDD_DIALOG1 DIALOGEX 0, 0, 310, 176
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "확인",IDOK,199,155,50,14
+    PUSHBUTTON      "취소",IDCANCEL,253,155,50,14
+END
+
+IDD_MYDLG DIALOG 0, 0, 320, 200
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "대화 상자"
+FONT 9, "MS Shell Dlg"
+BEGIN
+    DEFPUSHBUTTON   "확인",IDOK,209,179,50,14
+    PUSHBUTTON      "취소",IDCANCEL,263,179,50,14
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -240,8 +257,35 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 55
     END
+
+    IDD_DIALOG1, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 303
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 169
+    END
+
+    IDD_MYDLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 313
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 193
+    END
 END
 #endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_DIALOG1 AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
 
 
 /////////////////////////////////////////////////////////////////////////////

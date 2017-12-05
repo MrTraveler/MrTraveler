@@ -25,7 +25,10 @@ public:
 	CPoint m_pt;
 	CRgn tapRgn[6];
 	bool dragFlag;
-	int startPos, endPos;
+
+	int startYear, startMonth, startDate, endYear, endMonth, endDate;
+	bool isDragged = FALSE;
+
 	int clickedTapIndex;//클릭된 탭 인덱스
 	CFont font;
 	CDC *pDC;
@@ -42,6 +45,7 @@ public:
 	void setDrag(int i);
 	void setPrevMonth();
 	void setNextMonth();
+	void setPlusButton();
 protected:
 	virtual BOOL OnPreparePrinting(CPrintInfo* pInfo);
 	virtual void OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo);
