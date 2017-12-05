@@ -16,7 +16,8 @@
 #include "TodoListView.h"
 #include "ScheduleView.h"
 #include "CalendarView.h"
-
+#include "TodoData.h"
+#include "PlanData.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -81,13 +82,15 @@ void CMrTravelerView::testinit()	//테스트 용도로 만든거
 	Todo todo6;
 	todo6.color = RGB(60, 60, 190);
 	todo6.title = _T("Title_6");
-	todoListView->todoList.push_back(todo1);
-	todoListView->todoList.push_back(todo2);
-	todoListView->todoList.push_back(todo3);
-	todoListView->todoList.push_back(todo4);
-	todoListView->todoList.push_back(todo5);
-	todoListView->todoList.push_back(todo6);
+	TodoData::GetInstance()->todoList.push_back(todo1);
+	TodoData::GetInstance()->todoList.push_back(todo2);
+	TodoData::GetInstance()->todoList.push_back(todo3);
+	TodoData::GetInstance()->todoList.push_back(todo4);
+	TodoData::GetInstance()->todoList.push_back(todo5);
+	TodoData::GetInstance()->todoList.push_back(todo6);
 
+	PlanData::GetInstance()->AddPlan(CTime(2017, 12, 05, 10, 5, 0), CTime(2017, 12, 06, 10, 5, 0), _T("치킨 뜯기")
+		, _T(""), RGB(255, 154, 23),10000);
 }
 BOOL CMrTravelerView::PreCreateWindow(CREATESTRUCT& cs)
 {
@@ -123,7 +126,8 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 	{
 		CRect rect;
 		GetClientRect(&rect);
-		scheduleView->StartView(rect);
+		rect.bottom = 840;
+		scheduleView->StartView(rect,this);
 		scheduleView->OnDraw(pDC);
 
 	}
@@ -131,7 +135,8 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 	{
 		CRect rect;
 		GetClientRect(&rect);
-		todoListView->StartView(rect);
+		rect.bottom = 840;
+		todoListView->StartView(rect,this);
 		todoListView->OnDraw(pDC);
 	}
 	else if (clickedTapIndex == 3) {}
@@ -188,6 +193,13 @@ void CMrTravelerView::OnLButtonDown(UINT nFlags, CPoint point)
 	CClientDC dc(this);
 	m_pt = point;
 
+	if (clickedTapIndex == 1)	//임시
+	{
+		scheduleView->OnLButtonDown(point);
+		CView::OnLButtonDown(nFlags, point);
+		return;
+	}
+	
 	//일 리전 드래그 처리
 	for (int i = 0; i < calendarView->end_of_mon[calendarView->curMonth - 1]; i++) {
 		if (calendarView->dateRgn[i].PtInRegion(m_pt) && clickedTapIndex == 0) {

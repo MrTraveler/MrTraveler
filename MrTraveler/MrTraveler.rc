@@ -185,6 +185,37 @@ BEGIN
     DEFPUSHBUTTON   "확인",IDOK,113,41,50,14,WS_GROUP
 END
 
+IDD_DIALOG1 DIALOGEX 0, 0, 355, 182
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Plan"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "제목",IDC_STATIC,15,17,16,8
+    LTEXT           "내용",IDC_STATIC,15,38,16,8
+    LTEXT           "색상",IDC_STATIC,244,128,16,8
+    LTEXT           "시작 시간",IDC_STATIC,21,131,32,8
+    LTEXT           "끝나는 시간",IDC_STATIC,14,146,40,8
+    EDITTEXT        IDC_EDIT1,40,14,293,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT2,39,34,295,84,ES_AUTOHSCROLL
+    CONTROL         "",IDC_DATETIMEPICKER2,"SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,58,127,100,15
+    CONTROL         "",IDC_DATETIMEPICKER3,"SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,58,143,100,15
+    CONTROL         "",IDC_SHOWCOLOR,"Static",SS_BLACKFRAME,242,140,78,10
+    PUSHBUTTON      "...",IDC_MORECOLOR,325,139,20,11
+    PUSHBUTTON      "확인",IDOK,243,158,50,14
+    PUSHBUTTON      "취소",IDCANCLE,296,158,50,14
+    LTEXT           "시",IDC_STATIC,183,133,8,8
+    LTEXT           "분",IDC_STATIC,211,147,8,8
+    EDITTEXT        IDC_EDIT5,163,127,18,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT6,163,143,18,14,ES_AUTOHSCROLL
+    LTEXT           "시",IDC_STATIC,182,148,8,8
+    EDITTEXT        IDC_EDIT7,191,127,18,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT8,191,143,18,14,ES_AUTOHSCROLL
+    LTEXT           "분",IDC_STATIC,211,133,8,8
+    LTEXT           "예산",IDC_STATIC,36,161,16,8
+    EDITTEXT        IDC_EDIT3,58,159,100,15,ES_AUTOHSCROLL
+    LTEXT           "원",IDC_STATIC,164,161,8,8
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -240,8 +271,27 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 55
     END
+
+    IDD_DIALOG1, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 348
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 174
+    END
 END
 #endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_DIALOG1 AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
 
 
 /////////////////////////////////////////////////////////////////////////////
