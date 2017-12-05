@@ -5,6 +5,7 @@
 #define IDD_ABOUTBOX                    100
 #define IDR_MAINFRAME                   128
 #define IDR_MrTravelerTYPE              130
+
 #define IDD_DIALOG1                     310
 #define IDC_EDIT1                       1006
 #define IDC_EDIT2                       1007
