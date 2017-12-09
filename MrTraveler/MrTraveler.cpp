@@ -106,6 +106,7 @@ BOOL CMrTravelerApp::InitInstance()
 	m_pMainWnd->UpdateWindow();
 	m_pMainWnd->SetWindowTextW(_T("Mr.Traveler"));
 	return TRUE;
+	AfxEnableControlContainer();
 }
 
 // CMrTravelerApp 메시지 처리기

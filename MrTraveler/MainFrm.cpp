@@ -1,4 +1,3 @@
-
 // MainFrm.cpp : CMainFrame 클래스의 구현
 //
 
@@ -6,7 +5,8 @@
 #include "MrTraveler.h"
 
 #include "MainFrm.h"
-
+#include "MrTravelerView.h"
+#include "InfoVIew.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -18,6 +18,8 @@ IMPLEMENT_DYNCREATE(CMainFrame, CFrameWnd)
 BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_CREATE()
 	ON_WM_GETMINMAXINFO()
+	ON_COMMAND(ID_INFO, &CMainFrame::OnInfo)
+	ON_COMMAND(ID_MRTRAVELER, &CMainFrame::OnMrtraveler)
 END_MESSAGE_MAP()
 
 // CMainFrame 생성/소멸
@@ -25,6 +27,7 @@ END_MESSAGE_MAP()
 CMainFrame::CMainFrame()
 {
 	// TODO: 여기에 멤버 초기화 코드를 추가합니다.
+
 }
 
 CMainFrame::~CMainFrame()
@@ -92,4 +95,60 @@ void CMainFrame::OnGetMinMaxInfo(MINMAXINFO* lpMMI)
 	lpMMI->ptMaxTrackSize.x = 1475; 
 	lpMMI->ptMaxTrackSize.y = 950; 
 	CFrameWnd::OnGetMinMaxInfo(lpMMI);
+}
+
+
+BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
+{
+	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
+	m_pwndMrTravelerView = new CMrTravelerView;
+	m_pwndInfoView = new CInfoVIew;
+
+
+	m_pwndMrTravelerView->Create(NULL, NULL, WS_CHILD, CFrameWnd::rectDefault, this, VIEWID_MRTRAVELER, pContext);
+	m_pwndInfoView->Create(NULL, NULL, WS_CHILD, CFrameWnd::rectDefault, this, VIEWID_INFOVIEW, pContext);
+	return CFrameWnd::OnCreateClient(lpcs, pContext);
+}
+void CMainFrame::SwitchView(int nID)
+{
+	CView* pOldView = GetActiveView();
+	CView* pNewView = NULL;
+
+	switch (nID)
+	{
+	case VIEWID_MRTRAVELER:
+		AfxMessageBox(_T("VIEWID_HTML"));
+		pNewView = (CView*)m_pwndMrTravelerView;
+		break;
+	case VIEWID_INFOVIEW:
+		AfxMessageBox(_T("VIEWID_EDIT"));
+		pNewView = (CView*)m_pwndInfoView;
+		break;
+	}
+	if (pNewView)
+	{
+		if (pOldView == pNewView)
+			return;
+		pOldView->ShowWindow(SW_HIDE);
+		pOldView->SetDlgCtrlID(nID);
+		pNewView->SetDlgCtrlID(AFX_IDW_PANE_FIRST);
+		pNewView->ShowWindow(SW_SHOW);
+		SetActiveView(pNewView);
+		RecalcLayout();
+	}
+	else
+		AfxMessageBox(_T("pNewView가 NULL??"));
+}
+
+void CMainFrame::OnInfo()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	SwitchView(VIEWID_INFOVIEW);
+}
+
+
+void CMainFrame::OnMrtraveler()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	SwitchView(VIEWID_MRTRAVELER);
 }
