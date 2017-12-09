@@ -26,7 +26,8 @@ std::vector<Plan> PlanData::FindBorderPlan(CTime from , CTime to)
 	std::vector<Plan> findedPlanList;
 	for (int i = 0; i < planList.size(); i++)
 		if ((planList[i].from <= from && planList[i].to >= from)
-			|| (planList[i].from <= to && planList[i].to >= to))
+			|| (planList[i].from <= to && planList[i].to >= to)
+			|| (planList[i].from >= from && planList[i].to <= to))
 			findedPlanList.push_back(planList[i]);			
 	return findedPlanList;
 }
@@ -34,7 +35,7 @@ std::vector<Plan> PlanData::FindInPlan(CTime from, CTime to)
 {
 	std::vector<Plan> findedPlanList;
 	for (int i = 0; i < planList.size(); i++)
-		if (planList[i].from <= from && planList[i].to >= to)
+		if (planList[i].from >= from && planList[i].to <= to)
 			findedPlanList.push_back(planList[i]);
 	return findedPlanList;
 }
