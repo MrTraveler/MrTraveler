@@ -18,6 +18,7 @@
 #include "CalendarView.h"
 #include "TodoData.h"
 #include "PlanData.h"
+#include "AccountBookView.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -64,6 +65,7 @@ void CMrTravelerView::testinit()	//테스트 용도로 만든거
 	todoListView = new TodoListView();
 	scheduleView = new ScheduleView();
 	calendarView = new CalendarView();
+	accountBookView = new AccountBookView();
 	Todo todo1;
 	todo1.color = RGB(10, 10, 240);
 	todo1.title = _T("Title_1");
@@ -139,7 +141,14 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 		todoListView->StartView(rect,this);
 		todoListView->OnDraw(pDC);
 	}
-	else if (clickedTapIndex == 3) {}
+	else if (clickedTapIndex == 3) 
+	{
+		CRect rect;
+		GetClientRect(&rect);
+		rect.bottom = 840;
+		accountBookView->StartView(rect, this);
+		accountBookView->OnDraw(pDC);
+	}
 	else if (clickedTapIndex == 4) {}
 	else if (clickedTapIndex == 5) {}
 }
@@ -196,6 +205,12 @@ void CMrTravelerView::OnLButtonDown(UINT nFlags, CPoint point)
 	if (clickedTapIndex == 1)	//임시
 	{
 		scheduleView->OnLButtonDown(point);
+		CView::OnLButtonDown(nFlags, point);
+		return;
+	}
+	else if (clickedTapIndex == 3)
+	{
+		accountBookView->OnLButtonDown(point);
 		CView::OnLButtonDown(nFlags, point);
 		return;
 	}

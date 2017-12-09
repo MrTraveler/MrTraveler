@@ -185,6 +185,8 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AccountBookView.h" />
+    <ClInclude Include="AccountData.h" />
     <ClInclude Include="CalendarView.h" />
     <ClInclude Include="DrawView.h" />
     <ClInclude Include="json\json-forwards.h" />
@@ -205,6 +207,8 @@
     <ClInclude Include="Util.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AccountBookView.cpp" />
+    <ClCompile Include="AccountData.cpp" />
     <ClCompile Include="CalendarView.cpp" />
     <ClCompile Include="DrawView.cpp" />
     <ClCompile Include="jsoncpp.cpp" />
