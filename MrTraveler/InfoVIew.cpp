@@ -6,6 +6,7 @@
 #include "InfoVIew.h"
 
 
+
 // CInfoVIew
 
 IMPLEMENT_DYNCREATE(CInfoVIew, CFormView)
@@ -17,6 +18,7 @@ CInfoVIew::CInfoVIew()
 	Parce->RoadExchangeRate();
 	m_ExchangeRatefont.CreateFont(30, 0, 0, 0, FW_BOLD, FALSE, FALSE, 0, DEFAULT_CHARSET,OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,	DEFAULT_PITCH | FF_SWISS, _T("±¼¸²Ã¼"));
 	country = 0;
+	
 }
 
 CInfoVIew::~CInfoVIew()
@@ -29,6 +31,8 @@ void CInfoVIew::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_COUNTRY, m_Currency_unit);
 	DDX_Control(pDX, IDC_ExchangeRate1, m_ExchangeRate1);
 	DDX_Control(pDX, IDC_KRW, m_krw);
+	DDX_Control(pDX, IDC_EXPLORER1, m_GoogleMap);
+	m_GoogleMap.Navigate(GetResURL(IDR_HTML_GOOGLEMAP),NULL,NULL,NULL,NULL);
 }
 
 BEGIN_MESSAGE_MAP(CInfoVIew, CFormView)
@@ -89,6 +93,20 @@ void CInfoVIew::OnEnUpdateExchangerate1()
 	str2.Format(_T(" = %.2lf¿ø"), ER2);
 	GetDlgItem(IDC_KRW)->SetWindowText(str2);
 
+}
+
+
+
+
+
+CString CInfoVIew::GetResURL(int szResID)
+
+{
+	CString sRes;
+	TCHAR szExePath[MAX_PATH];
+	GetModuleFileName(NULL, szExePath, sizeof(szExePath));
+	sRes.Format(_T("res://%s/%d"), szExePath, szResID);
+	return sRes;
 }
 
 

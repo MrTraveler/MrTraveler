@@ -1,6 +1,7 @@
 #pragma once
 #include "afxwin.h"
 #include "MrTravelerParceHtml.h"
+#include "CWebBrowser2.h"
 
 
 
@@ -39,6 +40,10 @@ public:
 	afx_msg void OnEnUpdateExchangerate1();
 	CFont m_ExchangeRatefont;
 	CStatic m_krw;
+	CWebBrowser2 m_GoogleMap;
+	CString GetResURL(int szResID);
+
+	
 };
 
 

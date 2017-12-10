@@ -7,6 +7,7 @@
 #define IDR_MAINFRAME                   128
 #define IDR_MrTravelerTYPE              130
 #define IDD_DIALOG1                     310
+#define IDR_HTML_GOOGLEMAP              312
 #define IDC_EDIT1                       1006
 #define IDC_EDIT2                       1007
 #define IDC_DATETIMEPICKER2             1008
@@ -22,8 +23,8 @@
 #define IDC_EDIT8                       1023
 #define IDC_COUNTRY                     1027
 #define IDC_ExchangeRate1               1028
-#define IDC_ExchangeRate2               1029
 #define IDC_KRW                         1030
+#define IDC_EXPLORER1                   1031
 #define ID_SWITCHVIEW_MRTRAVELER        32771
 #define ID_SWITCHVIEW_INFO              32772
 #define ID_MRTRAVELER                   32773
@@ -33,9 +34,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        325
+#define _APS_NEXT_RESOURCE_VALUE        330
 #define _APS_NEXT_COMMAND_VALUE         32775
-#define _APS_NEXT_CONTROL_VALUE         1031
-#define _APS_NEXT_SYMED_VALUE           312
+#define _APS_NEXT_CONTROL_VALUE         1032
+#define _APS_NEXT_SYMED_VALUE           313
 #endif
 #endif

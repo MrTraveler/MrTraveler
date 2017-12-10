@@ -186,6 +186,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CalendarView.h" />
+    <ClInclude Include="CWebBrowser2.h" />
     <ClInclude Include="DrawView.h" />
     <ClInclude Include="InfoVIew.h" />
     <ClInclude Include="json\json-forwards.h" />
@@ -207,6 +208,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CalendarView.cpp" />
+    <ClCompile Include="CWebBrowser2.cpp" />
     <ClCompile Include="DrawView.cpp" />
     <ClCompile Include="InfoVIew.cpp" />
     <ClCompile Include="jsoncpp.cpp" />
@@ -233,6 +235,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="GoogleMap.htm">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
     <None Include="res\MrTraveler.rc2" />
   </ItemGroup>
   <ItemGroup>
