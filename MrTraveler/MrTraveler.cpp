@@ -1,5 +1,5 @@
-
-// MrTraveler.cpp : ÀÀ¿ë ÇÁ·Î±×·¥¿¡ ´ëÇÑ Å¬·¡½º µ¿ÀÛÀ» Á¤ÀÇÇÕ´Ï´Ù.
+ï»¿
+// MrTraveler.cpp : ì‘ìš© í”„ë¡œê·¸ë¨ì— ëŒ€í•œ í´ë˜ìŠ¤ ë™ì‘ì„ ì •ì˜í•©ë‹ˆë‹¤.
 //
 
 #include "stdafx.h"
@@ -10,6 +10,7 @@
 
 #include "MrTravelerDoc.h"
 #include "MrTravelerView.h"
+#include "CWebBrowser2.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -20,41 +21,41 @@
 
 BEGIN_MESSAGE_MAP(CMrTravelerApp, CWinApp)
 	ON_COMMAND(ID_APP_ABOUT, &CMrTravelerApp::OnAppAbout)
-	// Ç¥ÁØ ÆÄÀÏÀ» ±âÃÊ·Î ÇÏ´Â ¹®¼­ ¸í·ÉÀÔ´Ï´Ù.
+	// í‘œì¤€ íŒŒì¼ì„ ê¸°ì´ˆë¡œ í•˜ëŠ” ë¬¸ì„œ ëª…ë ¹ì…ë‹ˆë‹¤.
 	ON_COMMAND(ID_FILE_NEW, &CWinApp::OnFileNew)
 	ON_COMMAND(ID_FILE_OPEN, &CWinApp::OnFileOpen)
-	// Ç¥ÁØ ÀÎ¼â ¼³Á¤ ¸í·ÉÀÔ´Ï´Ù.
+	// í‘œì¤€ ì¸ì‡„ ì„¤ì • ëª…ë ¹ì…ë‹ˆë‹¤.
 	ON_COMMAND(ID_FILE_PRINT_SETUP, &CWinApp::OnFilePrintSetup)
 END_MESSAGE_MAP()
 
 
-// CMrTravelerApp »ı¼º
+// CMrTravelerApp ìƒì„±
 
 CMrTravelerApp::CMrTravelerApp()
 {
-	// ´Ù½Ã ½ÃÀÛ °ü¸®ÀÚ Áö¿ø
+	// ë‹¤ì‹œ ì‹œì‘ ê´€ë¦¬ì ì§€ì›
 	m_dwRestartManagerSupportFlags = AFX_RESTART_MANAGER_SUPPORT_ALL_ASPECTS;
 #ifdef _MANAGED
-	// ÀÀ¿ë ÇÁ·Î±×·¥À» °ø¿ë ¾ğ¾î ·±Å¸ÀÓ Áö¿øÀ» »ç¿ëÇÏ¿© ºôµåÇÑ °æ¿ì(/clr):
-	//     1) ÀÌ Ãß°¡ ¼³Á¤Àº ´Ù½Ã ½ÃÀÛ °ü¸®ÀÚ Áö¿øÀÌ Á¦´ë·Î ÀÛµ¿ÇÏ´Â µ¥ ÇÊ¿äÇÕ´Ï´Ù.
-	//     2) ÇÁ·ÎÁ§Æ®¿¡¼­ ºôµåÇÏ·Á¸é System.Windows.Forms¿¡ ´ëÇÑ ÂüÁ¶¸¦ Ãß°¡ÇØ¾ß ÇÕ´Ï´Ù.
+	// ì‘ìš© í”„ë¡œê·¸ë¨ì„ ê³µìš© ì–¸ì–´ ëŸ°íƒ€ì„ ì§€ì›ì„ ì‚¬ìš©í•˜ì—¬ ë¹Œë“œí•œ ê²½ìš°(/clr):
+	//     1) ì´ ì¶”ê°€ ì„¤ì •ì€ ë‹¤ì‹œ ì‹œì‘ ê´€ë¦¬ì ì§€ì›ì´ ì œëŒ€ë¡œ ì‘ë™í•˜ëŠ” ë° í•„ìš”í•©ë‹ˆë‹¤.
+	//     2) í”„ë¡œì íŠ¸ì—ì„œ ë¹Œë“œí•˜ë ¤ë©´ System.Windows.Formsì— ëŒ€í•œ ì°¸ì¡°ë¥¼ ì¶”ê°€í•´ì•¼ í•©ë‹ˆë‹¤.
 	System::Windows::Forms::Application::SetUnhandledExceptionMode(System::Windows::Forms::UnhandledExceptionMode::ThrowException);
 #endif
 
-	// TODO: ¾Æ·¡ ÀÀ¿ë ÇÁ·Î±×·¥ ID ¹®ÀÚ¿­À» °íÀ¯ ID ¹®ÀÚ¿­·Î ¹Ù²Ù½Ê½Ã¿À(±ÇÀå).
-	// ¹®ÀÚ¿­¿¡ ´ëÇÑ ¼­½Ä: CompanyName.ProductName.SubProduct.VersionInformation
+	// TODO: ì•„ë˜ ì‘ìš© í”„ë¡œê·¸ë¨ ID ë¬¸ìì—´ì„ ê³ ìœ  ID ë¬¸ìì—´ë¡œ ë°”ê¾¸ì‹­ì‹œì˜¤(ê¶Œì¥).
+	// ë¬¸ìì—´ì— ëŒ€í•œ ì„œì‹: CompanyName.ProductName.SubProduct.VersionInformation
 	SetAppID(_T("MrTraveler.AppID.NoVersion"));
 
-	// TODO: ¿©±â¿¡ »ı¼º ÄÚµå¸¦ Ãß°¡ÇÕ´Ï´Ù.
-	// InitInstance¿¡ ¸ğµç Áß¿äÇÑ ÃÊ±âÈ­ ÀÛ¾÷À» ¹èÄ¡ÇÕ´Ï´Ù.
+	// TODO: ì—¬ê¸°ì— ìƒì„± ì½”ë“œë¥¼ ì¶”ê°€í•©ë‹ˆë‹¤.
+	// InitInstanceì— ëª¨ë“  ì¤‘ìš”í•œ ì´ˆê¸°í™” ì‘ì—…ì„ ë°°ì¹˜í•©ë‹ˆë‹¤.
 }
 
-// À¯ÀÏÇÑ CMrTravelerApp °³Ã¼ÀÔ´Ï´Ù.
+// ìœ ì¼í•œ CMrTravelerApp ê°œì²´ì…ë‹ˆë‹¤.
 
 CMrTravelerApp theApp;
 
 
-// CMrTravelerApp ÃÊ±âÈ­
+// CMrTravelerApp ì´ˆê¸°í™”
 
 BOOL CMrTravelerApp::InitInstance()
 {
@@ -63,70 +64,71 @@ BOOL CMrTravelerApp::InitInstance()
 
 	EnableTaskbarInteraction(FALSE);
 
-	// RichEdit ÄÁÆ®·ÑÀ» »ç¿ëÇÏ·Á¸é  AfxInitRichEdit2()°¡ ÀÖ¾î¾ß ÇÕ´Ï´Ù.	
+	// RichEdit ì»¨íŠ¸ë¡¤ì„ ì‚¬ìš©í•˜ë ¤ë©´  AfxInitRichEdit2()ê°€ ìˆì–´ì•¼ í•©ë‹ˆë‹¤.	
 	// AfxInitRichEdit2();
+	AfxEnableControlContainer();
 
-	// Ç¥ÁØ ÃÊ±âÈ­
-	// ÀÌµé ±â´ÉÀ» »ç¿ëÇÏÁö ¾Ê°í ÃÖÁ¾ ½ÇÇà ÆÄÀÏÀÇ Å©±â¸¦ ÁÙÀÌ·Á¸é
-	// ¾Æ·¡¿¡¼­ ÇÊ¿ä ¾ø´Â Æ¯Á¤ ÃÊ±âÈ­
-	// ·çÆ¾À» Á¦°ÅÇØ¾ß ÇÕ´Ï´Ù.
-	// ÇØ´ç ¼³Á¤ÀÌ ÀúÀåµÈ ·¹Áö½ºÆ®¸® Å°¸¦ º¯°æÇÏ½Ê½Ã¿À.
-	// TODO: ÀÌ ¹®ÀÚ¿­À» È¸»ç ¶Ç´Â Á¶Á÷ÀÇ ÀÌ¸§°ú °°Àº
-	// ÀûÀıÇÑ ³»¿ëÀ¸·Î ¼öÁ¤ÇØ¾ß ÇÕ´Ï´Ù.
-	SetRegistryKey(_T("·ÎÄÃ ÀÀ¿ë ÇÁ·Î±×·¥ ¸¶¹ı»ç¿¡¼­ »ı¼ºµÈ ÀÀ¿ë ÇÁ·Î±×·¥"));
-	LoadStdProfileSettings(4);  // MRU¸¦ Æ÷ÇÔÇÏ¿© Ç¥ÁØ INI ÆÄÀÏ ¿É¼ÇÀ» ·ÎµåÇÕ´Ï´Ù.
+	// í‘œì¤€ ì´ˆê¸°í™”
+	// ì´ë“¤ ê¸°ëŠ¥ì„ ì‚¬ìš©í•˜ì§€ ì•Šê³  ìµœì¢… ì‹¤í–‰ íŒŒì¼ì˜ í¬ê¸°ë¥¼ ì¤„ì´ë ¤ë©´
+	// ì•„ë˜ì—ì„œ í•„ìš” ì—†ëŠ” íŠ¹ì • ì´ˆê¸°í™”
+	// ë£¨í‹´ì„ ì œê±°í•´ì•¼ í•©ë‹ˆë‹¤.
+	// í•´ë‹¹ ì„¤ì •ì´ ì €ì¥ëœ ë ˆì§€ìŠ¤íŠ¸ë¦¬ í‚¤ë¥¼ ë³€ê²½í•˜ì‹­ì‹œì˜¤.
+	// TODO: ì´ ë¬¸ìì—´ì„ íšŒì‚¬ ë˜ëŠ” ì¡°ì§ì˜ ì´ë¦„ê³¼ ê°™ì€
+	// ì ì ˆí•œ ë‚´ìš©ìœ¼ë¡œ ìˆ˜ì •í•´ì•¼ í•©ë‹ˆë‹¤.
+	SetRegistryKey(_T("ë¡œì»¬ ì‘ìš© í”„ë¡œê·¸ë¨ ë§ˆë²•ì‚¬ì—ì„œ ìƒì„±ëœ ì‘ìš© í”„ë¡œê·¸ë¨"));
+	LoadStdProfileSettings(4);  // MRUë¥¼ í¬í•¨í•˜ì—¬ í‘œì¤€ INI íŒŒì¼ ì˜µì…˜ì„ ë¡œë“œí•©ë‹ˆë‹¤.
 
 
-	// ÀÀ¿ë ÇÁ·Î±×·¥ÀÇ ¹®¼­ ÅÛÇÃ¸´À» µî·ÏÇÕ´Ï´Ù.  ¹®¼­ ÅÛÇÃ¸´Àº
-	//  ¹®¼­, ÇÁ·¹ÀÓ Ã¢ ¹× ºä »çÀÌÀÇ ¿¬°á ¿ªÇÒÀ» ÇÕ´Ï´Ù.
+	// ì‘ìš© í”„ë¡œê·¸ë¨ì˜ ë¬¸ì„œ í…œí”Œë¦¿ì„ ë“±ë¡í•©ë‹ˆë‹¤.  ë¬¸ì„œ í…œí”Œë¦¿ì€
+	//  ë¬¸ì„œ, í”„ë ˆì„ ì°½ ë° ë·° ì‚¬ì´ì˜ ì—°ê²° ì—­í• ì„ í•©ë‹ˆë‹¤.
 	CSingleDocTemplate* pDocTemplate;
 	pDocTemplate = new CSingleDocTemplate(
 		IDR_MAINFRAME,
 		RUNTIME_CLASS(CMrTravelerDoc),
-		RUNTIME_CLASS(CMainFrame),       // ÁÖ SDI ÇÁ·¹ÀÓ Ã¢ÀÔ´Ï´Ù.
+		RUNTIME_CLASS(CMainFrame),       // ì£¼ SDI í”„ë ˆì„ ì°½ì…ë‹ˆë‹¤.
 		RUNTIME_CLASS(CMrTravelerView));
 	if (!pDocTemplate)
 		return FALSE;
 	AddDocTemplate(pDocTemplate);
 
 
-	// Ç¥ÁØ ¼Ğ ¸í·É, DDE, ÆÄÀÏ ¿­±â¿¡ ´ëÇÑ ¸í·ÉÁÙÀ» ±¸¹® ºĞ¼®ÇÕ´Ï´Ù.
+	// í‘œì¤€ ì…¸ ëª…ë ¹, DDE, íŒŒì¼ ì—´ê¸°ì— ëŒ€í•œ ëª…ë ¹ì¤„ì„ êµ¬ë¬¸ ë¶„ì„í•©ë‹ˆë‹¤.
 	CCommandLineInfo cmdInfo;
 	ParseCommandLine(cmdInfo);
 
 
 
-	// ¸í·ÉÁÙ¿¡ ÁöÁ¤µÈ ¸í·ÉÀ» µğ½ºÆĞÄ¡ÇÕ´Ï´Ù.
-	// ÀÀ¿ë ÇÁ·Î±×·¥ÀÌ /RegServer, /Register, /Unregserver ¶Ç´Â /Unregister·Î ½ÃÀÛµÈ °æ¿ì FALSE¸¦ ¹İÈ¯ÇÕ´Ï´Ù.
+	// ëª…ë ¹ì¤„ì— ì§€ì •ëœ ëª…ë ¹ì„ ë””ìŠ¤íŒ¨ì¹˜í•©ë‹ˆë‹¤.
+	// ì‘ìš© í”„ë¡œê·¸ë¨ì´ /RegServer, /Register, /Unregserver ë˜ëŠ” /Unregisterë¡œ ì‹œì‘ëœ ê²½ìš° FALSEë¥¼ ë°˜í™˜í•©ë‹ˆë‹¤.
 	if (!ProcessShellCommand(cmdInfo))
 		return FALSE;
 
-	// Ã¢ ÇÏ³ª¸¸ ÃÊ±âÈ­µÇ¾úÀ¸¹Ç·Î ÀÌ¸¦ Ç¥½ÃÇÏ°í ¾÷µ¥ÀÌÆ®ÇÕ´Ï´Ù.
+	// ì°½ í•˜ë‚˜ë§Œ ì´ˆê¸°í™”ë˜ì—ˆìœ¼ë¯€ë¡œ ì´ë¥¼ í‘œì‹œí•˜ê³  ì—…ë°ì´íŠ¸í•©ë‹ˆë‹¤.
 	m_pMainWnd->ShowWindow(SW_SHOW);
 	m_pMainWnd->UpdateWindow();
 	m_pMainWnd->SetWindowTextW(_T("Mr.Traveler"));
 	return TRUE;
 }
 
-// CMrTravelerApp ¸Ş½ÃÁö Ã³¸®±â
+// CMrTravelerApp ë©”ì‹œì§€ ì²˜ë¦¬ê¸°
 
 
-// ÀÀ¿ë ÇÁ·Î±×·¥ Á¤º¸¿¡ »ç¿ëµÇ´Â CAboutDlg ´ëÈ­ »óÀÚÀÔ´Ï´Ù.
+// ì‘ìš© í”„ë¡œê·¸ë¨ ì •ë³´ì— ì‚¬ìš©ë˜ëŠ” CAboutDlg ëŒ€í™” ìƒìì…ë‹ˆë‹¤.
 
 class CAboutDlg : public CDialogEx
 {
 public:
 	CAboutDlg();
 
-// ´ëÈ­ »óÀÚ µ¥ÀÌÅÍÀÔ´Ï´Ù.
+// ëŒ€í™” ìƒì ë°ì´í„°ì…ë‹ˆë‹¤.
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_ABOUTBOX };
 #endif
 
 protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV Áö¿øÀÔ´Ï´Ù.
+	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV ì§€ì›ì…ë‹ˆë‹¤.
 
-// ±¸ÇöÀÔ´Ï´Ù.
+// êµ¬í˜„ì…ë‹ˆë‹¤.
 protected:
 	DECLARE_MESSAGE_MAP()
 };
@@ -143,14 +145,14 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
 END_MESSAGE_MAP()
 
-// ´ëÈ­ »óÀÚ¸¦ ½ÇÇàÇÏ±â À§ÇÑ ÀÀ¿ë ÇÁ·Î±×·¥ ¸í·ÉÀÔ´Ï´Ù.
+// ëŒ€í™” ìƒìë¥¼ ì‹¤í–‰í•˜ê¸° ìœ„í•œ ì‘ìš© í”„ë¡œê·¸ë¨ ëª…ë ¹ì…ë‹ˆë‹¤.
 void CMrTravelerApp::OnAppAbout()
 {
 	CAboutDlg aboutDlg;
 	aboutDlg.DoModal();
 }
 
-// CMrTravelerApp ¸Ş½ÃÁö Ã³¸®±â
+// CMrTravelerApp ë©”ì‹œì§€ ì²˜ë¦¬ê¸°
 
 
 

@@ -8,16 +8,17 @@ class TodoListView;
 class ScheduleView;
 class CalendarView;
 class TodoData;
-class AccountBookView;
 class CMrTravelerDoc;
+class CMainFrame;
+class AccountBookView;
 class CMrTravelerView : public CView
 {
 protected: // serialization에서만 만들어집니다.
-	CMrTravelerView();
 	DECLARE_DYNCREATE(CMrTravelerView)
 
 // 특성입니다.
 public:
+	CMrTravelerView();
 	CMrTravelerDoc* GetDocument() const;
 
 // 작업입니다.
@@ -25,7 +26,8 @@ public:
 	TodoListView* todoListView;
 	ScheduleView* scheduleView;
 	CalendarView* calendarView;
-	AccountBookView * accountBookView;
+	CMainFrame* mainfrm;
+	AccountBookView *accountBookView;
 	CPoint m_pt;
 	CRgn tapRgn[6];
 	bool dragFlag;

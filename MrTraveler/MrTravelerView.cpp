@@ -18,6 +18,7 @@
 #include "CalendarView.h"
 #include "TodoData.h"
 #include "PlanData.h"
+#include "MainFrm.h"
 #include "AccountBookView.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -48,8 +49,7 @@ CMrTravelerView::CMrTravelerView()
 	clickedTapIndex=0;//클릭된 탭 인덱스
 	dragFlag = false;
 	CMrTravelerParceHtml *x = new CMrTravelerParceHtml();
-	x->ParceHtml(_T("https://v3.exchangerate-api.com/bulk/3090405efae2c21d79cc569c/KRW"), _T("ExchangeRate.json"));
-	x->RoadExchangeRate();
+	//x->ParceHtml(_T("https://v3.exchangerate-api.com/bulk/3090405efae2c21d79cc569c/KRW"), _T("ExchangeRate.json"));
 	testinit();
 	//rgn 생성
 	for (int i = 0; i < 6; i++) 
@@ -142,8 +142,7 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 		todoListView->StartView(rect,this);
 		todoListView->OnDraw(pDC);
 	}
-	else if (clickedTapIndex == 3) 
-	{
+	else if (clickedTapIndex == 3){
 		CRect rect;
 		GetClientRect(&rect);
 		rect.bottom = 840;
@@ -151,7 +150,10 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 		accountBookView->OnDraw(pDC);
 	}
 	else if (clickedTapIndex == 4) {}
-	else if (clickedTapIndex == 5) {}
+	else if (clickedTapIndex == 5) {
+		CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
+		pFrame->OnInfo();
+	}
 }
 
 
@@ -251,13 +253,12 @@ void CMrTravelerView::OnLButtonDown(UINT nFlags, CPoint point)
 		CView::OnLButtonDown(nFlags, point);
 		return;
 	}
-	else if (clickedTapIndex == 3)
+	else if (clickedTapIndex == 3) 
 	{
 		accountBookView->OnLButtonDown(point);
 		CView::OnLButtonDown(nFlags, point);
 		return;
 	}
-	
 	//일 리전 드래그 처리
 	for (int i = 0; i < calendarView->end_of_mon[calendarView->curMonth - 1]; i++) {
 		if (calendarView->dateRgn[i].PtInRegion(m_pt) && clickedTapIndex == 0) {
