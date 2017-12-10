@@ -19,6 +19,7 @@
 #include "TodoData.h"
 #include "PlanData.h"
 #include "AccountBookView.h"
+#include "Util.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -37,6 +38,8 @@ BEGIN_MESSAGE_MAP(CMrTravelerView, CView)
 //	ON_WM_PAINT()
 ON_WM_LBUTTONDOWN()
 ON_WM_MOUSEMOVE()
+ON_WM_LBUTTONDBLCLK()
+ON_WM_RBUTTONDOWN()
 END_MESSAGE_MAP()
 
 // CMrTravelerView 생성/소멸
@@ -67,23 +70,23 @@ void CMrTravelerView::testinit()	//테스트 용도로 만든거
 	calendarView = new CalendarView();
 	accountBookView = new AccountBookView();
 	Todo todo1;
-	todo1.color = RGB(10, 10, 240);
 	todo1.title = _T("Title_1");
+	todo1.icon = 0;
 	Todo todo2;
-	todo2.color = RGB(20, 20, 230);
 	todo2.title = _T("Title_2");
+	todo2.icon = 1;
 	Todo todo3;
-	todo3.color = RGB(30,30, 220);
 	todo3.title = _T("Title_3");
+	todo3.icon = 2;
 	Todo todo4;
-	todo4.color = RGB(40,40, 210);
 	todo4.title = _T("Title_4");
+	todo4.icon = 3;
 	Todo todo5;
-	todo5.color = RGB(50, 50, 200);
 	todo5.title = _T("Title_5");
+	todo5.icon = 4;
 	Todo todo6;
-	todo6.color = RGB(60, 60, 190);
 	todo6.title = _T("Title_6");
+	todo6.icon = 1;
 	TodoData::GetInstance()->todoList.push_back(todo1);
 	TodoData::GetInstance()->todoList.push_back(todo2);
 	TodoData::GetInstance()->todoList.push_back(todo3);
@@ -201,14 +204,22 @@ void CMrTravelerView::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	CClientDC dc(this);
 	m_pt = point;
-
-	if (clickedTapIndex == 1)	//임시
+	CRect rect;
+	GetClientRect(&rect);
+	rect.bottom = 840;
+	if (clickedTapIndex == 1 && Util::IsPointInRect(rect, point))	//임시
 	{
 		scheduleView->OnLButtonDown(point);
 		CView::OnLButtonDown(nFlags, point);
 		return;
 	}
-	else if (clickedTapIndex == 3)
+	else if (clickedTapIndex == 2 && Util::IsPointInRect(rect, point))
+	{
+		todoListView->OnLButtonDown(point);
+		CView::OnLButtonDown(nFlags, point);
+		return;
+	}
+	else if (clickedTapIndex == 3 && Util::IsPointInRect(rect, point))
 	{
 		accountBookView->OnLButtonDown(point);
 		CView::OnLButtonDown(nFlags, point);
@@ -354,3 +365,35 @@ CMrTravelerDoc* CMrTravelerView::GetDocument() const // 디버그되지 않은 �
 // CMrTravelerView 메시지 처리기
 
 
+
+
+void CMrTravelerView::OnLButtonDblClk(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	CRect rect;
+	GetClientRect(&rect);
+	rect.bottom = 840;
+	if (clickedTapIndex == 2 && Util::IsPointInRect(rect, point))	//임시
+	{
+		todoListView->OnLButtonDblClk(point);
+		CView::OnLButtonDblClk(nFlags, point);
+		return;
+	}
+	CView::OnLButtonDblClk(nFlags, point);
+}
+
+
+void CMrTravelerView::OnRButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	CRect rect;
+	GetClientRect(&rect);
+	rect.bottom = 840;
+	if (clickedTapIndex == 2 && Util::IsPointInRect(rect, point))	//임시
+	{
+		todoListView->OnRButtonDown(point);
+		CView::OnRButtonDblClk(nFlags, point);
+		return;
+	}
+	CView::OnRButtonDown(nFlags, point);
+}

@@ -21,6 +21,7 @@ public:
 	std::vector<AccountInfo> findAccount(int year, int month);
 	std::vector<AccountInfo> findAccount(int year, int month, int day);
 	static AccountData * GetInstance();
-	
+	void eraseAccount(int year, int month, int day);
+
 };
 

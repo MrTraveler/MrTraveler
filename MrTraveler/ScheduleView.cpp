@@ -31,10 +31,11 @@ void ScheduleView::DrawTable(CDC * dc)
 {
 
 	//표바탕 칠하기
-	CBrush brush1(RGB(0x8E, 0xC0, 0xE4));
+	CBrush brush1(RGB(0x4B, 0x68, 0x8B));
+	
 	dc->FillRect(CRect(0, 100, 1000, 100 + (int)((float)900 / 25)),&brush1);
 	dc->FillRect(CRect(0, 100 + (int)((float)900 / 25), 100, 1000), &brush1);
-	CBrush brush2(RGB(0xD4, 0xDF, 0xE6));
+	CBrush brush2(RGB(0x14, 0x31, 0x53));
 	dc->FillRect(CRect(0,0,1000,100), &brush2);
 
 
@@ -60,7 +61,7 @@ void ScheduleView::DrawTable(CDC * dc)
 	CFont *oldFont = dc->SelectObject(&font);
 	dc->SetTextAlign(TA_CENTER);
 	dc->SetBkMode(TRANSPARENT);
-	dc->SetTextColor(RGB(0, 0, 0));
+	dc->SetTextColor(RGB(255,255,255));
 	//여기 아래부터 나중에 데이터로 자동화
 	CTimeSpan oneDay = CTimeSpan(1, 0, 0, 0);
 	dc->TextOut((int)((float)900 / 3 / 2 * 1 + 100), 100, (today - oneDay).Format(_T("%m 월 %d 일")));
@@ -80,7 +81,7 @@ void ScheduleView::DrawTable(CDC * dc)
 	font3.CreatePointFont(500, _T("Consolas"));
 	dc->SelectObject(&font3);
 	dc->SetTextAlign(TA_LEFT);
-	dc->SetTextColor(RGB(0x52, 0x61, 0x6a));
+	dc->SetTextColor(RGB(255, 255, 255));
 	dc->TextOut(50, 17, _T("Schedule"));
 	dc->SelectObject(oldFont);
 }

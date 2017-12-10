@@ -2,7 +2,8 @@
 #include "AccountBookView.h"
 #include "MrTravelerView.h"
 #include "Util.h"
-
+#include "AccountData.h"
+#include "AccountBookDlg.h"
 AccountBookView::AccountBookView()
 {
 	CTime today = CTime::GetCurrentTime();
@@ -23,10 +24,23 @@ void AccountBookView::OnDraw(CDC * dc)
 	dc->SetWindowExt(1000, 1000);
 	dc->SetViewportExt(orgViewRect.right, orgViewRect.bottom);
 	DrawCalander(dc);
-
-	
+	DrawButton(dc);
+	DrawData(dc);
 }
-
+void AccountBookView::DrawData(CDC * dc)
+{
+	std::vector<AccountInfo> v;
+	v = AccountData::GetInstance()->findAccount(year, month);
+	for (int i = 0; i < v.size(); i++)
+	{
+		int day = v[i].day;
+		int col = day % 7;
+		int row = day / 7;
+		CString str;
+		str.Format(_T("%d"), v[i].money);
+		dc->TextOut((int)((float)1000 / 7 * (2 * col + 1) / 2), 180 + (int)((float)820 / 6 * (row * 2 + 1) / 2) - 60, str);
+	}
+}
 void AccountBookView::OnLButtonDown(CPoint point)
 {
 	point.x = (int)(((float)point.x - viewRect.left) / (viewRect.right - viewRect.left) * 1000);
@@ -61,7 +75,27 @@ void AccountBookView::OnLButtonDown(CPoint point)
 
 		if (nowDay >= 1 && nowDay <= nowMonthDay)
 		{
-			
+			AccountBookDlg dlg;
+
+			dlg.m_content = _T("");
+			dlg.m_type = 0;
+			dlg.m_money = 3000;
+			CString str;
+			str.Format(_T("%d³â %d¿ù %dÀÏ"), year, month,nowDay);
+			dlg.m_date = str;
+			dlg.day = nowDay;
+			dlg.month = month;
+			dlg.year = year;
+			dlg.accountList = AccountData::GetInstance()->findAccount(year, month, nowDay);
+			for (int i = 0; i < dlg.accountList.size(); i++)
+			{
+				AccountInfo info = dlg.accountList[i];
+				dlg.m_accountListBox.AddString(info.content);
+			}
+			if (dlg.DoModal() == IDOK)
+			{
+
+			}
 		}
 	}
 	parentView->Invalidate();
@@ -140,6 +174,11 @@ void AccountBookView::DrawCalander(CDC * dc)
 			dc->TextOut((int)((float)1000 / 7 * (2 * j + 1) / 2), 180 + (int)((float)820 / 6 * (i * 2 + 1) / 2) - 20,str);
 			
 		}
-	Util::DrawImage(dc, _T("img\\LeftArrow.png"), CRect(10, 10, 90, 90));
-	Util::DrawImage(dc, _T("img\\RightArrow.png"), CRect(910, 10, 990, 90));
+
+}
+
+void AccountBookView::DrawButton(CDC * dc)
+{
+	Util::DrawImage(dc, _T("img\\scheduleLeftArrow.png"), CRect(10, 10, 90, 90));
+	Util::DrawImage(dc, _T("img\\scheduleRightArrow.png"), CRect(910, 10, 990, 90));
 }
