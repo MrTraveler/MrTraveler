@@ -21,7 +21,7 @@ void Util::DrawImage(CDC * dc,CString path, CRect rect)
 	bmp.GetBitmap(&bmpInfo);
 	memDC.SelectObject(&bmp);
 
-	//ÀÓ½Ã¿ëµµ °ËÀº»öÀ» Åõ¸í»öÀ¸·Î
+	//ìž„ì‹œìš©ë„ ê²€ì€ìƒ‰ì„ íˆ¬ëª…ìƒ‰ìœ¼ë¡œ
 	dc->TransparentBlt(rect.left, rect.top, (rect.right - rect.left), (rect.bottom - rect.top), &memDC, 0, 0, bmpInfo.bmWidth, bmpInfo.bmHeight, RGB(0,0,0));
 }
 bool Util::IsPointInRect(CRect rect, CPoint point)

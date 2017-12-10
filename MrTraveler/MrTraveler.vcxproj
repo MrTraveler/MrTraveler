@@ -185,10 +185,13 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+
     <ClInclude Include="AccountBookView.h" />
     <ClInclude Include="AccountData.h" />
     <ClInclude Include="CalendarView.h" />
     <ClInclude Include="DrawView.h" />
+    <ClInclude Include="CWebBrowser2.h" />
+    <ClInclude Include="InfoVIew.h" />
     <ClInclude Include="json\json-forwards.h" />
     <ClInclude Include="json\json.h" />
     <ClInclude Include="MainFrm.h" />
@@ -211,6 +214,8 @@
     <ClCompile Include="AccountData.cpp" />
     <ClCompile Include="CalendarView.cpp" />
     <ClCompile Include="DrawView.cpp" />
+    <ClCompile Include="CWebBrowser2.cpp" />
+    <ClCompile Include="InfoVIew.cpp" />
     <ClCompile Include="jsoncpp.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="MrTraveler.cpp" />
@@ -234,11 +239,16 @@
     <ResourceCompile Include="MrTraveler.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="GoogleMap.htm">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
     <None Include="res\MrTraveler.rc2" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="img\LeftArrow.png" />
     <Image Include="img\RightArrow.png" />
+    <Image Include="res\bitmap1.bmp" />
     <Image Include="res\MrTraveler.ico" />
     <Image Include="res\MrTravelerDoc.ico" />
     <Image Include="res\Toolbar.bmp" />
@@ -248,7 +258,7 @@
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties RESOURCE_FILE="MrTraveler.rc" />
+      <UserProperties _x007B_8856F961-340A-11D0-A96B-00C04FD705A2_x007D_="CWebBrowser2" RESOURCE_FILE="MrTraveler.rc" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
