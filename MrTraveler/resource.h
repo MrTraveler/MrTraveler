@@ -1,6 +1,6 @@
-Ôªø//{{NO_DEPENDENCIES}}
-// Microsoft Visual C++ÏóêÏÑú ÏÉùÏÑ±Ìïú Ìè¨Ìï® ÌååÏùºÏûÖÎãàÎã§.
-// MrTraveler.rcÏóêÏÑú ÏÇ¨Ïö©ÎêòÍ≥† ÏûàÏäµÎãàÎã§.
+//{{NO_DEPENDENCIES}}
+// Microsoft Visual C++ø°º≠ ª˝º∫«— ∆˜«‘ ∆ƒ¿œ¿‘¥œ¥Ÿ.
+// MrTraveler.rcø°º≠ ªÁøÎµ«∞Ì ¿÷Ω¿¥œ¥Ÿ.
 //
 #define IDD_ABOUTBOX                    100
 #define IDD_FORMVIEW                    101
@@ -18,6 +18,7 @@
 #define IDC_SHOWCOLOR                   1013
 #define IDC_EDIT5                       1018
 #define IDC_BUTTON1                     1019
+#define IDC_BackButton                  1019
 #define IDC_EDIT6                       1021
 #define IDC_EDIT7                       1022
 #define IDC_EDIT8                       1023
@@ -25,6 +26,15 @@
 #define IDC_ExchangeRate1               1028
 #define IDC_KRW                         1030
 #define IDC_EXPLORER1                   1031
+#define IDC_EDITANS                     1037
+#define IDC_BUTTON_PLUS                 1038
+#define IDC_BUTTON_MINUS                1039
+#define IDC_BUTTON_MUL                  1040
+#define IDC_BUTTON_DIV                  1041
+#define IDC_Operator                    1042
+#define IDC_EDITX                       1043
+#define IDC_EDITY                       1044
+#define IDC_EQUAL                       1045
 #define ID_SWITCHVIEW_MRTRAVELER        32771
 #define ID_SWITCHVIEW_INFO              32772
 #define ID_MRTRAVELER                   32773
@@ -34,9 +44,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        330
+#define _APS_NEXT_RESOURCE_VALUE        331
 #define _APS_NEXT_COMMAND_VALUE         32775
-#define _APS_NEXT_CONTROL_VALUE         1032
+#define _APS_NEXT_CONTROL_VALUE         1046
 #define _APS_NEXT_SYMED_VALUE           313
 #endif
 #endif

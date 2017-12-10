@@ -3,7 +3,7 @@
 #include "MrTravelerParceHtml.h"
 #include "CWebBrowser2.h"
 
-
+class CMainFrame;
 
 // CInfoVIew Æû ºäÀÔ´Ï´Ù.
 class CMrTravelerParceHtml;
@@ -33,6 +33,7 @@ protected:
 public:
 	CMrTravelerParceHtml* Parce;
 	int country;
+	int opnum = 0;
 	CComboBox m_Currency_unit;
 	afx_msg void OnCbnSelchangeConutry();
 	CButton m_ExchangeRate1;
@@ -45,6 +46,15 @@ public:
 
 	
 	CString m_conitem=0;
+	afx_msg void OnBnClickedBackbutton();
+	CButton m_btnBack;
+	CString m_Operator;
+	afx_msg void OnBnClickedButtonPlus();
+	afx_msg void OnBnClickedButtonMinus();
+	afx_msg void OnBnClickedButtonMul();
+	afx_msg void OnBnClickedButtonDiv();
+	afx_msg void OnEnChangeEditx();
+	afx_msg void OnEnChangeEdity();
 };
 
 
