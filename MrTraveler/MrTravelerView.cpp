@@ -55,7 +55,6 @@ CMrTravelerView::CMrTravelerView()
 	for (int i = 0; i < 6; i++) 
 		tapRgn[i].CreateRoundRectRgn(i % 7 * 200, 850, (i % 7 + 1) * 200, 900, 20, 20);
 
-
 }
 
 CMrTravelerView::~CMrTravelerView()
@@ -110,6 +109,7 @@ BOOL CMrTravelerView::PreCreateWindow(CREATESTRUCT& cs)
 
 void CMrTravelerView::OnDraw(CDC* pDC)
 {
+
 	CMrTravelerDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
@@ -151,8 +151,10 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 	}
 	else if (clickedTapIndex == 4) {}
 	else if (clickedTapIndex == 5) {
+		clickedTapIndex = 0;
 		CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
 		pFrame->OnInfo();
+		deleteRgn();
 	}
 }
 

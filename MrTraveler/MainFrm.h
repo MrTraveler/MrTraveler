@@ -6,6 +6,7 @@
 #define VIEWID_INFOVIEW AFX_IDW_PANE_FIRST+20
 #pragma once
 class CInfoVIew;
+class CMrTravelerView;
 class CMainFrame : public CFrameWnd
 {
 	

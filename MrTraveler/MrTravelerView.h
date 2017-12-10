@@ -34,8 +34,8 @@ public:
 
 	int startYear, startMonth, startDate, endYear, endMonth, endDate;
 	bool isDragged = FALSE;
-
 	int clickedTapIndex;//클릭된 탭 인덱스
+	
 	CFont font;
 	CDC *pDC;
 // 재정의입니다.

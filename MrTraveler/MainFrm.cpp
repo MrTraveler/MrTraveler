@@ -117,11 +117,11 @@ void CMainFrame::SwitchView(int nID)
 	switch (nID)
 	{
 	case VIEWID_MRTRAVELER:
-		//AfxMessageBox(_T("VIEWID_HTML"));
+//		AfxMessageBox(_T("VIEWID_HTML"));
 		pNewView = (CView*)m_pwndMrTravelerView;
 		break;
 	case VIEWID_INFOVIEW:
-		//AfxMessageBox(_T("VIEWID_EDIT"));
+//		AfxMessageBox(_T("VIEWID_EDIT"));
 		pNewView = (CView*)m_pwndInfoView;
 		break;
 	}
