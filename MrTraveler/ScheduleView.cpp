@@ -30,7 +30,7 @@ void ScheduleView::DrawButton(CDC * dc)
 void ScheduleView::DrawTable(CDC * dc)
 {
 
-	//í‘œë°”íƒ• ì¹ í•˜ê¸°
+	//Ç¥¹ÙÅÁ Ä¥ÇÏ±â
 	CBrush brush1(RGB(0x8E, 0xC0, 0xE4));
 	dc->FillRect(CRect(0, 100, 1000, 100 + (int)((float)900 / 25)),&brush1);
 	dc->FillRect(CRect(0, 100 + (int)((float)900 / 25), 100, 1000), &brush1);
@@ -38,7 +38,7 @@ void ScheduleView::DrawTable(CDC * dc)
 	dc->FillRect(CRect(0,0,1000,100), &brush2);
 
 
-	//í‘œê·¸ë¦¬ê¸°
+	//Ç¥±×¸®±â
 	CPen pen;
 	pen.CreatePen(PS_SOLID, 1, RGB(120, 120, 120));
 	dc->SelectObject(&pen);
@@ -54,20 +54,20 @@ void ScheduleView::DrawTable(CDC * dc)
 		dc->MoveTo((int)((float)900 / 3) * i + 100,100);
 		dc->LineTo((int)((float)900 / 3) * i + 100,1000);
 	}
-	//í‘œ ë¼ë²¨ ê·¸ë¦¬ê¸°
+	//Ç¥ ¶óº§ ±×¸®±â
 	CFont font;
-	font.CreatePointFont(150, _T("ë§‘ì€ ê³ ë”•"));
+	font.CreatePointFont(150, _T("¸¼Àº °íµñ"));
 	CFont *oldFont = dc->SelectObject(&font);
 	dc->SetTextAlign(TA_CENTER);
 	dc->SetBkMode(TRANSPARENT);
 	dc->SetTextColor(RGB(0, 0, 0));
-	//ì—¬ê¸° ì•„ë˜ë¶€í„° ë‚˜ì¤‘ì— ë°ì´í„°ë¡œ ìë™í™”
+	//¿©±â ¾Æ·¡ºÎÅÍ ³ªÁß¿¡ µ¥ÀÌÅÍ·Î ÀÚµ¿È­
 	CTimeSpan oneDay = CTimeSpan(1, 0, 0, 0);
-	dc->TextOut((int)((float)900 / 3 / 2 * 1 + 100), 100, (today - oneDay).Format(_T("%m ì›” %d ì¼")));
-	dc->TextOut((int)((float)900 / 3 / 2 * 3 + 100), 100, today.Format(_T("%m ì›” %d ì¼")));
-	dc->TextOut((int)((float)900 / 3 / 2 * 5 + 100), 100, (today + oneDay).Format(_T("%m ì›” %d ì¼")));
+	dc->TextOut((int)((float)900 / 3 / 2 * 1 + 100), 100, (today - oneDay).Format(_T("%m ¿ù %d ÀÏ")));
+	dc->TextOut((int)((float)900 / 3 / 2 * 3 + 100), 100, today.Format(_T("%m ¿ù %d ÀÏ")));
+	dc->TextOut((int)((float)900 / 3 / 2 * 5 + 100), 100, (today + oneDay).Format(_T("%m ¿ù %d ÀÏ")));
 	CFont font2;
-	font2.CreatePointFont(100, _T("ë§‘ì€ ê³ ë”•"));
+	font2.CreatePointFont(100, _T("¸¼Àº °íµñ"));
 	dc->SelectObject(&font2);
 	dc->SetTextAlign(TA_RIGHT);
 	for (int i = 1; i <= 24; i++)
@@ -90,7 +90,7 @@ void ScheduleView::DrawPlan(CDC * dc)
 	CTimeSpan oneDay = CTimeSpan(1, 0, 0, 0);
 	ht -= oneDay;
 	CFont font;
-	font.CreatePointFont(100, _T("ë§‘ì€ ê³ ë”•"));
+	font.CreatePointFont(100, _T("¸¼Àº °íµñ"));
 	dc->SelectObject(&font);
 	dc->SetTextAlign(TA_LEFT);
 	dc->SetTextColor(RGB(0, 0, 0));
@@ -127,7 +127,7 @@ void ScheduleView::DrawPlan(CDC * dc)
 void ScheduleView::OnDraw(CDC * dc)
 {
 	dc->SetMapMode(MM_ANISOTROPIC);
-	CRect orgViewRect = { 0,0,viewRect.right - viewRect.left, viewRect.bottom - viewRect.top };	//viewì˜ ì›ë˜ í¬ê¸°
+	CRect orgViewRect = { 0,0,viewRect.right - viewRect.left, viewRect.bottom - viewRect.top };	//viewÀÇ ¿ø·¡ Å©±â
 	dc->SetWindowExt(1000, 1000);
 	dc->SetViewportExt(orgViewRect.right, orgViewRect.bottom);
 	DrawBackGround(dc);
@@ -138,13 +138,11 @@ void ScheduleView::OnDraw(CDC * dc)
 void ScheduleView::OnLButtonDown(CPoint point)
 {
 	CTimeSpan oneDay = CTimeSpan(1, 0, 0, 0);
-	//í¬ì¸íŠ¸ ë¹„ìœ¨ ë³€í™˜
+	//Æ÷ÀÎÆ® ºñÀ² º¯È¯
 	point.x = (int)(((float)point.x - viewRect.left) / (viewRect.right - viewRect.left) * 1000);
 	point.y = (int)(((float)point.y - viewRect.top) / (viewRect.bottom - viewRect.top) * 1000);
-	CString str;
-	str.Format(_T("%d , %d"), point.x, point.y);
 	/////////////////
-	if (!Util::IsPointInRect(CRect(0, 0, 1000, 1000), point))	//ë§ˆìš°ìŠ¤ê°€ ë·°ì•ˆì— ìˆì§€ ì•Šì„ë•Œ
+	if (!Util::IsPointInRect(CRect(0, 0, 1000, 1000), point))	//¸¶¿ì½º°¡ ºä¾È¿¡ ÀÖÁö ¾ÊÀ»¶§
 		return;
 	if (Util::IsPointInRect(CRect(810, 10, 890, 90), point))
 		today -= oneDay;
@@ -167,7 +165,7 @@ void ScheduleView::OnLButtonDown(CPoint point)
 
 		PlanDlg planDlg;
 		bool isNew = false;
-		if (v.size() == 1)	//ê¸°ì¡´ì— ìˆëŠ” ë‚´ìš© ìˆ˜ì •
+		if (v.size() == 1)	//±âÁ¸¿¡ ÀÖ´Â ³»¿ë ¼öÁ¤
 		{
 			Plan p = v[0];
 			planDlg.m_color = p.color;
@@ -181,7 +179,7 @@ void ScheduleView::OnLButtonDown(CPoint point)
 			planDlg.m_toTimeMin = p.to.GetMinute();
 			planDlg.m_budget = p.budget;
 		}
-		else // ìƒˆë¡œ ì¶”ê°€
+		else // »õ·Î Ãß°¡
 		{
 			
 			planDlg.m_fromTime = CTime(ct.GetYear(), ct.GetMonth(), ct.GetDay(), 0, 0, 0);
@@ -200,7 +198,7 @@ void ScheduleView::OnLButtonDown(CPoint point)
 			CString title;
 			CString content;
 			COLORREF color;
-			double budget;	//ì›í™” ê¸°ì¤€
+			double budget;	//¿øÈ­ ±âÁØ
 			Plan newPlan = { planDlg.m_fromTime + CTimeSpan(0, planDlg.m_fromTimeHour, planDlg.m_fromTimeMin, 0)
 				, planDlg.m_toTime + CTimeSpan(0, planDlg.m_toTimeHour, planDlg.m_toTimeMin, 0)
 				, planDlg.m_title, planDlg.m_content, planDlg.m_color ,planDlg.m_budget };

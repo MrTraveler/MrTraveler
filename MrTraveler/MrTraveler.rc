@@ -17,7 +17,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// 援�(誘쇨뎅) resources
+// �ѱ���(���ѹα�) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
 LANGUAGE LANG_KOREAN, SUBLANG_DEFAULT
@@ -52,9 +52,9 @@ BEGIN
     "\r\n"
     "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)\r\n"
     "LANGUAGE 18, 1\r\n"
-    "#include ""res\\MrTraveler.rc2""  // Microsoft Visual C++ 댁몄 ㅻⅨ 援ъ 몄 由ъㅼ.\r\n"
-    "#include ""l.KOR\\afxres.rc""      // 以 援ъ \r\n"
-    "#include ""l.KOR\\afxprint.rc""    // 몄 誘몃━ 蹂닿린 由ъ\r\n"
+    "#include ""res\\MrTraveler.rc2""  // Microsoft Visual C++ �̿��� �ٸ� �������� ������ ���ҽ��Դϴ�.\r\n"
+    "#include ""l.KOR\\afxres.rc""      // ǥ�� ���� ���\r\n"
+    "#include ""l.KOR\\afxprint.rc""    // �μ� �̸� ���� ���ҽ�\r\n"
     "#endif\r\n"
     "\0"
 END
@@ -111,41 +111,36 @@ END
 
 IDR_MAINFRAME MENU
 BEGIN
-    POPUP "(&F)"
+    POPUP "����(&F)"
     BEGIN
-        MENUITEM "濡 留ㅺ린(&N)\tCtrl+N",          ID_FILE_NEW
-        MENUITEM "닿린(&O)...\tCtrl+O",           ID_FILE_OPEN
-        MENUITEM "�(&S)\tCtrl+S",              ID_FILE_SAVE
-        MENUITEM "ㅻⅨ 대쇰 �(&A)...",           ID_FILE_SAVE_AS
+        MENUITEM "���� �����(&N)\tCtrl+N",          ID_FILE_NEW
+        MENUITEM "����(&O)...\tCtrl+O",           ID_FILE_OPEN
+        MENUITEM "����(&S)\tCtrl+S",              ID_FILE_SAVE
+        MENUITEM "�ٸ� �̸����� ����(&A)...",           ID_FILE_SAVE_AS
         MENUITEM SEPARATOR
-        MENUITEM "몄(&P)...\tCtrl+P",           ID_FILE_PRINT
-        MENUITEM "몄 誘몃━ 蹂닿린(&V)",                ID_FILE_PRINT_PREVIEW
-        MENUITEM "몄 ㅼ(&R)...",                ID_FILE_PRINT_SETUP
+        MENUITEM "�μ�(&P)...\tCtrl+P",           ID_FILE_PRINT
+        MENUITEM "�μ� �̸� ����(&V)",                ID_FILE_PRINT_PREVIEW
+        MENUITEM "�μ� ����(&R)...",                ID_FILE_PRINT_SETUP
         MENUITEM SEPARATOR
-        MENUITEM "理洹쇱 ъ⑺ ",                  ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM "�ֱٿ� ����� ����",                  ID_FILE_MRU_FILE1, GRAYED
         MENUITEM SEPARATOR
-        MENUITEM "닿린(&X)",                     ID_APP_EXIT
+        MENUITEM "������(&X)",                     ID_APP_EXIT
     END
-    POPUP "몄(&E)"
+    POPUP "����(&E)"
     BEGIN
-        MENUITEM "ㅽ 痍⑥(&U)\tCtrl+Z",           ID_EDIT_UNDO
+        MENUITEM "���� ���(&U)\tCtrl+Z",           ID_EDIT_UNDO
         MENUITEM SEPARATOR
-        MENUITEM "쇰닿린(&T)\tCtrl+X",            ID_EDIT_CUT
-        MENUITEM "蹂듭(&C)\tCtrl+C",              ID_EDIT_COPY
-        MENUITEM "遺щｊ린(&P)\tCtrl+V",            ID_EDIT_PASTE
+        MENUITEM "�߶󳻱�(&T)\tCtrl+X",            ID_EDIT_CUT
+        MENUITEM "����(&C)\tCtrl+C",              ID_EDIT_COPY
+        MENUITEM "�ٿ��ֱ�(&P)\tCtrl+V",            ID_EDIT_PASTE
     END
-    POPUP "蹂닿린(&V)"
+    POPUP "����(&V)"
     BEGIN
-        MENUITEM "援 紐⑥(&T)",                   ID_VIEW_TOOLBAR
+        MENUITEM "���� ����(&T)",                   ID_VIEW_TOOLBAR
     END
-    POPUP "留(&H)"
+    POPUP "����(&H)"
     BEGIN
-        MENUITEM "MrTraveler �蹂(&A)...",        ID_APP_ABOUT
-    END
-    POPUP "Switch View"
-    BEGIN
-        MENUITEM "MrTraveler",                  ID_MRTRAVELER
-        MENUITEM "Info",                        ID_INFO
+        MENUITEM "MrTraveler ����(&A)...",        ID_APP_ABOUT
     END
 END
 
@@ -181,13 +176,13 @@ END
 
 IDD_ABOUTBOX DIALOGEX 0, 0, 170, 62
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "MrTraveler �蹂"
+CAPTION "MrTraveler ����"
 FONT 9, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,14,14,21,20
-    LTEXT           "MrTraveler, 踰� 1.0",IDC_STATIC,42,14,114,8,SS_NOPREFIX
+    LTEXT           "MrTraveler, ���� 1.0",IDC_STATIC,42,14,114,8,SS_NOPREFIX
     LTEXT           "Copyright (C) 2017",IDC_STATIC,42,26,114,8
-    DEFPUSHBUTTON   "",IDOK,113,41,50,14,WS_GROUP
+    DEFPUSHBUTTON   "Ȯ��",IDOK,113,41,50,14,WS_GROUP
 END
 
 
@@ -196,73 +191,31 @@ STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSM
 CAPTION "Plan"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    LTEXT           "�紐",IDC_STATIC,15,17,16,8
-    LTEXT           "댁",IDC_STATIC,15,38,16,8
-    LTEXT           "",IDC_STATIC,244,128,16,8
-    LTEXT           " 媛",IDC_STATIC,21,131,32,8
-    LTEXT           " 媛",IDC_STATIC,14,146,40,8
+    LTEXT           "����",IDC_STATIC,15,17,16,8
+    LTEXT           "����",IDC_STATIC,15,38,16,8
+    LTEXT           "����",IDC_STATIC,244,128,16,8
+    LTEXT           "���� �ð�",IDC_STATIC,21,131,32,8
+    LTEXT           "������ �ð�",IDC_STATIC,14,146,40,8
     EDITTEXT        IDC_EDIT1,40,14,293,14,ES_AUTOHSCROLL
     EDITTEXT        IDC_EDIT2,39,34,295,84,ES_AUTOHSCROLL
     CONTROL         "",IDC_DATETIMEPICKER2,"SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,58,127,100,15
     CONTROL         "",IDC_DATETIMEPICKER3,"SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,58,143,100,15
     CONTROL         "",IDC_SHOWCOLOR,"Static",SS_BLACKFRAME,242,140,78,10
     PUSHBUTTON      "...",IDC_MORECOLOR,325,139,20,11
-    PUSHBUTTON      "",IDOK,243,158,50,14
-    PUSHBUTTON      "痍⑥",IDCANCLE,296,158,50,14
-    LTEXT           "",IDC_STATIC,183,133,8,8
-    LTEXT           "遺",IDC_STATIC,211,147,8,8
+    PUSHBUTTON      "Ȯ��",IDOK,243,158,50,14
+    PUSHBUTTON      "���",IDCANCLE,296,158,50,14
+    LTEXT           "��",IDC_STATIC,183,133,8,8
+    LTEXT           "��",IDC_STATIC,211,147,8,8
     EDITTEXT        IDC_EDIT5,163,127,18,14,ES_AUTOHSCROLL
     EDITTEXT        IDC_EDIT6,163,143,18,14,ES_AUTOHSCROLL
-    LTEXT           "",IDC_STATIC,182,148,8,8
+    LTEXT           "��",IDC_STATIC,182,148,8,8
     EDITTEXT        IDC_EDIT7,191,127,18,14,ES_AUTOHSCROLL
     EDITTEXT        IDC_EDIT8,191,143,18,14,ES_AUTOHSCROLL
-    LTEXT           "遺",IDC_STATIC,211,133,8,8
-    LTEXT           "",IDC_STATIC,36,161,16,8
+    LTEXT           "��",IDC_STATIC,211,133,8,8
+    LTEXT           "����",IDC_STATIC,36,161,16,8
     EDITTEXT        IDC_EDIT3,58,159,100,15,ES_AUTOHSCROLL
-    LTEXT           "",IDC_STATIC,164,161,8,8
+    LTEXT           "��",IDC_STATIC,164,161,8,8
 
-END
-
-IDD_DIALOG1 DIALOGEX 0, 0, 355, 182
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "Plan"
-FONT 8, "MS Shell Dlg", 400, 0, 0x1
-BEGIN
-    LTEXT           "제목",IDC_STATIC,15,17,16,8
-    LTEXT           "내용",IDC_STATIC,15,38,16,8
-    LTEXT           "색상",IDC_STATIC,244,128,16,8
-    LTEXT           "시작 시간",IDC_STATIC,21,131,32,8
-    LTEXT           "끝나는 시간",IDC_STATIC,14,146,40,8
-    EDITTEXT        IDC_EDIT1,40,14,293,14,ES_AUTOHSCROLL
-    EDITTEXT        IDC_EDIT2,39,34,295,84,ES_AUTOHSCROLL
-    CONTROL         "",IDC_DATETIMEPICKER2,"SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,58,127,100,15
-    CONTROL         "",IDC_DATETIMEPICKER3,"SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,58,143,100,15
-    CONTROL         "",IDC_SHOWCOLOR,"Static",SS_BLACKFRAME,242,140,78,10
-    PUSHBUTTON      "...",IDC_MORECOLOR,325,139,20,11
-    PUSHBUTTON      "확인",IDOK,243,158,50,14
-    PUSHBUTTON      "취소",IDCANCLE,296,158,50,14
-    LTEXT           "시",IDC_STATIC,183,133,8,8
-    LTEXT           "분",IDC_STATIC,211,147,8,8
-    EDITTEXT        IDC_EDIT5,163,127,18,14,ES_AUTOHSCROLL
-    EDITTEXT        IDC_EDIT6,163,143,18,14,ES_AUTOHSCROLL
-    LTEXT           "시",IDC_STATIC,182,148,8,8
-    EDITTEXT        IDC_EDIT7,191,127,18,14,ES_AUTOHSCROLL
-    EDITTEXT        IDC_EDIT8,191,143,18,14,ES_AUTOHSCROLL
-    LTEXT           "분",IDC_STATIC,211,133,8,8
-    LTEXT           "예산",IDC_STATIC,36,161,16,8
-    EDITTEXT        IDC_EDIT3,58,159,100,15,ES_AUTOHSCROLL
-    LTEXT           "원",IDC_STATIC,164,161,8,8
-END
-
-IDD_FORMVIEW DIALOGEX 0, 0, 723, 478
-STYLE DS_SETFONT | WS_CHILD
-FONT 9, "굴림", 400, 0, 0x0
-BEGIN
-    EDITTEXT        IDC_ExchangeRate1,467,47,83,24,ES_AUTOHSCROLL
-    GROUPBOX        "환율 계산기",IDC_STATIC,452,11,252,74
-    LTEXT           "",IDC_KRW,553,47,141,23,WS_BORDER
-    COMBOBOX        IDC_COUNTRY,466,26,152,77,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
-    CONTROL         "",IDC_EXPLORER1,"{8856F961-340A-11D0-A96B-00C04FD705A2}",WS_TABSTOP,7,38,426,365
 END
 
 
@@ -328,12 +281,7 @@ BEGIN
         RIGHTMARGIN, 348
         TOPMARGIN, 7
         BOTTOMMARGIN, 174
-    END
 
-    IDD_FORMVIEW, DIALOG
-    BEGIN
-        RIGHTMARGIN, 716
-        BOTTOMMARGIN, 416
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -350,294 +298,6 @@ BEGIN
 END
 
 
-IDD_FORMVIEW AFX_DIALOG_LAYOUT
-BEGIN
-    0
-END
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Dialog Info
-//
-
-IDD_FORMVIEW DLGINIT
-BEGIN
-    IDC_COUNTRY, 0x403, 25, 0
-0xc6be, 0xf8b6, 0xa1bf, 0xccb9, 0xaeb8, 0xaec6, 0xb520, 0xb8f0, 0xc7a3, 
-0x28d4, 0x4541, 0x2944, "\000" 
-    IDC_COUNTRY, 0x403, 21, 0
-0xc6be, 0xa3b8, 0xdeb8, 0xcfb4, 0xc6be, 0xb520, 0xb6e5, 0x28f7, 0x4d41, 
-0x2944, "\000" 
-    IDC_COUNTRY, 0x403, 30, 0
-0xd7b3, 0xfab4, 0xf5b6, 0xe5b5, 0xc9b7, 0xbe20, 0xc6c8, 0xb7bf, 0xbdb9, 
-0x20ba, 0xd9c8, 0xf8b4, 0x4128, 0x474e, 0x0029, 
-    IDC_COUNTRY, 0x403, 17, 0
-0xd3be, 0xf1b0, 0xf3b6, 0xc420, 0xc0e4, 0x28da, 0x4f41, 0x2941, "\000" 
-    IDC_COUNTRY, 0x403, 21, 0
-0xc6be, 0xa3b8, 0xeec7, 0xbcc6, 0xaab3, 0xc620, 0xbce4, 0x28d2, 0x5241, 
-0x2953, "\000" 
-    IDC_COUNTRY, 0x403, 25, 0
-0xc0bf, 0xbabd, 0xaec6, 0xb9b7, 0xcfc0, 0xaeb8, 0xc6be, 0xb420, 0xb7de, 
-0x28af, 0x5541, 0x2944, "\000" 
-    IDC_COUNTRY, 0x403, 21, 0
-0xd9b9, 0xa3ba, 0xccc0, 0xb5b5, 0xbabd, 0xb420, 0xb7de, 0x28af, 0x4242, 
-0x2944, "\000" 
-    IDC_COUNTRY, 0x403, 21, 0
-0xe6b9, 0xdbb1, 0xf3b6, 0xa5b5, 0xc3bd, 0xc520, 0xc4b8, 0x28ab, 0x4442, 
-0x2954, "\000" 
-    IDC_COUNTRY, 0x403, 19, 0
-0xd2ba, 0xa1b0, 0xaeb8, 0xc6be, 0xb720, 0xc7b9, 0x28c1, 0x4742, 0x294e, 
-"\000" 
-    IDC_COUNTRY, 0x403, 19, 0
-0xd9b9, 0xb9b7, 0xcec0, 0xb520, 0xb3f0, 0xb8aa, 0x28a3, 0x4842, 0x2944, 
-"\000" 
-    IDC_COUNTRY, 0x403, 17, 0
-0xeaba, 0xf3b6, 0xfac1, 0xc720, 0xbeec, 0x28cb, 0x5242, 0x294c, "\000" 
-    IDC_COUNTRY, 0x403, 17, 0
-0xd9b9, 0xcfc7, 0xb6b8, 0xb420, 0xb7de, 0x28af, 0x5342, 0x2944, "\000" 
-    IDC_COUNTRY, 0x403, 19, 0
-0xb8ba, 0xf7c3, 0xcdbf, 0xaab3, 0xc720, 0xb6ae, 0x28f3, 0x5742, 0x2950, 
-"\000" 
-    IDC_COUNTRY, 0x403, 22, 0
-0xc5bd, 0xba20, 0xb6a7, 0xb7f3, 0xbde7, 0x20ba, 0xe7b7, 0xedba, 0x4228, 
-0x4e59, 0x0029, 
-    IDC_COUNTRY, 0x403, 17, 0
-0xb3c4, 0xaab3, 0xd9b4, 0xb420, 0xb7de, 0x28af, 0x4143, 0x2944, "\000" 
-    IDC_COUNTRY, 0x403, 17, 0
-0xbabd, 0xa7c0, 0xbabd, 0xc720, 0xb6c1, 0x28fb, 0x4843, 0x2946, "\000" 
-    IDC_COUNTRY, 0x403, 15, 0
-0xa5c4, 0xb9b7, 0xc620, 0xbce4, 0x28d2, 0x4c43, 0x2950, "\000" 
-    IDC_COUNTRY, 0x403, 15, 0
-0xdfc1, 0xb9b1, 0xc020, 0xbea7, 0x28c8, 0x4e43, 0x2959, "\000" 
-    IDC_COUNTRY, 0x403, 19, 0
-0xddc4, 0xd2b7, 0xf1ba, 0xc6be, 0xc620, 0xbce4, 0x28d2, 0x4f43, 0x2950, 
-"\000" 
-    IDC_COUNTRY, 0x403, 17, 0
-0xbcc3, 0xdac4, 0xc420, 0xb7da, 0xb3e7, 0x28aa, 0x5a43, 0x294b, "\000" 
-    IDC_COUNTRY, 0x403, 19, 0
-0xa7b5, 0xb6b8, 0xa9c5, 0xc520, 0xb7a9, 0xb3ce, 0x28d7, 0x4b44, 0x294b, 
-"\000" 
-    IDC_COUNTRY, 0x403, 19, 0
-0xb5b5, 0xccb9, 0xcfb4, 0xabc4, 0xc620, 0xbce4, 0x28d2, 0x4f44, 0x2950, 
-"\000" 
-    IDC_COUNTRY, 0x403, 19, 0
-0xccc0, 0xfdc1, 0xaec6, 0xc620, 0xbfc4, 0xb5ee, 0x28e5, 0x4745, 0x2950, 
-"\000" 
-    IDC_COUNTRY, 0x403, 21, 0
-0xa1bf, 0xbcc6, 0xc0bf, 0xc7c7, 0xc6be, 0xba20, 0xb8f1, 0x28a3, 0x5445, 
-0x2942, "\000" 
-    IDC_COUNTRY, 0x403, 10, 0
-0xafc0, 0xceb7, 0x4528, 0x5255, 0x0029, 
-    IDC_COUNTRY, 0x403, 15, 0
-0xc7c7, 0xf6c1, 0xb420, 0xb7de, 0x28af, 0x4a46, 0x2944, "\000" 
-    IDC_COUNTRY, 0x403, 19, 0
-0xc4c6, 0xeebf, 0xe5b5, 0xbd20, 0xc5ba, 0xb8d0, 0x28b5, 0x4247, 0x2950, 
-"\000" 
-    IDC_COUNTRY, 0x403, 15, 0
-0xa1b0, 0xaab3, 0xbc20, 0xb5bc, 0x28f0, 0x4847, 0x2953, "\000" 
-    IDC_COUNTRY, 0x403, 19, 0
-0xfab0, 0xd7c5, 0xbbb8, 0xf3b6, 0xc420, 0xc2c9, 0x28fb, 0x5447, 0x2951, 
-"\000" 
-    IDC_COUNTRY, 0x403, 15, 0
-0xabc8, 0xe1c4, 0xb420, 0xb7de, 0x28af, 0x4b48, 0x2944, "\000" 
-    IDC_COUNTRY, 0x403, 21, 0
-0xc2bf, 0xceb5, 0xf3b6, 0xbabd, 0xb720, 0xc7bd, 0xb6c7, 0x28f3, 0x4e48, 
-0x294c, "\000" 
-    IDC_COUNTRY, 0x403, 22, 0
-0xa9c5, 0xceb7, 0xc6be, 0xbcc6, 0xc6be, 0xc420, 0x20ed, 0xaab3, 0x4828, 
-0x4b52, 0x0029, 
-    IDC_COUNTRY, 0x403, 19, 0
-0xebc7, 0xa1b0, 0xaeb8, 0xc620, 0xb8f7, 0xc6b0, 0x28ae, 0x5548, 0x2946, 
-"\000" 
-    IDC_COUNTRY, 0x403, 23, 0
-0xcec0, 0xb5b5, 0xd7b3, 0xc3bd, 0xc6be, 0xb720, 0xc7e7, 0xbec7, 0x28c6, 
-0x4449, 0x2952, "\000" 
-    IDC_COUNTRY, 0x403, 22, 0
-0xccc0, 0xbabd, 0xf3b6, 0xa4bf, 0xbd20, 0x20c5, 0xcebc, 0xccc4, 0x4928, 
-0x534c, 0x0029, 
-    IDC_COUNTRY, 0x403, 15, 0
-0xcec0, 0xb5b5, 0xb720, 0xc7e7, 0x28c7, 0x4e49, 0x2952, "\000" 
-    IDC_COUNTRY, 0x403, 19, 0
-0xccc0, 0xf3b6, 0xa9c5, 0xb520, 0xb3f0, 0xb8aa, 0x28a3, 0x5149, 0x2944, 
-"\000" 
-    IDC_COUNTRY, 0x403, 15, 0
-0xccc0, 0xf5b6, 0xb820, 0xbeae, 0x28cb, 0x5249, 0x2952, "\000" 
-    IDC_COUNTRY, 0x403, 23, 0
-0xc6be, 0xccc0, 0xbdbd, 0xf5b6, 0xe5b5, 0xc520, 0xb7a9, 0xb3ce, 0x28aa, 
-0x5349, 0x294b, "\000" 
-    IDC_COUNTRY, 0x403, 19, 0
-0xdac0, 0xdeb8, 0xccc0, 0xabc4, 0xb420, 0xb7de, 0x28af, 0x4d4a, 0x2944, 
-"\000" 
-    IDC_COUNTRY, 0x403, 19, 0
-0xe4bf, 0xa3b8, 0xdcb4, 0xb520, 0xb3f0, 0xb8aa, 0x28a3, 0x4f4a, 0x2944, 
-"\000" 
-    IDC_COUNTRY, 0x403, 13, 0
-0xcfc0, 0xbbba, 0xbf20, 0x28a3, 0x504a, 0x2959, "\000" 
-    IDC_COUNTRY, 0x403, 15, 0
-0xc9c4, 0xc4b3, 0xbd20, 0xb8c7, 0x28b5, 0x454b, 0x2953, "\000" 
-    IDC_COUNTRY, 0x403, 19, 0
-0xafc4, 0xb8ba, 0xf0b5, 0xc6be, 0xb820, 0xbfae, 0x28a4, 0x484b, 0x2952, 
-"\000" 
-    IDC_COUNTRY, 0x403, 21, 0
-0xedc4, 0xfebf, 0xccc0, 0xaec6, 0xb520, 0xb3f0, 0xb8aa, 0x28a3, 0x574b, 
-0x2944, "\000" 
-    IDC_COUNTRY, 0x403, 21, 0
-0xabc4, 0xdac0, 0xe5c8, 0xbabd, 0xbac5, 0xc520, 0xb0de, 0x28d4, 0x5a4b, 
-0x2954, "\000" 
-    IDC_COUNTRY, 0x403, 15, 0
-0xf3b6, 0xc0bf, 0xbabd, 0xc520, 0x28b5, 0x414c, 0x294b, "\000" 
-    IDC_COUNTRY, 0x403, 19, 0
-0xb9b7, 0xd9b9, 0xedb3, 0xc620, 0xbfc4, 0xb5ee, 0x28e5, 0x424c, 0x2950, 
-"\000" 
-    IDC_COUNTRY, 0x403, 19, 0
-0xbabd, 0xaeb8, 0xfbb6, 0xabc4, 0xb720, 0xc7e7, 0x28c7, 0x4b4c, 0x2952, 
-"\000" 
-    IDC_COUNTRY, 0x403, 19, 0
-0xf0b8, 0xceb7, 0xdac4, 0xb520, 0xb8f0, 0xc7a3, 0x28d4, 0x414d, 0x2944, 
-"\000" 
-    IDC_COUNTRY, 0x403, 23, 0
-0xb6b8, 0xc9c4, 0xb5b5, 0xcfb4, 0xc6be, 0xb520, 0xb3a5, 0xb8aa, 0x28a3, 
-0x4b4d, 0x2944, "\000" 
-    IDC_COUNTRY, 0x403, 15, 0
-0xccb9, 0xdfbe, 0xb6b8, 0xc220, 0x28ad, 0x4d4d, 0x294b, "\000" 
-    IDC_COUNTRY, 0x403, 19, 0
-0xf0b8, 0xaeb8, 0xc5bc, 0xbabd, 0xb720, 0xc7e7, 0x28c7, 0x554d, 0x2952, 
-"\000" 
-    IDC_COUNTRY, 0x403, 17, 0
-0xdfb8, 0xc3bd, 0xdac4, 0xc620, 0xbce4, 0x28d2, 0x584d, 0x294e, "\000" 
-    IDC_COUNTRY, 0x403, 21, 0
-0xbbb8, 0xb9b7, 0xccc0, 0xc3bd, 0xc6be, 0xb820, 0xb1b5, 0x28ea, 0x594d, 
-0x2952, "\000" 
-    IDC_COUNTRY, 0x403, 19, 0
-0xaab3, 0xccb9, 0xf1ba, 0xc6be, 0xb420, 0xb7de, 0x28af, 0x414e, 0x2944, 
-"\000" 
-    IDC_COUNTRY, 0x403, 23, 0
-0xaab3, 0xccc0, 0xf6c1, 0xaeb8, 0xc6be, 0xb320, 0xc0aa, 0xb6cc, 0x28f3, 
-0x474e, 0x294e, "\000" 
-    IDC_COUNTRY, 0x403, 21, 0
-0xebb3, 0xa3b8, 0xfebf, 0xccc0, 0xc520, 0xb7a9, 0xb3ce, 0x28d7, 0x4f4e, 
-0x294b, "\000" 
-    IDC_COUNTRY, 0x403, 19, 0
-0xbab4, 0xfac1, 0xa3b7, 0xe5b5, 0xb420, 0xb7de, 0x28af, 0x5a4e, 0x2944, 
-"\000" 
-    IDC_COUNTRY, 0x403, 15, 0
-0xc0bf, 0xb8b8, 0xb820, 0xbeae, 0x28cb, 0x4d4f, 0x2952, "\000" 
-    IDC_COUNTRY, 0x403, 19, 0
-0xc4c6, 0xaab3, 0xb6b8, 0xb920, 0xbadf, 0xbeb8, 0x28c6, 0x4150, 0x2942, 
-"\000" 
-    IDC_COUNTRY, 0x403, 13, 0
-0xe4c6, 0xe7b7, 0xbc20, 0x28d6, 0x4550, 0x294e, "\000" 
-    IDC_COUNTRY, 0x403, 23, 0
-0xc4c6, 0xaac7, 0xc6be, 0xbab4, 0xe2b1, 0xcfb4, 0xc520, 0xb3b0, 0x28aa, 
-0x4750, 0x294b, "\000" 
-    IDC_COUNTRY, 0x403, 18, 0
-0xcac7, 0xaeb8, 0xc9c7, 0xc620, 0x20e4, 0xd2bc, 0x5028, 0x5048, 0x0029, 
-
-    IDC_COUNTRY, 0x403, 19, 0
-0xc4c6, 0xb0c5, 0xbabd, 0xbac5, 0xb720, 0xc7e7, 0x28c7, 0x4b50, 0x2952, 
-"\000" 
-    IDC_COUNTRY, 0x403, 19, 0
-0xfac6, 0xf5b6, 0xe5b5, 0xc120, 0xbfee, 0xc6f6, 0x28bc, 0x4c50, 0x294e, 
-"\000" 
-    IDC_COUNTRY, 0x403, 21, 0
-0xc4c6, 0xf3b6, 0xfab0, 0xccc0, 0xb020, 0xb6fa, 0xb4f3, 0x28cf, 0x5950, 
-0x2947, "\000" 
-    IDC_COUNTRY, 0x403, 17, 0
-0xabc4, 0xb8c5, 0xa3b8, 0xb820, 0xbeae, 0x28e2, 0x4151, 0x2952, "\000" 
-    IDC_COUNTRY, 0x403, 19, 0
-0xe7b7, 0xb6b8, 0xcfb4, 0xc6be, 0xb720, 0xbfb9, 0x28ec, 0x4f52, 0x294e, 
-"\000" 
-    IDC_COUNTRY, 0x403, 21, 0
-0xbcbc, 0xa3b8, 0xf1ba, 0xc6be, 0xb520, 0xb3f0, 0xb8aa, 0x28a3, 0x5352, 
-0x2944, "\000" 
-    IDC_COUNTRY, 0x403, 17, 0
-0xafb7, 0xc3bd, 0xc6be, 0xb720, 0xbae7, 0x28ed, 0x5552, 0x2942, "\000" 
-    IDC_COUNTRY, 0x403, 25, 0
-0xe7bb, 0xecbf, 0xf0b5, 0xc6be, 0xf3b6, 0xf1ba, 0xc6be, 0xb820, 0xbeae, 
-0x28e2, 0x4153, 0x2952, "\000" 
-    IDC_COUNTRY, 0x403, 17, 0
-0xbcbc, 0xccc0, 0xd0bc, 0xb720, 0xc7e7, 0x28c7, 0x4353, 0x2952, "\000" 
-    IDC_COUNTRY, 0x403, 28, 0
-0xbabd, 0xfebf, 0xa7b5, 0xc520, 0xb7a9, 0xb3ce, 0x2faa, 0xa9c5, 0xceb7, 
-0xebb3, 0xa3b8, 0x5328, 0x4b45, 0x0029, 
-    IDC_COUNTRY, 0x403, 19, 0
-0xccbd, 0xa1b0, 0xf7c6, 0xa3b8, 0xb420, 0xb7de, 0x28af, 0x4753, 0x2944, 
-"\000" 
-    IDC_COUNTRY, 0x403, 13, 0
-0xc2c5, 0xb9b1, 0xb920, 0x28e5, 0x4854, 0x2942, "\000" 
-    IDC_COUNTRY, 0x403, 23, 0
-0xb8c5, 0xf6c1, 0xb0c5, 0xbabd, 0xbac5, 0xbc20, 0xb8d2, 0xb4f0, 0x28cf, 
-0x4a54, 0x2953, "\000" 
-    IDC_COUNTRY, 0x403, 19, 0
-0xa2c6, 0xcfb4, 0xf6c1, 0xb520, 0xb3f0, 0xb8aa, 0x28a3, 0x4e54, 0x2944, 
-"\000" 
-    IDC_COUNTRY, 0x403, 15, 0
-0xcdc5, 0xb0c5, 0xb820, 0xb6ae, 0x28f3, 0x5254, 0x2959, "\000" 
-    IDC_COUNTRY, 0x403, 28, 0
-0xaec6, 0xaeb8, 0xcfb4, 0xd9b4, 0xe5b5, 0xc520, 0xb9e4, 0xb0d9, 0x20ed, 
-0xdeb4, 0xafb7, 0x5428, 0x4454, 0x0029, 
-    IDC_COUNTRY, 0x403, 20, 0
-0xc5bd, 0xc520, 0xc0b8, 0xbfcc, 0x20cf, 0xdeb4, 0xafb7, 0x5428, 0x4457, 
-0x0029, 
-    IDC_COUNTRY, 0x403, 20, 0
-0xbac5, 0xdac0, 0xcfb4, 0xc6be, 0xbd20, 0x20c7, 0xb5b8, 0x5428, 0x535a, 
-0x0029, 
-    IDC_COUNTRY, 0x403, 25, 0
-0xecbf, 0xa9c5, 0xf3b6, 0xccc0, 0xaab3, 0xc820, 0xb8e5, 0xbfae, 0xb3ec, 
-0x28c4, 0x4155, 0x2948, "\000" 
-    IDC_COUNTRY, 0x403, 14, 0
-0xccb9, 0xb9b1, 0xdeb4, 0xafb7, 0x5528, 0x4453, 0x0029, 
-    IDC_COUNTRY, 0x403, 19, 0
-0xecbf, 0xe7b7, 0xfab0, 0xccc0, 0xc620, 0xbce4, 0x28d2, 0x5955, 0x2955, 
-"\000" 
-    IDC_COUNTRY, 0x403, 21, 0
-0xecbf, 0xeec1, 0xa3ba, 0xb0c5, 0xbabd, 0xbac5, 0xbc20, 0x28fb, 0x5a55, 
-0x2953, "\000" 
-    IDC_COUNTRY, 0x403, 25, 0
-0xa3ba, 0xd7b3, 0xf6bc, 0xa4bf, 0xf3b6, 0xba20, 0xb8bc, 0xb9ae, 0xb8d9, 
-0x28a3, 0x4556, 0x2946, "\000" 
-    IDC_COUNTRY, 0x403, 16, 0
-0xa3ba, 0xaec6, 0xb2b3, 0x2020, 0xbfb5, 0x5628, 0x444e, 0x0029, 
-    IDC_COUNTRY, 0x403, 19, 0
-0x4643, 0x2041, 0xc1c7, 0xfbb6, 0x4220, 0x4145, 0x2843, 0x4158, 0x2946, 
-"\000" 
-    IDC_COUNTRY, 0x403, 19, 0
-0xbfb5, 0xabc4, 0xaeb8, 0xeaba, 0xb420, 0xb7de, 0x28af, 0x4358, 0x2944, 
-"\000" 
-    IDC_COUNTRY, 0x403, 18, 0
-0x4643, 0xc741, 0xb6c1, 0x42fb, 0x4543, 0x4441, 0x5828, 0x464f, 0x0029, 
-
-    IDC_COUNTRY, 0x403, 13, 0
-0x4643, 0xc750, 0xb6c1, 0x28fb, 0x5058, 0x2946, "\000" 
-    IDC_COUNTRY, 0x403, 28, 0
-0xb2b3, 0xc6be, 0xc1c7, 0xaeb8, 0xabc4, 0xb020, 0xc8f8, 0xb1ad, 0x20b9, 
-0xa3b7, 0xe5b5, 0x5a28, 0x5241, 0x0029, 
-    IDC_COUNTRY, 0x403, 17, 0
-0xe1c0, 0xf1ba, 0xc6be, 0xc420, 0xc2e2, 0x28f7, 0x4d5a, 0x2957, "\000" 
-    IDC_EXPLORER1, 0x376, 160, 0
-0x0000, 0x0000, 0x004c, 0x0000, 0x4672, 0x0000, 0x388e, 0x0000, 0x0000, 
-0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
-0x0000, 0x0000, 0x004c, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0001, 
-0x0000, 0xd0e0, 0x0057, 0x3573, 0x11cf, 0x69ae, 0x0008, 0x2e2b, 0x6212, 
-0x0008, 0x0000, 0x0000, 0x0000, 0x004c, 0x0000, 0x1401, 0x0002, 0x0000, 
-0x0000, 0x00c0, 0x0000, 0x0000, 0x4600, 0x0080, 0x0000, 0x0000, 0x0000, 
-0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
-0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0001, 0x0000, 
-0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
-    0
-END
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// HTML
-//
-
-IDR_HTML_GOOGLEMAP      HTML                    "GoogleMap.htm"
-
-
-
 /////////////////////////////////////////////////////////////////////////////
 //
 // String Table
@@ -651,7 +311,7 @@ END
 STRINGTABLE
 BEGIN
     AFX_IDS_APP_TITLE       "MrTraveler"
-    AFX_IDS_IDLEMESSAGE     "以鍮"
+    AFX_IDS_IDLEMESSAGE     "�غ�"
 END
 
 STRINGTABLE
@@ -666,98 +326,98 @@ END
 
 STRINGTABLE
 BEGIN
-    ID_FILE_NEW             " 臾몄瑜 留�.\n濡 留ㅺ린"
-    ID_FILE_OPEN            "湲곗〈 臾몄瑜 쎈.\n닿린"
-    ID_FILE_CLOSE           " 臾몄瑜 レ듬.\nリ린"
-    ID_FILE_SAVE            " 臾몄瑜 �ν⑸.\n�"
-    ID_FILE_SAVE_AS         " 臾몄瑜  대쇰 �ν⑸.\nㅻⅨ 대쇰 �"
-    ID_FILE_PAGE_SETUP      "몄 듭 蹂寃쏀⑸.\n댁 ㅼ"
-    ID_FILE_PRINT_SETUP     "由고 諛 몄 듭 蹂寃쏀⑸.\n몄 ㅼ"
-    ID_FILE_PRINT           " 臾몄瑜 몄⑸.\n몄"
-    ID_FILE_PRINT_DIRECT    " 듭 ъ⑺  臾몄瑜 몄⑸.\n鍮瑜 몄"
-    ID_FILE_PRINT_PREVIEW   "�泥 댁瑜 ⑸.\n몄 誘몃━ 蹂닿린"
+    ID_FILE_NEW             "�� ������ ����ϴ�.\n���� �����"
+    ID_FILE_OPEN            "���� ������ ���ϴ�.\n����"
+    ID_FILE_CLOSE           "Ȱ�� ������ �ݽ��ϴ�.\n�ݱ�"
+    ID_FILE_SAVE            "Ȱ�� ������ �����մϴ�.\n����"
+    ID_FILE_SAVE_AS         "Ȱ�� ������ �� �̸����� �����մϴ�.\n�ٸ� �̸����� ����"
+    ID_FILE_PAGE_SETUP      "�μ� �ɼ��� �����մϴ�.\n������ ����"
+    ID_FILE_PRINT_SETUP     "������ �� �μ� �ɼ��� �����մϴ�.\n�μ� ����"
+    ID_FILE_PRINT           "Ȱ�� ������ �μ��մϴ�.\n�μ�"
+    ID_FILE_PRINT_DIRECT    "���� �ɼ��� ����Ͽ� Ȱ�� ������ �μ��մϴ�.\n���� �μ�"
+    ID_FILE_PRINT_PREVIEW   "��ü �������� ǥ���մϴ�.\n�μ� �̸� ����"
 END
 
 STRINGTABLE
 BEGIN
-    ID_APP_ABOUT            "濡洹몃 �蹂, 踰� 踰 諛 �沅 ⑸.\n�蹂"
-    ID_APP_EXIT             "臾몄瑜 �ν吏瑜 臾산�  濡洹몃⑥ .\n닿린"
+    ID_APP_ABOUT            "���α׷� ����, ���� ��ȣ �� ���۱��� ǥ���մϴ�.\n����"
+    ID_APP_EXIT             "������ ���������� ���� ���� ���α׷��� �����ϴ�.\n������"
 END
 
 STRINGTABLE
 BEGIN
-    ID_FILE_MRU_FILE1       " 臾몄瑜 쎈."
-    ID_FILE_MRU_FILE2       " 臾몄瑜 쎈."
-    ID_FILE_MRU_FILE3       " 臾몄瑜 쎈."
-    ID_FILE_MRU_FILE4       " 臾몄瑜 쎈."
-    ID_FILE_MRU_FILE5       " 臾몄瑜 쎈."
-    ID_FILE_MRU_FILE6       " 臾몄瑜 쎈."
-    ID_FILE_MRU_FILE7       " 臾몄瑜 쎈."
-    ID_FILE_MRU_FILE8       " 臾몄瑜 쎈."
-    ID_FILE_MRU_FILE9       " 臾몄瑜 쎈."
-    ID_FILE_MRU_FILE10      " 臾몄瑜 쎈."
-    ID_FILE_MRU_FILE11      " 臾몄瑜 쎈."
-    ID_FILE_MRU_FILE12      " 臾몄瑜 쎈."
-    ID_FILE_MRU_FILE13      " 臾몄瑜 쎈."
-    ID_FILE_MRU_FILE14      " 臾몄瑜 쎈."
-    ID_FILE_MRU_FILE15      " 臾몄瑜 쎈."
-    ID_FILE_MRU_FILE16      " 臾몄瑜 쎈."
+    ID_FILE_MRU_FILE1       "���� ������ ���ϴ�."
+    ID_FILE_MRU_FILE2       "���� ������ ���ϴ�."
+    ID_FILE_MRU_FILE3       "���� ������ ���ϴ�."
+    ID_FILE_MRU_FILE4       "���� ������ ���ϴ�."
+    ID_FILE_MRU_FILE5       "���� ������ ���ϴ�."
+    ID_FILE_MRU_FILE6       "���� ������ ���ϴ�."
+    ID_FILE_MRU_FILE7       "���� ������ ���ϴ�."
+    ID_FILE_MRU_FILE8       "���� ������ ���ϴ�."
+    ID_FILE_MRU_FILE9       "���� ������ ���ϴ�."
+    ID_FILE_MRU_FILE10      "���� ������ ���ϴ�."
+    ID_FILE_MRU_FILE11      "���� ������ ���ϴ�."
+    ID_FILE_MRU_FILE12      "���� ������ ���ϴ�."
+    ID_FILE_MRU_FILE13      "���� ������ ���ϴ�."
+    ID_FILE_MRU_FILE14      "���� ������ ���ϴ�."
+    ID_FILE_MRU_FILE15      "���� ������ ���ϴ�."
+    ID_FILE_MRU_FILE16      "���� ������ ���ϴ�."
 END
 
 STRINGTABLE
 BEGIN
-    ID_NEXT_PANE            "ㅼ 李쎌쇰 �⑸.\nㅼ 李"
-    ID_PREV_PANE            "댁 李쎌쇰 �⑸.\n댁 李"
+    ID_NEXT_PANE            "���� â���� ��ȯ�մϴ�.\n���� â"
+    ID_PREV_PANE            "���� â���� ��ȯ�մϴ�.\n���� â"
 END
 
 STRINGTABLE
 BEGIN
-    ID_WINDOW_SPLIT         " 李쎌 щ 媛 李쎌쇰 遺⑸.\n遺"
+    ID_WINDOW_SPLIT         "Ȱ�� â�� ���� ���� â���� �����մϴ�.\n����"
 END
 
 STRINGTABLE
 BEGIN
-    ID_EDIT_CLEAR           " � 吏.\n吏곌린"
-    ID_EDIT_CLEAR_ALL       "紐⑤ 吏.\n紐⑤ 吏곌린"
-    ID_EDIT_COPY            " � 蹂듭ы 대┰蹂대 ｌ듬.\n蹂듭"
-    ID_EDIT_CUT             " � 쇰댁 대┰蹂대 ｌ듬.\n쇰닿린"
-    ID_EDIT_FIND            "吏� ㅽ몃� 李얠듬.\n李얘린"
-    ID_EDIT_PASTE           "대┰蹂대 댁⑹ 쎌⑸.\n遺щｊ린"
-    ID_EDIT_REPEAT          "留吏留  諛蹂듯⑸.\n諛蹂"
-    ID_EDIT_REPLACE         "뱀 ㅽ몃� ㅻⅨ ㅽ몃 諛轅.\n諛袁멸린"
-    ID_EDIT_SELECT_ALL      "�泥 臾몄瑜 ⑸.\n紐⑤ "
-    ID_EDIT_UNDO            "留吏留  ㅽ 痍⑥⑸.\nㅽ 痍⑥"
-    ID_EDIT_REDO            "댁 ㅽ 痍⑥  ㅼ ㅽ⑸.\nㅼ ㅽ"
+    ID_EDIT_CLEAR           "���� ������ ����ϴ�.\n�����"
+    ID_EDIT_CLEAR_ALL       "��� ����ϴ�.\n��� �����"
+    ID_EDIT_COPY            "���� ������ �����Ͽ� Ŭ�����忡 �ֽ��ϴ�.\n����"
+    ID_EDIT_CUT             "���� ������ �߶󳻾� Ŭ�����忡 �ֽ��ϴ�.\n�߶󳻱�"
+    ID_EDIT_FIND            "������ �ؽ�Ʈ�� ã���ϴ�.\nã��"
+    ID_EDIT_PASTE           "Ŭ������ ������ �����մϴ�.\n�ٿ��ֱ�"
+    ID_EDIT_REPEAT          "������ �۾��� �ݺ��մϴ�.\n�ݺ�"
+    ID_EDIT_REPLACE         "Ư�� �ؽ�Ʈ�� �ٸ� �ؽ�Ʈ�� �ٲߴϴ�.\n�ٲٱ�"
+    ID_EDIT_SELECT_ALL      "��ü ������ �����մϴ�.\n��� ����"
+    ID_EDIT_UNDO            "������ �۾� ������ ����մϴ�.\n���� ���"
+    ID_EDIT_REDO            "������ ���� ��ҵ� �۾��� �ٽ� �����մϴ�.\n�ٽ� ����"
 END
 
 STRINGTABLE
 BEGIN
-    ID_VIEW_TOOLBAR         "援 紐⑥ 嫄곕 ④.\n援 紐⑥ ㅼ/댁"
+    ID_VIEW_TOOLBAR         "���� ������ ǥ���ϰų� ����ϴ�.\n���� ���� ����/����"
 END
 
 STRINGTABLE
 BEGIN
-    AFX_IDS_SCSIZE          "李 ш린瑜 蹂寃쏀⑸."
-    AFX_IDS_SCMOVE          "李 移瑜 蹂寃쏀⑸."
-    AFX_IDS_SCMINIMIZE      "李쎌 댁쇰 異⑸."
-    AFX_IDS_SCMAXIMIZE      "李쎌 �泥 硫 ш린濡 ⑸."
-    AFX_IDS_SCNEXTWINDOW    "ㅼ 臾몄 李쎌쇰 �⑸."
-    AFX_IDS_SCPREVWINDOW    "댁 臾몄 李쎌쇰 �⑸."
-    AFX_IDS_SCCLOSE         "臾몄瑜 �ν 寃몄 명怨  李쎌 レ듬."
+    AFX_IDS_SCSIZE          "â ũ�⸦ �����մϴ�."
+    AFX_IDS_SCMOVE          "â ��ġ�� �����մϴ�."
+    AFX_IDS_SCMINIMIZE      "â�� ���������� ����մϴ�."
+    AFX_IDS_SCMAXIMIZE      "â�� ��ü ȭ�� ũ��� Ȯ���մϴ�."
+    AFX_IDS_SCNEXTWINDOW    "���� ���� â���� ��ȯ�մϴ�."
+    AFX_IDS_SCPREVWINDOW    "���� ���� â���� ��ȯ�մϴ�."
+    AFX_IDS_SCCLOSE         "������ ������ ������ Ȯ���ϰ� Ȱ�� â�� �ݽ��ϴ�."
 END
 
 STRINGTABLE
 BEGIN
-    AFX_IDS_SCRESTORE       "李쎌 蹂댄 ш린濡 蹂듭⑸."
-    AFX_IDS_SCTASKLIST      " 紐⑸ 깊⑸."
+    AFX_IDS_SCRESTORE       "â�� ���� ũ��� �����մϴ�."
+    AFX_IDS_SCTASKLIST      "�۾� ����� Ȱ��ȭ�մϴ�."
 END
 
 STRINGTABLE
 BEGIN
-    AFX_IDS_PREVIEW_CLOSE   "몄 誘몃━ 蹂닿린 紐⑤瑜 レ듬.\n誘몃━ 蹂닿린 痍⑥"
+    AFX_IDS_PREVIEW_CLOSE   "�μ� �̸� ���� ��带 �ݽ��ϴ�.\n�̸� ���� ���"
 END
 
-#endif    // 援�(誘쇨뎅) resources
+#endif    // �ѱ���(���ѹα�) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
@@ -773,9 +433,9 @@ END
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
 LANGUAGE 18, 1
-#include "res\MrTraveler.rc2"  // Microsoft Visual C++ 댁몄 ㅻⅨ 援ъ 몄 由ъㅼ.
-#include "l.KOR\afxres.rc"      // 以 援ъ 
-#include "l.KOR\afxprint.rc"    // 몄 誘몃━ 蹂닿린 由ъ
+#include "res\MrTraveler.rc2"  // Microsoft Visual C++ �̿��� �ٸ� �������� ������ ���ҽ��Դϴ�.
+#include "l.KOR\afxres.rc"      // ǥ�� ���� ���
+#include "l.KOR\afxprint.rc"    // �μ� �̸� ���� ���ҽ�
 #endif
 
 /////////////////////////////////////////////////////////////////////////////

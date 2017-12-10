@@ -19,7 +19,6 @@
 #include "TodoData.h"
 #include "PlanData.h"
 #include "AccountBookView.h"
-#include "MainFrm.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -49,7 +48,8 @@ CMrTravelerView::CMrTravelerView()
 	clickedTapIndex=0;//클릭된 탭 인덱스
 	dragFlag = false;
 	CMrTravelerParceHtml *x = new CMrTravelerParceHtml();
-	//x->ParceHtml(_T("https://v3.exchangerate-api.com/bulk/3090405efae2c21d79cc569c/KRW"), _T("ExchangeRate.json"));
+	x->ParceHtml(_T("https://v3.exchangerate-api.com/bulk/3090405efae2c21d79cc569c/KRW"), _T("ExchangeRate.json"));
+	x->RoadExchangeRate();
 	testinit();
 	//rgn 생성
 	for (int i = 0; i < 6; i++) 
@@ -149,11 +149,10 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 		rect.bottom = 840;
 		accountBookView->StartView(rect, this);
 		accountBookView->OnDraw(pDC);
-	else if (clickedTapIndex == 4) {}
-	else if (clickedTapIndex == 5) {
-		CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
-		pFrame->OnInfo();
 	}
+	else if (clickedTapIndex == 4) {}
+	else if (clickedTapIndex == 5) {}
+}
 
 
 void CMrTravelerView::drawTapRgn(CDC * pDC)
