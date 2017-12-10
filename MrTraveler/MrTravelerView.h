@@ -8,6 +8,7 @@ class TodoListView;
 class ScheduleView;
 class CalendarView;
 class TodoData;
+class AccountBookView;
 class CMrTravelerDoc;
 class CMrTravelerView : public CView
 {
@@ -24,6 +25,7 @@ public:
 	TodoListView* todoListView;
 	ScheduleView* scheduleView;
 	CalendarView* calendarView;
+	AccountBookView * accountBookView;
 	CPoint m_pt;
 	CRgn tapRgn[6];
 	bool dragFlag;

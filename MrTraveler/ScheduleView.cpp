@@ -133,7 +133,6 @@ void ScheduleView::OnDraw(CDC * dc)
 	DrawBackGround(dc);
 	DrawPlan(dc);
 	DrawTable(dc);
-
 	DrawButton(dc);
 }
 void ScheduleView::OnLButtonDown(CPoint point)
@@ -142,8 +141,6 @@ void ScheduleView::OnLButtonDown(CPoint point)
 	//포인트 비율 변환
 	point.x = (int)(((float)point.x - viewRect.left) / (viewRect.right - viewRect.left) * 1000);
 	point.y = (int)(((float)point.y - viewRect.top) / (viewRect.bottom - viewRect.top) * 1000);
-	CString str;
-	str.Format(_T("%d , %d"), point.x, point.y);
 	/////////////////
 	if (!Util::IsPointInRect(CRect(0, 0, 1000, 1000), point))	//마우스가 뷰안에 있지 않을때
 		return;
