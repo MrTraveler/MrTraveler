@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "MrTraveler.h"
 #include "TodoDlg.h"
-#include "afxdialogex.h"
+#include "afxdialogex.h"+
 #include "TodoData.h"
 
 // TodoDlg 대화 상자입니다.
@@ -38,6 +38,8 @@ BEGIN_MESSAGE_MAP(TodoDlg, CDialogEx)
 	ON_BN_CLICKED(IDOK, &TodoDlg::OnBnClickedOk)
 	ON_BN_CLICKED(IDC_BUTTON4, &TodoDlg::OnBnClickedButton4)
 	ON_WM_CREATE()
+	ON_BN_CLICKED(IDC_BUTTON5, &TodoDlg::OnBnClickedButton5)
+	ON_BN_CLICKED(IDDELETE, &TodoDlg::OnBnClickedDelete)
 END_MESSAGE_MAP()
 
 
@@ -47,12 +49,14 @@ END_MESSAGE_MAP()
 void TodoDlg::OnBnClickedOk()
 {
 	int count = todoListBox.GetCount();
+	std::vector<CString> v;
 	for (int i = 0; i < count; i++)
 	{
 		CString str;
 		todoListBox.GetText(i, str);
-		ptodo->list.push_back(str);
+		v.push_back(str);
 	}
+	ptodo->list = v;
 	CDialogEx::OnOK();
 }
 
@@ -69,8 +73,21 @@ BOOL TodoDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	// TODO:  여기에 추가 초기화 작업을 추가합니다.
+	for (int i = 0; i < ptodo->list.size(); i++)
+		todoListBox.AddString(ptodo->list[i]);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+}
+
+
+void TodoDlg::OnBnClickedButton5()	//할일체크
+{
+	todoListBox.DeleteString(todoListBox.GetCurSel());
+}
+
+
+void TodoDlg::OnBnClickedDelete()
+{
+	EndDialog(IDDELETE);
 }

@@ -1,0 +1,67 @@
+From 57f32889f5fbaa2b7c7a5fcfd4b72e24d2e39b79 Mon Sep 17 00:00:00 2001
+From: "DESKTOP-U4SF2IL\\Chicken" <dnfl182@naver.com>
+Date: Mon, 11 Dec 2017 12:07:12 +0900
+Subject: [PATCH] BugFix
+
+---
+ MrTraveler/MrTravelerView.cpp | 11 ++++++++---
+ MrTraveler/TodoListView.cpp   |  1 +
+ 2 files changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/MrTraveler/MrTravelerView.cpp b/MrTraveler/MrTravelerView.cpp
+index c7da537..2e8c338 100644
+--- a/MrTraveler/MrTravelerView.cpp
++++ b/MrTraveler/MrTravelerView.cpp
+@@ -117,9 +117,6 @@ void CMrTravelerView::OnDraw(CDC* pDC)
+ 	if (!pDoc)
+ 		return;
+ 		//탭 리전 생성 및 출력
+-	drawTapRgn(pDC);
+-	drawTapText(pDC);
+-
+ 	CRect window;
+ 	GetWindowRect(&window);
+ 	if (clickedTapIndex == 0)
+@@ -154,12 +151,19 @@ void CMrTravelerView::OnDraw(CDC* pDC)
+ 	}
+ 	else if (clickedTapIndex == 4) {}
+ 	else if (clickedTapIndex == 5) {}
++	pDC->SetMapMode(MM_TEXT);
++	drawTapRgn(pDC);
++	drawTapText(pDC);
+ }
+ 
+ 
+ void CMrTravelerView::drawTapRgn(CDC * pDC)
+ {
+ 	//CRgn tapRgn[6] 탭 리전 전역변수 선언
++	CRect rect;
++	GetClientRect(&rect);
++	rect.top = 840;
++	pDC->FillRect(rect, &CBrush(RGB(255, 255, 255)));
+ 	for (int i = 0; i < 6; i++) {
+ 		pDC->FillRgn(&tapRgn[i], &CBrush(RGB(154, 202, 235)));
+ 	}
+@@ -172,6 +176,7 @@ void CMrTravelerView::drawTapText(CDC * pDC)
+ 		font.CreatePointFont(100, _T("바탕"));
+ 		pDC->SetBkColor(RGB(154, 202, 235));
+ 		pDC->SetTextColor(RGB(255, 255, 255));
++		pDC->SetTextAlign(TA_CENTER);
+ 		pDC->SelectObject(&font);
+ 		if (i == 0)
+ 			pDC->TextOut(25 + i * 200 + 40, 860, _T("캘린더"));
+diff --git a/MrTraveler/TodoListView.cpp b/MrTraveler/TodoListView.cpp
+index 2a9c63c..4204f4c 100644
+--- a/MrTraveler/TodoListView.cpp
++++ b/MrTraveler/TodoListView.cpp
+@@ -57,6 +57,7 @@ void TodoListView::DrawMetro(CDC * dc)
+ 				DrawMetroRect(dc, CRect(1000 / 3, i / 2 * 250 - startDrawY, 1000, (i / 2 + 1) * 250 - startDrawY), &TodoData::GetInstance()->todoList[i + 1], (i + 1) % 4);
+ 		}
+ 	}
++
+ }
+ void TodoListView::OnLButtonDown(CPoint point)
+ {
+-- 
+2.14.1.windows.1
+

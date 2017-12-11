@@ -35,4 +35,5 @@ public:
 	int m_money;
 	CListBox m_accountListBox;
 	CString m_date;
+	virtual BOOL OnInitDialog();
 };
