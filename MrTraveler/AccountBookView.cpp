@@ -29,17 +29,7 @@ void AccountBookView::OnDraw(CDC * dc)
 }
 void AccountBookView::DrawData(CDC * dc)
 {
-	std::vector<AccountInfo> v;
-	v = AccountData::GetInstance()->findAccount(year, month);
-	for (int i = 0; i < v.size(); i++)
-	{
-		int day = v[i].day;
-		int col = day % 7;
-		int row = day / 7;
-		CString str;
-		str.Format(_T("%d"), v[i].money);
-		dc->TextOut((int)((float)1000 / 7 * (2 * col + 1) / 2), 180 + (int)((float)820 / 6 * (row * 2 + 1) / 2) - 60, str);
-	}
+	
 }
 void AccountBookView::OnLButtonDown(CPoint point)
 {
@@ -87,14 +77,16 @@ void AccountBookView::OnLButtonDown(CPoint point)
 			dlg.month = month;
 			dlg.year = year;
 			dlg.accountList = AccountData::GetInstance()->findAccount(year, month, nowDay);
-			for (int i = 0; i < dlg.accountList.size(); i++)
-			{
-				AccountInfo info = dlg.accountList[i];
-				dlg.m_accountListBox.AddString(info.content);
-			}
+		
 			if (dlg.DoModal() == IDOK)
 			{
-
+				AccountData::GetInstance()->eraseAccount(year, month, nowDay);
+				for (int i = 0; i < dlg.accountList.size(); i++)
+				{
+					AccountInfo info = dlg.accountList[i];
+					AccountData::GetInstance()->accountList.push_back(info);
+				}
+				
 			}
 		}
 	}
@@ -126,8 +118,9 @@ void AccountBookView::DrawCalander(CDC * dc)
 	dc->SelectObject(&font1);
 	dc->SetTextAlign(TA_CENTER);
 	dc->SetBkMode(TRANSPARENT);
+	dc->SetTextColor(RGB(255, 255, 255));
 	CTime t = CTime(year, month, 1, 0, 0, 0);
-	dc->TextOutW(500, 20, t.Format(_T("%B %Y")));
+	dc->TextOut(500, 20, t.Format(_T("%B %Y")));
 
 	CFont font2;
 	font2.CreatePointFont(250, _T("Consolas"));
@@ -139,12 +132,17 @@ void AccountBookView::DrawCalander(CDC * dc)
 	font3.CreatePointFont(200, _T("Consolas"));
 	dc->SelectObject(&font3);
 
+	CFont font4;
+	font4.CreatePointFont(250, _T("Consolas"));
+
+	CFont font5;
+	font5.CreatePointFont(120, _T("Consolas"));
+
 	CTime nowMonth = CTime(year, month, 1, 0, 0, 0);
 	int prevMonthDay = Util::GetMonthDay(year - (month == 1 ? 1 : 0), (month % 12) + 1);
 	int nowMonthDay = Util::GetMonthDay(year, month);
 	int startDay = prevMonthDay - (nowMonth.GetDayOfWeek() + 5) % 7;
 	int	printDayState = 0;
-	printf("month : %d year : %d\n", month, year);
 	dc->SetTextColor(RGB(160, 160, 160));
 	for(int i = 0; i < 6; i++)
 		for (int j = 0; j < 7; j++)
@@ -153,26 +151,53 @@ void AccountBookView::DrawCalander(CDC * dc)
 			{
 				startDay = 1;
 				printDayState = 1;
-
-				CFont font4;
-				font4.CreatePointFont(250, _T("Consolas"));
-				dc->SelectObject(&font4);
-				dc->SetTextColor(RGB(0x14, 0x31, 0x53));
 			}
 			else if (printDayState == 1 && startDay == nowMonthDay)
 			{
 				startDay = 1;
 				printDayState = 2;
-				dc->SelectObject(&font3);
-				dc->SetTextColor(RGB(160, 160, 160));
-
 			}
 			else
 				++startDay;
+
+			if (printDayState == 0)
+			{
+				dc->SetTextColor(RGB(160, 160, 160));
+				dc->SelectObject(&font3);
+			}
+			else if (printDayState == 1)
+			{
+				dc->SetTextColor(RGB(0x14, 0x31, 0x53));
+				dc->SelectObject(&font4);
+			}
+			else
+			{
+				dc->SetTextColor(RGB(160, 160, 160));
+				dc->SelectObject(&font3);
+			}
 			CString str;
 			str.Format(_T("%d"), startDay);
-			dc->TextOut((int)((float)1000 / 7 * (2 * j + 1) / 2), 180 + (int)((float)820 / 6 * (i * 2 + 1) / 2) - 20,str);
+			dc->TextOut((int)((float)1000 / 7 * (2 * j + 1) / 2) - 50, 180 + (int)((float)820 / 6 * (i * 2 + 1) / 2) +20,str);
 			
+			if (printDayState == 1)
+			{
+				std::vector<AccountInfo> v = AccountData::GetInstance()->findAccount(year, month, startDay);
+				int budget = 0;
+
+				for (int i = 0; i < v.size(); i++)
+					budget += v[i].money;
+				CString str;
+				str.Format(_T("%d¿ø"), budget);
+				if (budget == 0)
+					dc->SetTextColor(RGB(120, 120, 120));
+				else if (budget < 0)
+					dc->SetTextColor(RGB(0xD2, 0x1A, 0x1A));
+				else
+					dc->SetTextColor(RGB(0x61,0xBB,0x17));
+				dc->SelectObject(&font5);
+				dc->TextOut((int)((float)1000 / 7 * (2 * j + 1) / 2) + 50, 180 + (int)((float)820 / 6 * (i * 2 + 1) / 2) + 30, str);	
+			}
+
 		}
 
 }

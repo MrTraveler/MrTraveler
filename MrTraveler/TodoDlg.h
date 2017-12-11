@@ -31,4 +31,6 @@ public:
 	afx_msg void OnBnClickedOk();
 	afx_msg void OnBnClickedButton4();
 	virtual BOOL OnInitDialog();
+	afx_msg void OnBnClickedButton5();
+	afx_msg void OnBnClickedDelete();
 };

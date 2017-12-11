@@ -13,7 +13,10 @@ AccountData::~AccountData()
 AccountData* AccountData::GetInstance()
 {
 	if (!instanceFlag)
+	{
 		instance = new AccountData();
+		instanceFlag = true;
+	}
 	return instance;
 }
 std::vector<AccountInfo> AccountData::findAccount(int year, int month)
@@ -40,11 +43,14 @@ std::vector<AccountInfo> AccountData::findAccount(int year, int month,int day)
 }
 void AccountData::eraseAccount(int year, int month, int day)
 {
-	auto it = accountList.begin();
-	for (; it != accountList.end(); ++it);
+	for (int i = 0; i < accountList.size(); i++)
 	{
-		AccountInfo info = *it;
+		AccountInfo info = accountList[i];
 		if (info.year == year && info.month == month && info.day == day)
-			it = accountList.erase(it);
+		{
+			accountList.erase(accountList.begin() + i);
+			--i;
+		}
+		
 	}
 }
