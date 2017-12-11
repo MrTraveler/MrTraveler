@@ -153,7 +153,7 @@ void CMrTravelerView::drawTapRgn(CDC * pDC)
 {
 	//CRgn tapRgn[6] 탭 리전 전역변수 선언
 	for (int i = 0; i < 5; i++) {
-		pDC->FillRgn(&tapRgn[i], &CBrush(RGB(154, 202, 235)));
+		pDC->FillRgn(&tapRgn[i], &CBrush(RGB(45,7,107)));
 	}
 }
 
@@ -162,20 +162,20 @@ void CMrTravelerView::drawTapText(CDC * pDC)
 	for (int i = 0; i < 6; i++) {
 		CFont font;
 		font.CreatePointFont(100, _T("바탕"));
-		pDC->SetBkColor(RGB(154, 202, 235));
+		pDC->SetBkColor(RGB(45,7,107));
 		pDC->SetTextColor(RGB(255, 255, 255));
 		pDC->SetTextAlign(TA_CENTER);
 		pDC->SelectObject(&font);
 		if (i == 0)
-			pDC->TextOut(25 + i * 200 + 40, 860, _T("캘린더"));
+			pDC->TextOut(25 + i * 200 + 40+30, 860, _T("캘린더"));
 		else if (i == 1)
-			pDC->TextOut(25 + i * 200 + 50, 860, _T("일정"));
+			pDC->TextOut(25 + i * 200 + 50+22, 860, _T("일정"));
 		else if (i == 2)
-			pDC->TextOut(25 + i * 200 + 30, 860, _T("TO DO List"));
+			pDC->TextOut(25 + i * 200 + 30+30+15, 860, _T("TO DO List"));
 		else if (i == 3)
-			pDC->TextOut(25 + i * 200 + 40, 860, _T("가계부"));
+			pDC->TextOut(25 + i * 200 + 40+30, 860, _T("가계부"));
 		else if (i == 4)
-			pDC->TextOut(25 + i * 200 + 35, 860, _T("INFO"));
+			pDC->TextOut(25 + i * 200 + 35+30, 860, _T("INFO"));
 		//else if (i == 5)
 			//pDC->TextOut(25 + i * 200 + 45, 860, _T("INFO"));
 	}
@@ -240,7 +240,7 @@ void CMrTravelerView::OnLButtonDown(UINT nFlags, CPoint point)
 	rect.bottom = 840;
 
 	//탭 리전 클릭 처리
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < 5; i++) {
 		if (tapRgn[i].PtInRegion(m_pt)) {
 			clickedTapIndex = i;//드래그 시작 일 리전 인덱스
 			dc.FillRgn(&tapRgn[clickedTapIndex], &CBrush(RGB(216, 216, 216)));
