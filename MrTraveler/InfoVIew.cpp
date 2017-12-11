@@ -19,7 +19,7 @@ CInfoVIew::CInfoVIew()
 {
 	Parce = new CMrTravelerParceHtml;
 	Parce->RoadExchangeRate();
-	m_ExchangeRatefont.CreateFont(30, 0, 0, 0, FW_BOLD, FALSE, FALSE, 0, DEFAULT_CHARSET,OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,	DEFAULT_PITCH | FF_SWISS, _T("굴림체"));
+	m_ExchangeRatefont.CreateFont(30, 0, 0, 0, FW_BOLD, FALSE, FALSE, 0, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, _T("굴림체"));
 	country = 0;
 	m_Operator.Format(_T("+"));
 }
@@ -51,6 +51,20 @@ void CInfoVIew::DoDataExchange(CDataExchange* pDX)
 	GetDlgItem(IDC_EQUAL)->SetFont(&m_ExchangeRatefont);
 	GetDlgItem(IDC_Operator)->SetWindowText(m_Operator);
 	GetDlgItem(IDC_EDITY)->SetWindowText(_T("1"));
+	DDX_Control(pDX, IDC_GGoogle, m_GGoogleMap);
+	DDX_Control(pDX, IDC_GExchangeRate, m_GExchangeRate);
+	DDX_Control(pDX, IDC_Calculator, m_GCalculator);
+	DDX_Control(pDX, IDC_GMemo, m_GMemo);
+	DDX_Control(pDX, IDC_EDITX, m_X);
+	DDX_Control(pDX, IDC_Operator, m_operater);
+	DDX_Control(pDX, IDC_EDITY, m_Y);
+	DDX_Control(pDX, IDC_EQUAL, m_Equal);
+	DDX_Control(pDX, IDC_EDITANS, m_Ans);
+	DDX_Control(pDX, IDC_BUTTON_PLUS, m_Add);
+	DDX_Control(pDX, IDC_BUTTON_MINUS, m_Sub);
+	DDX_Control(pDX, IDC_BUTTON_MUL, m_Mul);
+	DDX_Control(pDX, IDC_BUTTON_DIV, m_Div);
+	DDX_Control(pDX, IDC_EDIT1, m_Note);
 }
 
 BEGIN_MESSAGE_MAP(CInfoVIew, CFormView)
@@ -63,6 +77,7 @@ BEGIN_MESSAGE_MAP(CInfoVIew, CFormView)
 	ON_BN_CLICKED(IDC_BUTTON_DIV, &CInfoVIew::OnBnClickedButtonDiv)
 	ON_EN_CHANGE(IDC_EDITX, &CInfoVIew::OnEnChangeEditx)
 	ON_EN_CHANGE(IDC_EDITY, &CInfoVIew::OnEnChangeEdity)
+	ON_WM_SIZE()
 END_MESSAGE_MAP()
 
 
@@ -96,7 +111,7 @@ void CInfoVIew::OnCbnSelchangeConutry()
 	str.Format(_T("%d"), nIndex);
 	country = _ttoi(str);
 	OnEnUpdateExchangerate1();
-//	AfxMessageBox(str);
+	//	AfxMessageBox(str);
 }
 
 
@@ -109,12 +124,12 @@ void CInfoVIew::OnEnUpdateExchangerate1()
 
 	// TODO:  여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	double ER1, ER2;
-	CString str,str2;
+	CString str, str2;
 	GetDlgItem(IDC_ExchangeRate1)->SetFont(&m_ExchangeRatefont);
 	GetDlgItem(IDC_KRW)->SetFont(&m_ExchangeRatefont);
 	GetDlgItem(IDC_ExchangeRate1)->GetWindowText(str);
 	ER1 = _wtof(str);
-	ER2 = ER1*(1/Parce->ExchangeRate[country]);
+	ER2 = ER1*(1 / Parce->ExchangeRate[country]);
 	str2.Format(_T(" = %.2lf원"), ER2);
 	GetDlgItem(IDC_KRW)->SetWindowText(str2);
 
@@ -192,9 +207,9 @@ void CInfoVIew::OnEnChangeEditx()
 	// 이 알림 메시지를 보내지 않습니다.
 
 	// TODO:  여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	if(opnum==0){
+	if (opnum == 0) {
 		double x, y;
-		CString X, Y,ANS;
+		CString X, Y, ANS;
 		GetDlgItem(IDC_EDITX)->GetWindowText(X);
 		GetDlgItem(IDC_EDITY)->GetWindowText(Y);
 		x = _wtof(X);
@@ -202,7 +217,7 @@ void CInfoVIew::OnEnChangeEditx()
 		ANS.Format(_T("%lf"), x + y);
 		GetDlgItem(IDC_EDITANS)->SetWindowText(ANS);
 	}
-	else if(opnum==1){
+	else if (opnum == 1) {
 		double x, y;
 		CString X, Y, ANS;
 		GetDlgItem(IDC_EDITX)->GetWindowText(X);
@@ -212,7 +227,7 @@ void CInfoVIew::OnEnChangeEditx()
 		ANS.Format(_T("%lf"), x - y);
 		GetDlgItem(IDC_EDITANS)->SetWindowText(ANS);
 	}
-	else if(opnum==2){
+	else if (opnum == 2) {
 		double x, y;
 		CString X, Y, ANS;
 		GetDlgItem(IDC_EDITX)->GetWindowText(X);
@@ -222,7 +237,7 @@ void CInfoVIew::OnEnChangeEditx()
 		ANS.Format(_T("%lf"), x * y);
 		GetDlgItem(IDC_EDITANS)->SetWindowText(ANS);
 	}
-	else if(opnum==3){
+	else if (opnum == 3) {
 		double x, y;
 		CString X, Y, ANS;
 		GetDlgItem(IDC_EDITX)->GetWindowText(X);
@@ -282,5 +297,207 @@ void CInfoVIew::OnEnChangeEdity()
 		y = _wtof(Y);
 		ANS.Format(_T("%lf"), x / y);
 		GetDlgItem(IDC_EDITANS)->SetWindowText(ANS);
+	}
+}
+
+
+void CInfoVIew::OnSize(UINT nType, int cx, int cy)
+{
+	CFormView::OnSize(nType, cx, cy);
+
+	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
+	CRect clientRect;
+	GetClientRect(clientRect);
+	//그룹 좌표
+	if (m_GGoogleMap.GetSafeHwnd() != NULL) {
+		CRect Rect;
+		m_GGoogleMap.GetWindowRect(Rect);
+		ScreenToClient(Rect);
+		Rect.left = clientRect.right*0.005;
+		Rect.right = clientRect.right*0.63;
+		Rect.top = clientRect.bottom*0.04;
+		Rect.bottom = clientRect.bottom*0.91;
+		m_GGoogleMap.MoveWindow(Rect);
+	}
+	if (m_GExchangeRate.GetSafeHwnd() != NULL) {
+		CRect Rect;
+		m_GExchangeRate.GetWindowRect(Rect);
+		ScreenToClient(Rect);
+		Rect.left = clientRect.right*0.64;
+		Rect.right = clientRect.right*0.99;
+		Rect.top = clientRect.bottom*0.04;
+		Rect.bottom = clientRect.bottom*0.2;
+		m_GExchangeRate.MoveWindow(Rect);
+	}
+	if (m_GCalculator.GetSafeHwnd() != NULL) {
+		CRect Rect;
+		m_GCalculator.GetWindowRect(Rect);
+		ScreenToClient(Rect);
+		Rect.left = clientRect.right*0.64;
+		Rect.right = clientRect.right*0.99;
+		Rect.top = clientRect.bottom*0.21;
+		Rect.bottom = clientRect.bottom*0.42;
+		m_GCalculator.MoveWindow(Rect);
+	}
+	if (m_GMemo.GetSafeHwnd() != NULL) {
+		CRect Rect;
+		m_GCalculator.GetWindowRect(Rect);
+		ScreenToClient(Rect);
+		Rect.left = clientRect.right*0.64;
+		Rect.right = clientRect.right*0.99;
+		Rect.top = clientRect.bottom*0.43;
+		Rect.bottom = clientRect.bottom*0.91;
+		m_GMemo.MoveWindow(Rect);
+	}
+	//컨트롤 좌표
+	if (m_GoogleMap.GetSafeHwnd() != NULL) {
+		CRect Rect;
+		m_GoogleMap.GetWindowRect(Rect);
+		ScreenToClient(Rect);
+		Rect.left = clientRect.right*0.01;
+		Rect.right = clientRect.right*0.62;
+		Rect.top = clientRect.bottom*0.07;
+		Rect.bottom = clientRect.bottom*0.9;
+		m_GoogleMap.MoveWindow(Rect);
+	}
+	if (m_Currency_unit.GetSafeHwnd() != NULL) {
+		CRect Rect;
+		m_Currency_unit.GetWindowRect(Rect);
+		ScreenToClient(Rect);
+		Rect.left = clientRect.right*0.66;
+		Rect.right = clientRect.right*0.85;
+		Rect.top = clientRect.bottom*0.07;
+		Rect.bottom = clientRect.bottom*0.1;
+		m_Currency_unit.MoveWindow(Rect);
+	}
+	if (m_ExchangeRate1.GetSafeHwnd() != NULL) {
+		CRect Rect;
+		m_ExchangeRate1.GetWindowRect(Rect);
+		ScreenToClient(Rect);
+		Rect.left = clientRect.right*0.66;
+		Rect.right = clientRect.right*0.78;
+		Rect.top = clientRect.bottom*0.12;
+		Rect.bottom = clientRect.bottom*0.17;
+		m_ExchangeRate1.MoveWindow(Rect);
+	}
+	if (m_krw.GetSafeHwnd() != NULL) {
+		CRect Rect;
+		m_krw.GetWindowRect(Rect);
+		ScreenToClient(Rect);
+		Rect.left = clientRect.right*0.79;
+		Rect.right = clientRect.right*0.97;
+		Rect.top = clientRect.bottom*0.12;
+		Rect.bottom = clientRect.bottom*0.17;
+		m_krw.MoveWindow(Rect);
+	}
+	if (m_X.GetSafeHwnd() != NULL) {
+		CRect Rect;
+		m_X.GetWindowRect(Rect);
+		ScreenToClient(Rect);
+		Rect.left = clientRect.right*0.66;
+		Rect.right = clientRect.right*0.75;
+		Rect.top = clientRect.bottom*0.255;
+		Rect.bottom = clientRect.bottom*0.305;
+		m_X.MoveWindow(Rect);
+	}
+	if (m_operater.GetSafeHwnd() != NULL) {
+		CRect Rect;
+		m_operater.GetWindowRect(Rect);
+		ScreenToClient(Rect);
+		Rect.left = clientRect.right*0.759;
+		Rect.right = clientRect.right*0.779;
+		Rect.top = clientRect.bottom*0.26;
+		Rect.bottom = clientRect.bottom*0.305;
+		m_operater.MoveWindow(Rect);
+	}
+	if (m_Y.GetSafeHwnd() != NULL) {
+		CRect Rect;
+		m_X.GetWindowRect(Rect);
+		ScreenToClient(Rect);
+		Rect.left = clientRect.right*0.78;
+		Rect.right = clientRect.right*0.86;
+		Rect.top = clientRect.bottom*0.255;
+		Rect.bottom = clientRect.bottom*0.305;
+		m_Y.MoveWindow(Rect);
+	}
+	if (m_Equal.GetSafeHwnd() != NULL) {
+		CRect Rect;
+		m_Equal.GetWindowRect(Rect);
+		ScreenToClient(Rect);
+		Rect.left = clientRect.right*0.867;
+		Rect.right = clientRect.right*0.88;
+		Rect.top = clientRect.bottom*0.26;
+		Rect.bottom = clientRect.bottom*0.305;
+		m_Equal.MoveWindow(Rect);
+	}
+	if (m_Ans.GetSafeHwnd() != NULL) {
+		CRect Rect;
+		m_Ans.GetWindowRect(Rect);
+		ScreenToClient(Rect);
+		Rect.left = clientRect.right*0.885;
+		Rect.right = clientRect.right*0.97;
+		Rect.top = clientRect.bottom*0.255;
+		Rect.bottom = clientRect.bottom*0.305;
+		m_Ans.MoveWindow(Rect);
+	}
+	if (m_Add.GetSafeHwnd() != NULL) {
+		CRect Rect;
+		m_Add.GetWindowRect(Rect);
+		ScreenToClient(Rect);
+		Rect.left = clientRect.right*0.7;
+		Rect.right = clientRect.right*0.74;
+		Rect.top = clientRect.bottom*0.34;
+		Rect.bottom = clientRect.bottom*0.4;
+		m_Add.MoveWindow(Rect);
+	}
+	if (m_Sub.GetSafeHwnd() != NULL) {
+		CRect Rect;
+		m_Sub.GetWindowRect(Rect);
+		ScreenToClient(Rect);
+		Rect.left = clientRect.right*0.76;
+		Rect.right = clientRect.right*0.80;
+		Rect.top = clientRect.bottom*0.34;
+		Rect.bottom = clientRect.bottom*0.4;
+		m_Sub.MoveWindow(Rect);
+	}
+	if (m_Mul.GetSafeHwnd() != NULL) {
+		CRect Rect;
+		m_Mul.GetWindowRect(Rect);
+		ScreenToClient(Rect);
+		Rect.left = clientRect.right*0.82;
+		Rect.right = clientRect.right*0.86;
+		Rect.top = clientRect.bottom*0.34;
+		Rect.bottom = clientRect.bottom*0.4;
+		m_Mul.MoveWindow(Rect);
+	}
+	if (m_Div.GetSafeHwnd() != NULL) {
+		CRect Rect;
+		m_Div.GetWindowRect(Rect);
+		ScreenToClient(Rect);
+		Rect.left = clientRect.right*0.88;
+		Rect.right = clientRect.right*0.92;
+		Rect.top = clientRect.bottom*0.34;
+		Rect.bottom = clientRect.bottom*0.4;
+		m_Div.MoveWindow(Rect);
+	}
+	if (m_Note.GetSafeHwnd() != NULL) {
+		CRect Rect;
+		m_Note.GetWindowRect(Rect);
+		ScreenToClient(Rect);
+		Rect.left = clientRect.right*0.65;
+		Rect.right = clientRect.right*0.98;
+		Rect.top = clientRect.bottom*0.455;
+		Rect.bottom = clientRect.bottom*0.9;
+		m_Note.MoveWindow(Rect);
+	}
+	if (m_btnBack.GetSafeHwnd() != NULL) {
+		CRect Rect;
+		m_btnBack.GetWindowRect(Rect);
+		ScreenToClient(Rect);
+		Rect.left = clientRect.right*0.92;
+		Rect.right = clientRect.right*0.98;
+		Rect.top = clientRect.bottom*0.94;
+		Rect.bottom = clientRect.bottom*0.98;
+		m_btnBack.MoveWindow(Rect);
 	}
 }

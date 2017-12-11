@@ -34,27 +34,41 @@ public:
 	CMrTravelerParceHtml* Parce;
 	int country;
 	int opnum = 0;
-	CComboBox m_Currency_unit;
-	afx_msg void OnCbnSelchangeConutry();
-	CButton m_ExchangeRate1;
-	CButton m_ExchangeRate2;
-	afx_msg void OnEnUpdateExchangerate1();
-	CFont m_ExchangeRatefont;
-	CStatic m_krw;
-	CWebBrowser2 m_GoogleMap;
 	CString GetResURL(int szResID);
-
-	
-	CString m_conitem=0;
+	afx_msg void OnCbnSelchangeConutry();
+	afx_msg void OnEnUpdateExchangerate1();
 	afx_msg void OnBnClickedBackbutton();
-	CButton m_btnBack;
-	CString m_Operator;
 	afx_msg void OnBnClickedButtonPlus();
 	afx_msg void OnBnClickedButtonMinus();
 	afx_msg void OnBnClickedButtonMul();
 	afx_msg void OnBnClickedButtonDiv();
 	afx_msg void OnEnChangeEditx();
 	afx_msg void OnEnChangeEdity();
+	CString m_conitem=0;
+	CString m_Operator;
+	CFont m_ExchangeRatefont;
+	//그룹
+	CStatic m_GGoogleMap;
+	CStatic m_GExchangeRate;
+	CStatic m_GCalculator;
+	CStatic m_GMemo;
+	//컨트롤
+	CWebBrowser2 m_GoogleMap;
+	CComboBox m_Currency_unit;
+	CButton m_ExchangeRate1;
+	CStatic m_krw;
+	CEdit m_X;
+	CStatic m_operater;
+	CEdit m_Y;
+	CStatic m_Equal;
+	CEdit m_Ans;
+	CButton m_Add;
+	CButton m_Sub;
+	CButton m_Mul;
+	CButton m_Div;
+	CEdit m_Note;
+	CButton m_btnBack;
+	afx_msg void OnSize(UINT nType, int cx, int cy);
 };
 
 
