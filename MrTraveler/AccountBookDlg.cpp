@@ -69,8 +69,9 @@ void AccountBookDlg::OnBnClickedAdd()
 		info.money = m_money;
 	else if (m_type == 1)
 		info.money = -m_money;
-	
-	m_accountListBox.AddString(m_content);
+	CString str;
+	str.Format(_T("%-15s%10d"),m_content, (m_type == 0 ? 1 : -1) * m_money);
+	m_accountListBox.AddString(str);
 	accountList.push_back(info);
 }
 
@@ -93,7 +94,9 @@ BOOL AccountBookDlg::OnInitDialog()
 	for (int i = 0; i < accountList.size(); i++)
 	{
 		AccountInfo info = accountList[i];
-		m_accountListBox.AddString(info.content);
+		CString str;
+		str.Format(_T("%-15s%10d"), info.content, info.money);
+		m_accountListBox.AddString(str);
 	}
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
