@@ -11,3 +11,4 @@ MFC Travel Diary Program
 ## 외부 리소스
 * 외부리소스는 웹에서 파싱해오는 자료입니다.
 * [jsoncpp](https://github.com/open-source-parsers/jsoncpp) // json 파싱을 돕는 라이브러리입니다.
+* google map api
