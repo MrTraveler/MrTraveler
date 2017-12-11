@@ -199,5 +199,8 @@
     <Image Include="img\scheduleRightArrow.png">
       <Filter>리소스 파일\img</Filter>
     </Image>
+    <Image Include="img\MrTraveler.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
 </Project>

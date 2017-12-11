@@ -102,9 +102,9 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 	if (!pDoc)
 		return;
 	//탭 리전 생성 및 출력
+	drawLogo(pDC);
 	drawTapRgn(pDC);
 	drawTapText(pDC);
-
 	CRect window;
 	GetWindowRect(&window);
 	if (clickedTapIndex == 0)
@@ -179,6 +179,16 @@ void CMrTravelerView::drawTapText(CDC * pDC)
 		//else if (i == 5)
 			//pDC->TextOut(25 + i * 200 + 45, 860, _T("INFO"));
 	}
+}
+void CMrTravelerView::drawLogo(CDC* pdc){
+	CBitmap bitmap;
+	bitmap.LoadBitmap(IDB_MrTraveler);
+	BITMAP bmpinfo;
+	bitmap.GetBitmap(&bmpinfo);
+	CDC dcmem;
+	dcmem.CreateCompatibleDC(pdc);
+	dcmem.SelectObject(&bitmap);
+	pdc->StretchBlt(1234,839, bmpinfo.bmWidth/5.2,bmpinfo.bmHeight/5.2, &dcmem,0,0,bmpinfo.bmWidth,bmpinfo.bmHeight, SRCCOPY);
 }
 
 void CMrTravelerView::deleteRgn(){

@@ -81,6 +81,8 @@ IDR_MrTravelerTYPE      ICON                    "res\\MrTravelerDoc.ico"
 
 IDR_MAINFRAME           BITMAP                  "res\\Toolbar.bmp"
 
+IDB_MrTraveler          BITMAP                  "img\\MrTraveler.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

@@ -250,6 +250,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="img\LeftArrow.png" />
+    <Image Include="img\MrTraveler.bmp" />
     <Image Include="img\RightArrow.png" />
     <Image Include="img\scheduleLeftArrow.png" />
     <Image Include="img\scheduleRightArrow.png" />

@@ -44,6 +44,7 @@ public:
 	void drawTapRgn(CDC* pDC);
 	void drawTapText(CDC* pDC);
 
+    void drawLogo(CDC* pdc);
 	void deleteRgn();
 	void testinit();
 	void setDrag(int i);
