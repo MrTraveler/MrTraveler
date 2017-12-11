@@ -367,7 +367,7 @@ void CInfoVIew::OnSize(UINT nType, int cx, int cy)
 		Rect.left = clientRect.right*0.66;
 		Rect.right = clientRect.right*0.85;
 		Rect.top = clientRect.bottom*0.07;
-		Rect.bottom = clientRect.bottom*0.1;
+		Rect.bottom = clientRect.bottom*0.4;
 		m_Currency_unit.MoveWindow(Rect);
 	}
 	if (m_ExchangeRate1.GetSafeHwnd() != NULL) {
