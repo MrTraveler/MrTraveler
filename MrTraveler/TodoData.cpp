@@ -32,3 +32,8 @@ void TodoData::TodoAdd(Todo todo)
 {
 	todoList.push_back(todo);
 }
+
+void TodoData::TodoRemove(int n)
+{
+	todoList.erase(todoList.begin() + n);
+}

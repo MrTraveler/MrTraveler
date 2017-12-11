@@ -84,8 +84,8 @@ void TodoListView::OnRButtonDown(CPoint point)
 	{
 		dtodo.title = dlg.title;
 		dtodo.icon = dlg.icon;
+		TodoData::GetInstance()->TodoAdd(dtodo);
 	}
-	TodoData::GetInstance()->TodoAdd(dtodo);
 	parentView->Invalidate();
 }
 void TodoListView::OnLButtonDblClk(CPoint point)
@@ -132,12 +132,17 @@ void TodoListView::OnLButtonDblClk(CPoint point)
 		dlg.icon = dtodo.icon;
 		dlg.todo = _T("");
 		dlg.ptodo = &dtodo;
-		if (dlg.DoModal() == IDOK)
+		int state = 0;
+		if ((state = dlg.DoModal()) == IDOK)
 		{
 			dtodo.title = dlg.title;
 			dtodo.icon = dlg.icon;
+			TodoData::GetInstance()->TodoUpdate(dtodo, row * 2 + col);
 		}
-		TodoData::GetInstance()->TodoUpdate(dtodo, row * 2 + col);	
+		else if(state == 1080)
+		{
+			TodoData::GetInstance()->TodoRemove(row * 2 + col);
+		}
 		parentView->Invalidate();
 	}
 }

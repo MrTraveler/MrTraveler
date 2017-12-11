@@ -117,11 +117,15 @@ void ScheduleView::DrawPlan(CDC * dc)
 				eh = 25;
 			else
 				eh = p.to.GetHour() + (float)p.to.GetMinute() / 60 + 1;
-			printf("pFrom = %d : %d pTo = %d : %d\n", p.from.GetHour(), p.from.GetMinute(), p.to.GetHour(), p.to.GetMinute());
 			dc->FillRect(CRect((int)((float)900 / 3 * i + 100), (sh * 900 / 25) + 100,
 				(int)((float)900 / 3 * (i + 1) + 100), (eh * 900 / 25) + 100), &brush);
-			if(sh != 1)
-				dc->TextOut((int)((float)900 / 3 * i + 100), (sh * 900 / 25) + 100 + 10, p.title);
+			if (sh != 1)
+			{
+				CString str;
+				str.Format(_T("%s          %d¿ø"), p.title, p.budget);
+				dc->TextOut((int)((float)900 / 3 * i + 100), (sh * 900 / 25) + 100 + 10, str);
+			}
+			
 			
 		}
 		ht += oneDay;
@@ -212,9 +216,6 @@ void ScheduleView::OnLButtonDown(CPoint point)
 			Plan newPlan = { planDlg.m_fromTime + CTimeSpan(0, planDlg.m_fromTimeHour, planDlg.m_fromTimeMin, 0)
 				, planDlg.m_toTime + CTimeSpan(0, planDlg.m_toTimeHour, planDlg.m_toTimeMin, 0)
 				, planDlg.m_title, planDlg.m_content, planDlg.m_color ,planDlg.m_budget };
-			printf("%d year %d month %d day %d hour %d min  ,  %d year %d month %d day %d hour %d min\n",
-				newPlan.from.GetYear(), newPlan.from.GetMonth(), newPlan.from.GetDay(), newPlan.from.GetHour(), newPlan.from.GetMinute(), 
-				newPlan.to.GetYear(), newPlan.to.GetMonth(), newPlan.to.GetDay(), newPlan.to.GetHour(), newPlan.to.GetMinute());
 			if (isNew)
 				PlanData::GetInstance()->AddPlan(newPlan);
 			else

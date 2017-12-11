@@ -75,24 +75,8 @@ void CMrTravelerView::testinit()	//테스트 용도로 만든거
 	Todo todo2;
 	todo2.title = _T("Title_2");
 	todo2.icon = 1;
-	Todo todo3;
-	todo3.title = _T("Title_3");
-	todo3.icon = 2;
-	Todo todo4;
-	todo4.title = _T("Title_4");
-	todo4.icon = 3;
-	Todo todo5;
-	todo5.title = _T("Title_5");
-	todo5.icon = 4;
-	Todo todo6;
-	todo6.title = _T("Title_6");
-	todo6.icon = 1;
 	TodoData::GetInstance()->todoList.push_back(todo1);
 	TodoData::GetInstance()->todoList.push_back(todo2);
-	TodoData::GetInstance()->todoList.push_back(todo3);
-	TodoData::GetInstance()->todoList.push_back(todo4);
-	TodoData::GetInstance()->todoList.push_back(todo5);
-	TodoData::GetInstance()->todoList.push_back(todo6);
 
 	PlanData::GetInstance()->AddPlan(CTime(2017, 12, 05, 10, 5, 0), CTime(2017, 12, 06, 10, 5, 0), _T("치킨 뜯기")
 		, _T(""), RGB(255, 154, 23),10000);
@@ -158,6 +142,10 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 		pFrame->OnInfo();
 		deleteRgn();
 	}
+
+	pDC->SetMapMode(MM_TEXT);
+	drawTapRgn(pDC);
+	drawTapText(pDC);
 }
 
 
@@ -176,6 +164,7 @@ void CMrTravelerView::drawTapText(CDC * pDC)
 		font.CreatePointFont(100, _T("바탕"));
 		pDC->SetBkColor(RGB(154, 202, 235));
 		pDC->SetTextColor(RGB(255, 255, 255));
+		pDC->SetTextAlign(TA_CENTER);
 		pDC->SelectObject(&font);
 		if (i == 0)
 			pDC->TextOut(25 + i * 200 + 40, 860, _T("캘린더"));

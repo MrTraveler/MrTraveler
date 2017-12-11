@@ -37,7 +37,6 @@ void AccountBookDlg::DoDataExchange(CDataExchange* pDX)		//DDX 버그있음 알아서 �
 
 
 BEGIN_MESSAGE_MAP(AccountBookDlg, CDialogEx)
-	ON_BN_CLICKED(IDC_MODIFY, &AccountBookDlg::OnBnClickedModify)
 	ON_BN_CLICKED(IDC_DELETE, &AccountBookDlg::OnBnClickedDelete)
 	ON_BN_CLICKED(IDC_ADD, &AccountBookDlg::OnBnClickedAdd)
 	ON_LBN_SELCHANGE(IDC_LIST2, &AccountBookDlg::OnLbnSelchangeList2)
@@ -47,21 +46,21 @@ END_MESSAGE_MAP()
 // AccountBookDlg 메시지 처리기입니다.
 
 
-void AccountBookDlg::OnBnClickedModify()
-{
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-}
-
 
 void AccountBookDlg::OnBnClickedDelete()
 {
-
+	int sel = m_accountListBox.GetCurSel();
+	if (sel == LB_ERR)
+		return;
+	m_accountListBox.DeleteString(sel);
+	accountList.erase(accountList.begin() + sel);
 }
 
 
 void AccountBookDlg::OnBnClickedAdd()
 {
 	AccountInfo info;
+	UpdateData(true);
 	info.content = m_content;
 	info.day = day;
 	info.month = month;
@@ -70,18 +69,35 @@ void AccountBookDlg::OnBnClickedAdd()
 		info.money = m_money;
 	else if (m_type == 1)
 		info.money = -m_money;
-	printf("m_content  : %s\n", m_content);
-	m_accountListBox.AddString(m_content);
+	CString str;
+	str.Format(_T("%-15s%10d"),m_content, (m_type == 0 ? 1 : -1) * m_money);
+	m_accountListBox.AddString(str);
 	accountList.push_back(info);
 }
 
 
 void AccountBookDlg::OnLbnSelchangeList2()
 {
+	UpdateData(true);
 	int sel = m_accountListBox.GetCurSel();
 	AccountInfo info = accountList[sel];
 	m_content = info.content;
 	m_type = info.money < 0 ? 1 : 0;
 	m_money = abs(info.money);
+	UpdateData(false);
+}
 
+
+BOOL AccountBookDlg::OnInitDialog()
+{
+	CDialogEx::OnInitDialog();
+	for (int i = 0; i < accountList.size(); i++)
+	{
+		AccountInfo info = accountList[i];
+		CString str;
+		str.Format(_T("%-15s%10d"), info.content, info.money);
+		m_accountListBox.AddString(str);
+	}
+	return TRUE;  // return TRUE unless you set the focus to a control
+				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
 }

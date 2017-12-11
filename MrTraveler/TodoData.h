@@ -19,5 +19,6 @@ public:
 	static TodoData* GetInstance();
 	void TodoUpdate(Todo todo, int n);
 	void TodoAdd(Todo todo);
+	void TodoRemove(int n);
 };
 
