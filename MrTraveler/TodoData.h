@@ -1,17 +1,11 @@
 #pragma once
 using namespace std;
 #include <vector>
-struct SubTodo
-{
-	CString content;
-	bool isDone;
-};
 struct Todo
 {
-	COLORREF color;
-	//¿ÃπÃ¡ˆ
+	int icon;
 	CString title;
-	std::vector<SubTodo> list;
+	std::vector<CString> list;
 };
 class TodoData
 {
@@ -23,5 +17,7 @@ public:
 	std::vector<Todo> todoList;
 	~TodoData();
 	static TodoData* GetInstance();
+	void TodoUpdate(Todo todo, int n);
+	void TodoAdd(Todo todo);
 };
 

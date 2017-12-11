@@ -38,3 +38,13 @@ std::vector<AccountInfo> AccountData::findAccount(int year, int month,int day)
 	}
 	return r;
 }
+void AccountData::eraseAccount(int year, int month, int day)
+{
+	auto it = accountList.begin();
+	for (; it != accountList.end(); ++it);
+	{
+		AccountInfo info = *it;
+		if (info.year == year && info.month == month && info.day == day)
+			it = accountList.erase(it);
+	}
+}

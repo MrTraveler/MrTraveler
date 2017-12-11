@@ -16,6 +16,9 @@
     <Filter Include="리소스 파일\img">
       <UniqueIdentifier>{4d69f241-e2b3-4505-9ee6-de4ea0a49df6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="리소스 파일\img\icon">
+      <UniqueIdentifier>{2858704f-8232-4c59-b721-a13dbd469842}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -87,6 +90,12 @@
     <ClInclude Include="AccountData.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="AccountBookDlg.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TodoDlg.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MrTraveler.cpp">
@@ -146,6 +155,12 @@
     <ClCompile Include="AccountData.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="AccountBookDlg.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TodoDlg.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MrTraveler.rc">
@@ -177,6 +192,12 @@
     </Image>
     <Image Include="res\bitmap1.bmp">
       <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="img\scheduleLeftArrow.png">
+      <Filter>리소스 파일\img</Filter>
+    </Image>
+    <Image Include="img\scheduleRightArrow.png">
+      <Filter>리소스 파일\img</Filter>
     </Image>
   </ItemGroup>
 </Project>

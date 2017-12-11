@@ -25,3 +25,16 @@ void DrawView::EndView()
 }
 void DrawView::OnLButtonDown(CPoint point) {}
 void DrawView::OnRButtonDown(CPoint point) {}
+
+void DrawView::OnMouseMove(CPoint point)
+{
+
+}
+
+void DrawView::OnLButtonUp(CPoint point)
+{
+}
+
+void DrawView::OnLButtonDblClk(CPoint point)
+{
+}

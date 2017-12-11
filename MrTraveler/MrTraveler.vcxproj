@@ -185,6 +185,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AccountBookDlg.h" />
     <ClInclude Include="AccountBookView.h" />
     <ClInclude Include="AccountData.h" />
     <ClInclude Include="CalendarView.h" />
@@ -205,10 +206,12 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TodoData.h" />
+    <ClInclude Include="TodoDlg.h" />
     <ClInclude Include="TodoListView.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AccountBookDlg.cpp" />
     <ClCompile Include="AccountBookView.cpp" />
     <ClCompile Include="AccountData.cpp" />
     <ClCompile Include="CalendarView.cpp" />
@@ -231,6 +234,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="TodoData.cpp" />
+    <ClCompile Include="TodoDlg.cpp" />
     <ClCompile Include="TodoListView.cpp" />
     <ClCompile Include="Util.cpp" />
   </ItemGroup>
@@ -247,6 +251,8 @@
   <ItemGroup>
     <Image Include="img\LeftArrow.png" />
     <Image Include="img\RightArrow.png" />
+    <Image Include="img\scheduleLeftArrow.png" />
+    <Image Include="img\scheduleRightArrow.png" />
     <Image Include="res\bitmap1.bmp" />
     <Image Include="res\MrTraveler.ico" />
     <Image Include="res\MrTravelerDoc.ico" />
