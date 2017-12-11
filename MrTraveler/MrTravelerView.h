@@ -1,4 +1,4 @@
-// MrTravelerView.h : CMrTravelerView í´ë˜ìŠ¤ì˜ ì¸í„°í˜ì´ìŠ¤
+// MrTravelerView.h : CMrTravelerView Å¬·¡½ºÀÇ ÀÎÅÍÆäÀÌ½º
 //
 
 #pragma once
@@ -13,15 +13,15 @@ class CMainFrame;
 class AccountBookView;
 class CMrTravelerView : public CView
 {
-protected: // serializationì—ì„œë§Œ ë§Œë“¤ì–´ì§‘ë‹ˆë‹¤.
+protected: // serialization¿¡¼­¸¸ ¸¸µé¾îÁı´Ï´Ù.
 	DECLARE_DYNCREATE(CMrTravelerView)
 
-// íŠ¹ì„±ì…ë‹ˆë‹¤.
+// Æ¯¼ºÀÔ´Ï´Ù.
 public:
 	CMrTravelerView();
 	CMrTravelerDoc* GetDocument() const;
 
-// ì‘ì—…ì…ë‹ˆë‹¤.
+// ÀÛ¾÷ÀÔ´Ï´Ù.
 public:
 	TodoListView* todoListView;
 	ScheduleView* scheduleView;
@@ -31,16 +31,14 @@ public:
 	CPoint m_pt;
 	CRgn tapRgn[6];
 	bool dragFlag;
-
-	int startYear, startMonth, startDate, endYear, endMonth, endDate;
 	bool isDragged = FALSE;
-	int clickedTapIndex;//í´ë¦­ëœ íƒ­ ì¸ë±ìŠ¤
+	int clickedTapIndex;//Å¬¸¯µÈ ÅÇ ÀÎµ¦½º
 	
 	CFont font;
 	CDC *pDC;
-// ì¬ì •ì˜ì…ë‹ˆë‹¤.
+// ÀçÁ¤ÀÇÀÔ´Ï´Ù.
 public:
-	virtual void OnDraw(CDC* pDC);  // ì´ ë·°ë¥¼ ê·¸ë¦¬ê¸° ìœ„í•´ ì¬ì •ì˜ë˜ì—ˆìŠµë‹ˆë‹¤.
+	virtual void OnDraw(CDC* pDC);  // ÀÌ ºä¸¦ ±×¸®±â À§ÇØ ÀçÁ¤ÀÇµÇ¾ú½À´Ï´Ù.
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 
 	void drawTapRgn(CDC* pDC);
@@ -57,7 +55,7 @@ protected:
 	virtual void OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo);
 	virtual void OnEndPrinting(CDC* pDC, CPrintInfo* pInfo);
 
-// êµ¬í˜„ì…ë‹ˆë‹¤.
+// ±¸ÇöÀÔ´Ï´Ù.
 public:
 	virtual ~CMrTravelerView();
 #ifdef _DEBUG
@@ -67,7 +65,7 @@ public:
 
 protected:
 
-// ìƒì„±ëœ ë©”ì‹œì§€ ë§µ í•¨ìˆ˜
+// »ı¼ºµÈ ¸Ş½ÃÁö ¸Ê ÇÔ¼ö
 protected:
 	DECLARE_MESSAGE_MAP()
 public:
@@ -79,7 +77,7 @@ public:
 	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
 };
 
-#ifndef _DEBUG  // MrTravelerView.cppì˜ ë””ë²„ê·¸ ë²„ì „
+#ifndef _DEBUG  // MrTravelerView.cppÀÇ µğ¹ö±× ¹öÀü
 inline CMrTravelerDoc* CMrTravelerView::GetDocument() const
    { return reinterpret_cast<CMrTravelerDoc*>(m_pDocument); }
 #endif

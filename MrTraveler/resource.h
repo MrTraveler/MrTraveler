@@ -1,15 +1,15 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Visual C++ÏóêÏÑú ÏÉùÏÑ±Ìïú Ìè¨Ìï® ÌååÏùºÏûÖÎãàÎã§.
-// MrTraveler.rcÏóêÏÑú ÏÇ¨Ïö©ÎêòÍ≥† ÏûàÏäµÎãàÎã§.
+// Microsoft Visual C++ø°º≠ ª˝º∫«— ∆˜«‘ ∆ƒ¿œ¿‘¥œ¥Ÿ.
+// MrTraveler.rcø°º≠ ªÁøÎµ«∞Ì ¿÷Ω¿¥œ¥Ÿ.
 //
 #define IDD_ABOUTBOX                    100
 #define IDD_FORMVIEW                    101
 #define IDR_MAINFRAME                   128
 #define IDR_MrTravelerTYPE              130
 #define IDD_DIALOG1                     310
+#define IDR_HTML_GOOGLEMAP              312
 #define IDD_DIALOG2                     316
 #define IDD_DIALOG3                     319
-#define IDR_HTML_GOOGLEMAP              312
 #define IDC_EDIT1                       1006
 #define IDC_EDIT2                       1007
 #define IDC_DATETIMEPICKER2             1008
@@ -30,12 +30,6 @@
 #define IDC_ADD                         1025
 #define IDC_DELETE                      1026
 #define IDC_MODIFY                      1027
-#define IDC_TO_4                        1052
-#define IDC_BUTTON4                     1056
-#define IDC_BUTTON5                     1058
-#define IDC_TO_2                        1059
-#define IDC_TO_3                        1061
-#define IDC_TO_1                        1062
 #define IDC_COUNTRY                     1027
 #define IDC_ExchangeRate1               1028
 #define IDC_KRW                         1030
@@ -49,6 +43,12 @@
 #define IDC_EDITX                       1043
 #define IDC_EDITY                       1044
 #define IDC_EQUAL                       1045
+#define IDC_TO_4                        1052
+#define IDC_BUTTON4                     1056
+#define IDC_BUTTON5                     1058
+#define IDC_TO_2                        1059
+#define IDC_TO_3                        1061
+#define IDC_TO_1                        1062
 #define ID_SWITCHVIEW_MRTRAVELER        32771
 #define ID_SWITCHVIEW_INFO              32772
 #define ID_MRTRAVELER                   32773

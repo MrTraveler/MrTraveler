@@ -17,6 +17,9 @@ CInfoVIew::CInfoVIew()
 	, m_conitem(_T(""))
 	, m_Operator(_T(""))
 {
+
+	//CRect window;
+	//GetWindowRect(&window);
 	Parce = new CMrTravelerParceHtml;
 	Parce->RoadExchangeRate();
 	m_ExchangeRatefont.CreateFont(30, 0, 0, 0, FW_BOLD, FALSE, FALSE, 0, DEFAULT_CHARSET,OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,	DEFAULT_PITCH | FF_SWISS, _T("±¼¸²Ã¼"));
@@ -31,6 +34,7 @@ CInfoVIew::~CInfoVIew()
 void CInfoVIew::DoDataExchange(CDataExchange* pDX)
 {
 	CFormView::DoDataExchange(pDX);
+	ResizeParentToFit(FALSE);
 	DDX_Control(pDX, IDC_COUNTRY, m_Currency_unit);
 	DDX_Control(pDX, IDC_ExchangeRate1, m_ExchangeRate1);
 	DDX_Control(pDX, IDC_KRW, m_krw);
