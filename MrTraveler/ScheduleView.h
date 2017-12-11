@@ -1,5 +1,7 @@
 #pragma once
 #include "DrawView.h"
+
+class CalendarView;
 class ScheduleView : public DrawView
 {
 public:
@@ -14,6 +16,10 @@ public:
 
 public:
 	CTime today;
+
+	CalendarView* calendarView;
+
+	//PlanDlg planDlg;
 //	int selectedCellX;
 //	int selectedCellY;
 

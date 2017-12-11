@@ -8,7 +8,7 @@
 #ifndef SHARED_HANDLERS
 #include "MrTraveler.h"
 #endif
-
+#include "PlanDlg.h"
 #include "MrTravelerDoc.h"
 #include "MrTravelerView.h"
 #include "MrTravelerParceHtml.h"
@@ -55,7 +55,7 @@ CMrTravelerView::CMrTravelerView()
 	//x->ParceHtml(_T("https://v3.exchangerate-api.com/bulk/3090405efae2c21d79cc569c/KRW"), _T("ExchangeRate.json"));
 	testinit();
 	//rgn 생성
-	for (int i = 0; i < 6; i++) 
+	for (int i = 0; i < 5; i++) 
 		tapRgn[i].CreateRoundRectRgn(i % 7 * 200, 850, (i % 7 + 1) * 200, 900, 20, 20);
 
 }
@@ -101,13 +101,14 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
-		//탭 리전 생성 및 출력
+	//탭 리전 생성 및 출력
+	drawTapRgn(pDC);
+	drawTapText(pDC);
 
 	CRect window;
 	GetWindowRect(&window);
 	if (clickedTapIndex == 0)
 	{
-		//deleteRgn();
 		calendarView->drawCalendar(pDC);
 	}
 	else if (clickedTapIndex == 1) 
@@ -134,8 +135,8 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 		accountBookView->StartView(rect, this);
 		accountBookView->OnDraw(pDC);
 	}
-	else if (clickedTapIndex == 4) {}
-	else if (clickedTapIndex == 5) {
+	//else if (clickedTapIndex == 4) {}
+	else if (clickedTapIndex == 4) {
 		clickedTapIndex = 0;
 		CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
 		pFrame->OnInfo();
@@ -151,11 +152,7 @@ void CMrTravelerView::OnDraw(CDC* pDC)
 void CMrTravelerView::drawTapRgn(CDC * pDC)
 {
 	//CRgn tapRgn[6] 탭 리전 전역변수 선언
-	CRect rect;
-	GetClientRect(&rect);
-	rect.top = 840;
-	pDC->FillRect(rect, &CBrush(RGB(255,255,255)));
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < 5; i++) {
 		pDC->FillRgn(&tapRgn[i], &CBrush(RGB(154, 202, 235)));
 	}
 }
@@ -178,9 +175,9 @@ void CMrTravelerView::drawTapText(CDC * pDC)
 		else if (i == 3)
 			pDC->TextOut(25 + i * 200 + 40, 860, _T("가계부"));
 		else if (i == 4)
-			pDC->TextOut(25 + i * 200 + 35, 860, _T("다이어리"));
-		else if (i == 5)
-			pDC->TextOut(25 + i * 200 + 45, 860, _T("INFO"));
+			pDC->TextOut(25 + i * 200 + 35, 860, _T("INFO"));
+		//else if (i == 5)
+			//pDC->TextOut(25 + i * 200 + 45, 860, _T("INFO"));
 	}
 }
 
@@ -226,17 +223,13 @@ void CMrTravelerView::setDrag(int i)
 	CClientDC dc(this);
 	isDragged = TRUE;
 	dragFlag = true;
-	startDate= i;//드래그 시작 일 리전 인덱스
-	dc.FillRgn(&calendarView->dateRgn[startDate], &CBrush(RGB(230, 230, 230)));
+	calendarView->startDate= i;//드래그 시작 일 리전 인덱스
+	dc.FillRgn(&calendarView->dateRgn[calendarView->startDate], &CBrush(RGB(230, 230, 230)));
 }
 void CMrTravelerView::setPlusButton()
 {
-	if (isDragged) {
-		calendarView->drawTimeBlock(pDC);
-	}
-	else {
 
-	}
+	//parentView->Invalidate();
 }
 void CMrTravelerView::OnLButtonDown(UINT nFlags, CPoint point)
 {
@@ -245,7 +238,58 @@ void CMrTravelerView::OnLButtonDown(UINT nFlags, CPoint point)
 	CRect rect;
 	GetClientRect(&rect);
 	rect.bottom = 840;
-	if (clickedTapIndex == 1 && Util::IsPointInRect(rect, point))	//임시
+
+	//탭 리전 클릭 처리
+	for (int i = 0; i < 6; i++) {
+		if (tapRgn[i].PtInRegion(m_pt)) {
+			clickedTapIndex = i;//드래그 시작 일 리전 인덱스
+			dc.FillRgn(&tapRgn[clickedTapIndex], &CBrush(RGB(216, 216, 216)));
+			break;
+		}
+	}
+	if (clickedTapIndex == 0 && Util::IsPointInRect(rect, point)) {
+		//일 리전 드래그 처리
+		for (int i = 0; i < calendarView->end_of_mon[calendarView->curMonth - 1]; i++) {
+			if (calendarView->dateRgn[i].PtInRegion(m_pt) && clickedTapIndex == 0) {
+				setDrag(i);
+				break;
+			}
+		}
+
+		//이전 달 넘어가기
+		if (calendarView->prevMonthRgn.PtInRegion(m_pt) && clickedTapIndex == 0) {
+			setPrevMonth();
+
+		}
+		//다음 달 넘어가기
+		else if (calendarView->nextMonthRgn.PtInRegion(m_pt) && clickedTapIndex == 0) {
+			//다음 달 처리
+			setNextMonth();
+		}
+
+		for (int i = 0; i < calendarView->end_of_mon[calendarView->curMonth - 1]; i++) {
+			if (!calendarView->dateRgn[i].PtInRegion(m_pt) && clickedTapIndex == 0 && !calendarView->plusButtonRgn.PtInRegion(m_pt))
+			{
+				isDragged = FALSE;
+			}
+		}
+		//플러스
+		if (calendarView->plusButtonRgn.PtInRegion(m_pt))	//임시
+		{
+			calendarView->relatedCalendar = TRUE;
+			clickedTapIndex = 1;
+			/*
+			if (calendarView->relatedCalendar) {
+				CTime(calendarView->curYear, calendarView->curYear, endDate, 0, 0, 0);
+				calendarView->relatedCalendar = FALSE;
+			}
+			*/
+			scheduleView->OnLButtonDown(point);
+			CView::OnLButtonDown(nFlags, point);
+			return;
+		}
+	}
+	else if (clickedTapIndex == 1 && Util::IsPointInRect(rect, point))	//임시
 	{
 		scheduleView->OnLButtonDown(point);
 		CView::OnLButtonDown(nFlags, point);
@@ -263,43 +307,6 @@ void CMrTravelerView::OnLButtonDown(UINT nFlags, CPoint point)
 		CView::OnLButtonDown(nFlags, point);
 		return;
 	}
-	//일 리전 드래그 처리
-	for (int i = 0; i < calendarView->end_of_mon[calendarView->curMonth - 1]; i++) {
-		if (calendarView->dateRgn[i].PtInRegion(m_pt) && clickedTapIndex == 0) {
-			setDrag(i);
-			break;
-		}
-	}
-
-	//이전 달 넘어가기
-	if (calendarView->prevMonthRgn.PtInRegion(m_pt) && clickedTapIndex == 0) {
-		setPrevMonth();
-
-	}	
-	//다음 달 넘어가기
-	else if (calendarView->nextMonthRgn.PtInRegion(m_pt) && clickedTapIndex == 0) {
-		//다음 달 처리
-		setNextMonth();
-	}
-	//플러스 버튼
-	if (calendarView->plusButtonRgn.PtInRegion(m_pt) && clickedTapIndex == 0) {
-		setPlusButton();
-	}
-	//탭 리전 클릭 처리
-	for (int i = 0; i < 6; i++) {
-		if (tapRgn[i].PtInRegion(m_pt)) {
-			clickedTapIndex = i;//드래그 시작 일 리전 인덱스
-			dc.FillRgn(&tapRgn[clickedTapIndex], &CBrush(RGB(216, 216, 216)));
-			break;
-		}
-	}
-
-	for (int i = 0; i < calendarView->end_of_mon[calendarView->curMonth - 1]; i++) {
-		if (!calendarView->dateRgn[i].PtInRegion(m_pt) && clickedTapIndex == 0 && !calendarView->plusButtonRgn.PtInRegion(m_pt))
-		{
-			isDragged = FALSE;
-		}
-	}
 	if (clickedTapIndex == 0) {
 		deleteRgn();
 	}
@@ -311,8 +318,8 @@ void CMrTravelerView::OnMouseMove(UINT nFlags, CPoint point)
 {
 	CClientDC dc(this);
 	m_pt = point;
-	int prev_end = startDate;
-	int next_end = startDate;
+	int prev_end = calendarView->startDate;
+	int next_end = calendarView->startDate;
 	if (dragFlag) {//드래그 처리
 		
 		for (int i = 0; i < 31; i++) {
@@ -322,11 +329,11 @@ void CMrTravelerView::OnMouseMove(UINT nFlags, CPoint point)
 				break;
 			}
 		}
-		if (startDate> next_end) {//스와핑
-			int tmp; tmp = startDate; startDate = next_end; next_end = tmp;
+		if (calendarView->startDate> next_end) {//스와핑
+			int tmp; tmp = calendarView->startDate; calendarView->startDate = next_end; next_end = tmp;
 		}
 		//if (startDate < prev_end&&next_end < prev_end) 
-		for (int i = startDate; i <= next_end; i++) {
+		for (int i = calendarView->startDate; i <= next_end; i++) {
 			dc.FillRgn(&calendarView->dateRgn[i], &CBrush(RGB(230, 230, 230)));
 		}
 	}
@@ -340,15 +347,15 @@ void CMrTravelerView::OnLButtonUp(UINT nFlags, CPoint point)
 	if (dragFlag) {//드래그 처리
 		for (int i = 0; i < 31; i++) {
 			if (calendarView->dateRgn[i].PtInRegion(m_pt)) {
-				endDate = i;
-				if (startDate > endDate) {//스와핑
-					int tmp; tmp = startDate; startDate = endDate; endDate = tmp;
+				calendarView->endDate = i;
+				if (calendarView->startDate > calendarView->endDate) {//스와핑
+					int tmp; tmp = calendarView->startDate; calendarView->startDate = calendarView->endDate; calendarView->endDate = tmp;
 				}
 				break;
 			}
 		}
 
-		for (int i = startDate; i <= endDate; i++) {
+		for (int i = calendarView->startDate; i <= calendarView->endDate; i++) {
 			dc.FillRgn(&calendarView->dateRgn[i], &CBrush(RGB(230, 230, 230)));
 		}
 		//drawDateText(pDC);

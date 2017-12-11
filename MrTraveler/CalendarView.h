@@ -25,6 +25,9 @@ public:
 	CRgn prevMonthRgn;
 	CRgn plusButtonRgn;
 	bool dragFlag;
+
+	int startYear, startMonth, startDate, endYear, endMonth, endDate;
+	bool relatedCalendar = FALSE;
 	CRgn dateRgn[43];
 	CRgn dayRgn[7];//요일 리전
 	CRgn blockRgn[31];

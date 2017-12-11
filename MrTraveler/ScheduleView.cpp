@@ -4,6 +4,8 @@
 #include "PlanData.h"
 #include "MrTravelerView.h"
 #include "PlanDlg.h"
+
+#include "CalendarView.h"
 ScheduleView::ScheduleView()
 {	
 	today = CTime::GetCurrentTime();
@@ -158,7 +160,6 @@ void ScheduleView::OnLButtonDown(CPoint point)
 	{
 		double ch = ((double)point.y - 100 - 900 / 25) / (900 / 25);
 		int cd = (point.x - 100) / (900 / 3);
-		
 		CTime ct = today;
 		if (cd == 0)
 			ct -= oneDay;
@@ -177,24 +178,32 @@ void ScheduleView::OnLButtonDown(CPoint point)
 			planDlg.m_content = p.content;
 			planDlg.m_title = p.title;
 			planDlg.m_fromTime = CTime(p.from.GetYear(), p.from.GetMonth(), p.from.GetDay(), 0, 0, 0);
+		
 			planDlg.m_fromTimeHour = p.from.GetHour();
 			planDlg.m_fromTimeMin = p.from.GetMinute() ;
 			planDlg.m_toTime = CTime(p.to.GetYear(), p.to.GetMonth(), p.to.GetDay(), 0, 0, 0);
+			
 			planDlg.m_toTimeHour = p.to.GetHour();
 			planDlg.m_toTimeMin = p.to.GetMinute();
 			planDlg.m_budget = p.budget;
+		
+			
 		}
 		else // 새로 추가
 		{
-			
 			planDlg.m_fromTime = CTime(ct.GetYear(), ct.GetMonth(), ct.GetDay(), 0, 0, 0);
+			
 			planDlg.m_fromTimeHour = ct.GetHour();
 			planDlg.m_fromTimeMin = ct.GetMinute();
+
 			planDlg.m_toTime = CTime(ct.GetYear(), ct.GetMonth(), ct.GetDay(), 0, 0, 0);
+		
 			planDlg.m_toTimeHour = ct.GetHour();
 			planDlg.m_toTimeMin = ct.GetMinute();
 			planDlg.m_color = RGB(123, 123, 255);
 			isNew = true;
+
+		//	calendarView->relatedCalendar = FALSE;
 		}
 		if (planDlg.DoModal() == IDOK)
 		{
@@ -211,6 +220,7 @@ void ScheduleView::OnLButtonDown(CPoint point)
 				PlanData::GetInstance()->AddPlan(newPlan);
 			else
 				PlanData::GetInstance()->ChangePlanData(v[0], newPlan);
+			
 		}
 	}
 	parentView->Invalidate();
