@@ -8,16 +8,17 @@ class TodoListView;
 class ScheduleView;
 class CalendarView;
 class TodoData;
-class AccountBookView;
 class CMrTravelerDoc;
+class CMainFrame;
+class AccountBookView;
 class CMrTravelerView : public CView
 {
 protected: // serialization에서만 만들어집니다.
-	CMrTravelerView();
 	DECLARE_DYNCREATE(CMrTravelerView)
 
 // 특성입니다.
 public:
+	CMrTravelerView();
 	CMrTravelerDoc* GetDocument() const;
 
 // 작업입니다.
@@ -25,13 +26,16 @@ public:
 	TodoListView* todoListView;
 	ScheduleView* scheduleView;
 	CalendarView* calendarView;
-	AccountBookView * accountBookView;
+	CMainFrame* mainfrm;
+	AccountBookView *accountBookView;
 	CPoint m_pt;
-
 	CRgn tapRgn[6];
 	bool dragFlag;
-	int startPos, endPos;
+
+	int startYear, startMonth, startDate, endYear, endMonth, endDate;
+	bool isDragged = FALSE;
 	int clickedTapIndex;//클릭된 탭 인덱스
+	
 	CFont font;
 	CDC *pDC;
 // 재정의입니다.
@@ -44,6 +48,10 @@ public:
 
 	void deleteRgn();
 	void testinit();
+	void setDrag(int i);
+	void setPrevMonth();
+	void setNextMonth();
+	void setPlusButton();
 protected:
 	virtual BOOL OnPreparePrinting(CPrintInfo* pInfo);
 	virtual void OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo);

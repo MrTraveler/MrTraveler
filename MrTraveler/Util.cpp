@@ -31,9 +31,9 @@ bool Util::IsPointInRect(CRect rect, CPoint point)
 	return false;
 }
 int Util::GetMonthDay(int year, int month)
-{
+ {
 	int monthDay[12] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
 	if (year % 4 == 0 && !(year % 100 == 0 && year % 400 != 0))
-		monthDay[1] = 29;
-	return monthDay[month -1 ];
-}
+		 monthDay[1] = 29;
+	return monthDay[month - 1];
+	}

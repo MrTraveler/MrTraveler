@@ -78,6 +78,12 @@
     <ClInclude Include="PlanDlg.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="InfoVIew.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CWebBrowser2.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
     <ClInclude Include="AccountBookView.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -137,6 +143,12 @@
     <ClCompile Include="PlanDlg.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="InfoVIew.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CWebBrowser2.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
     <ClCompile Include="AccountBookView.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -159,6 +171,8 @@
     <None Include="res\MrTraveler.rc2">
       <Filter>리소스 파일</Filter>
     </None>
+    <None Include="ClassDiagram.cd" />
+    <None Include="GoogleMap.htm" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\MrTravelerDoc.ico">

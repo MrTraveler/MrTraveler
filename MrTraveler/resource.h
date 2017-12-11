@@ -1,13 +1,15 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Visual C++ø°º≠ ª˝º∫«— ∆˜«‘ ∆ƒ¿œ¿‘¥œ¥Ÿ.
-// MrTraveler.rcø°º≠ ªÁøÎµ«∞Ì ¿÷Ω¿¥œ¥Ÿ.
+// Microsoft Visual C++ÏóêÏÑú ÏÉùÏÑ±Ìïú Ìè¨Ìï® ÌååÏùºÏûÖÎãàÎã§.
+// MrTraveler.rcÏóêÏÑú ÏÇ¨Ïö©ÎêòÍ≥† ÏûàÏäµÎãàÎã§.
 //
 #define IDD_ABOUTBOX                    100
+#define IDD_FORMVIEW                    101
 #define IDR_MAINFRAME                   128
 #define IDR_MrTravelerTYPE              130
 #define IDD_DIALOG1                     310
 #define IDD_DIALOG2                     316
 #define IDD_DIALOG3                     319
+#define IDR_HTML_GOOGLEMAP              312
 #define IDC_EDIT1                       1006
 #define IDC_EDIT2                       1007
 #define IDC_DATETIMEPICKER2             1008
@@ -18,6 +20,8 @@
 #define IDCANCLE                        1012
 #define IDC_SHOWCOLOR                   1013
 #define IDC_EDIT5                       1018
+#define IDC_BUTTON1                     1019
+#define IDC_BackButton                  1019
 #define IDC_EDIT6                       1021
 #define IDC_LIST2                       1021
 #define IDC_EDIT7                       1022
@@ -32,14 +36,31 @@
 #define IDC_TO_2                        1059
 #define IDC_TO_3                        1061
 #define IDC_TO_1                        1062
+#define IDC_COUNTRY                     1027
+#define IDC_ExchangeRate1               1028
+#define IDC_KRW                         1030
+#define IDC_EXPLORER1                   1031
+#define IDC_EDITANS                     1037
+#define IDC_BUTTON_PLUS                 1038
+#define IDC_BUTTON_MINUS                1039
+#define IDC_BUTTON_MUL                  1040
+#define IDC_BUTTON_DIV                  1041
+#define IDC_Operator                    1042
+#define IDC_EDITX                       1043
+#define IDC_EDITY                       1044
+#define IDC_EQUAL                       1045
+#define ID_SWITCHVIEW_MRTRAVELER        32771
+#define ID_SWITCHVIEW_INFO              32772
+#define ID_MRTRAVELER                   32773
+#define ID_INFO                         32774
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        323
-#define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1063
-#define _APS_NEXT_SYMED_VALUE           310
+#define _APS_NEXT_RESOURCE_VALUE        350
+#define _APS_NEXT_COMMAND_VALUE         32780
+#define _APS_NEXT_CONTROL_VALUE         1080
+#define _APS_NEXT_SYMED_VALUE           320
 #endif
 #endif
