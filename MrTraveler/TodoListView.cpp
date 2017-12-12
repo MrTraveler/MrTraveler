@@ -124,8 +124,7 @@ void TodoListView::OnLButtonDblClk(CPoint point)
 		selectedMargin = true;
 	else if ((row + col) % 2 == 0 && !Util::IsPointInRect(CRect(15, 15, 651, 235), marginCheckPoint))
 		selectedMargin = true;
-
-	if (!selectedMargin && (TodoData::GetInstance()->todoList.size() >= row * 2 + col))
+	if (!selectedMargin && (TodoData::GetInstance()->todoList.size() > row * 2 + col))
 	{
 		TodoDlg dlg;
 		Todo dtodo = TodoData::GetInstance()->todoList[row * 2 + col];

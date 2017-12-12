@@ -69,7 +69,7 @@ void ScheduleView::DrawTable(CDC * dc)
 	CTime h = today - oneDay - oneDay - oneDay;
 	for (int i = 0; i < 7; i++)
 	{
-		dc->TextOut((int)((float)900 / 7 / 2 * (i * 2 + 1) + 100), 100, h.Format(_T("%m 월 %d 일")));
+		dc->TextOut((int)((float)900 / 7 / 2 * (i * 2 + 1) + 100), 100, h.Format(_T("%m 월 %d 일 %a")));
 		h = h + oneDay;
 	}
 	CFont font2;
@@ -143,6 +143,7 @@ void ScheduleView::DrawPlanLabel(CDC * dc)
 	dc->SetTextAlign(TA_LEFT);
 	dc->SetTextColor(RGB(255,255,255));
 	dc->SetBkMode(TRANSPARENT);
+
 	for (int i = 0; i < 7; i++)
 	{
 		std::vector<Plan> v = PlanData::GetInstance()->FindBorderPlan(ht, ht + oneDay);
