@@ -8,6 +8,7 @@ class TodoListView;
 class ScheduleView;
 class CalendarView;
 class TodoData;
+class PlanData;
 class CMrTravelerDoc;
 class CMainFrame;
 class AccountBookView;

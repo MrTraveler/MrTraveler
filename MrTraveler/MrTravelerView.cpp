@@ -364,6 +364,8 @@ void CMrTravelerView::OnLButtonUp(UINT nFlags, CPoint point)
 				break;
 			}
 		}
+		PlanData::GetInstance()->startDate = CTime(calendarView->curYear, calendarView->curMonth, calendarView->startDate, 0, 0, 0);
+		PlanData::GetInstance()->endDate = CTime(calendarView->curYear, calendarView->curMonth, calendarView->endDate, 0, 0, 0);
 
 		for (int i = calendarView->startDate; i <= calendarView->endDate; i++) {
 			dc.FillRgn(&calendarView->dateRgn[i], &CBrush(RGB(230, 230, 230)));
