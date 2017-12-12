@@ -52,10 +52,10 @@ void ScheduleView::DrawTable(CDC * dc)
 	}
 	dc->MoveTo(0, 100);
 	dc->LineTo(0, 1000);
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 7; i++)
 	{
-		dc->MoveTo((int)((float)900 / 3) * i + 100,100);
-		dc->LineTo((int)((float)900 / 3) * i + 100,1000);
+		dc->MoveTo((int)((float)900 / 7 * i) + 100,100);
+		dc->LineTo((int)((float)900 / 7 * i)+ 100,1000);
 	}
 	//표 라벨 그리기
 	CFont font;
@@ -66,9 +66,12 @@ void ScheduleView::DrawTable(CDC * dc)
 	dc->SetTextColor(RGB(255,255,255));
 	//여기 아래부터 나중에 데이터로 자동화
 	CTimeSpan oneDay = CTimeSpan(1, 0, 0, 0);
-	dc->TextOut((int)((float)900 / 3 / 2 * 1 + 100), 100, (today - oneDay).Format(_T("%m 월 %d 일")));
-	dc->TextOut((int)((float)900 / 3 / 2 * 3 + 100), 100, today.Format(_T("%m 월 %d 일")));
-	dc->TextOut((int)((float)900 / 3 / 2 * 5 + 100), 100, (today + oneDay).Format(_T("%m 월 %d 일")));
+	CTime h = today - oneDay - oneDay - oneDay;
+	for (int i = 0; i < 7; i++)
+	{
+		dc->TextOut((int)((float)900 / 7 / 2 * (i * 2 + 1) + 100), 100, h.Format(_T("%m 월 %d 일")));
+		h = h + oneDay;
+	}
 	CFont font2;
 	font2.CreatePointFont(100, _T("맑은 고딕"));
 	dc->SelectObject(&font2);
@@ -89,23 +92,25 @@ void ScheduleView::DrawTable(CDC * dc)
 }
 void ScheduleView::DrawPlan(CDC * dc)
 {
-	CTime ht = today;
+	
 	CTimeSpan oneDay = CTimeSpan(1, 0, 0, 0);
-	ht -= oneDay;
-	CFont font;
-	font.CreatePointFont(100, _T("맑은 고딕"));
-	dc->SelectObject(&font);
-	dc->SetTextAlign(TA_LEFT);
-	dc->SetTextColor(RGB(0, 0, 0));
-	dc->SetBkMode(TRANSPARENT);
-	for (int i = 0; i < 3; i++)
+	CTime ht = today - oneDay - oneDay - oneDay;
+	COLORREF colorList[] =
+	{
+		RGB(0X4C,0X69,0X8B),
+		RGB(0x2B,0x49,0x6E),
+		RGB(0x06,0x1D,0x39),
+		RGB(0x02,0x10,0x21)
+	};
+	int k = 0;
+	for (int i = 0; i < 7; i++)
 	{
 		std::vector<Plan> v = PlanData::GetInstance()->FindBorderPlan(ht, ht + oneDay);
-	
 		for (int j = 0; j < v.size(); j++)
 		{
+			
 			Plan p = v[j];
-			CBrush brush(p.color);
+			
 
 			double sh;	//startHour
 			double eh;	//endHour
@@ -117,16 +122,56 @@ void ScheduleView::DrawPlan(CDC * dc)
 				eh = 25;
 			else
 				eh = p.to.GetHour() + (float)p.to.GetMinute() / 60 + 1;
-			dc->FillRect(CRect((int)((float)900 / 3 * i + 100), (sh * 900 / 25) + 100,
-				(int)((float)900 / 3 * (i + 1) + 100), (eh * 900 / 25) + 100), &brush);
+			if (sh != 1)
+				++k;
+			CBrush brush(colorList[(k % 4)]);
+			dc->FillRect(CRect((int)((float)900 / 7 * i + 100), (sh * 900 / 25) + 100,
+				(int)((float)900 / 7 * (i + 1) + 100), (eh * 900 / 25) + 100), &brush);
+			
+		}
+		ht += oneDay;
+	}
+}
+void ScheduleView::DrawPlanLabel(CDC * dc)
+{
+	CTimeSpan oneDay = CTimeSpan(1, 0, 0, 0);
+	CTime ht = today - oneDay - oneDay;
+	ht -= oneDay;
+	CFont font;
+	font.CreatePointFont(120, _T("맑은 고딕"));
+	dc->SelectObject(&font);
+	dc->SetTextAlign(TA_LEFT);
+	dc->SetTextColor(RGB(255,255,255));
+	dc->SetBkMode(TRANSPARENT);
+	for (int i = 0; i < 7; i++)
+	{
+		std::vector<Plan> v = PlanData::GetInstance()->FindBorderPlan(ht, ht + oneDay);
+
+		for (int j = 0; j < v.size(); j++)
+		{
+			Plan p = v[j];
+			double sh;	//startHour
+			double eh;	//endHour
+			if (p.from <= ht)
+				sh = 1;
+			else
+				sh = p.from.GetHour() + (float)p.from.GetMinute() / 60 + 1;
+			if (p.to >= ht + oneDay)
+				eh = 25;
+			else
+				eh = p.to.GetHour() + (float)p.to.GetMinute() / 60 + 1;
 			if (sh != 1)
 			{
 				CString str;
-				str.Format(_T("%s          %d원"), p.title, p.budget);
-				dc->TextOut((int)((float)900 / 3 * i + 100), (sh * 900 / 25) + 100 + 10, str);
+				str.Format(_T("%-15s"), p.title);
+				dc->TextOut((int)((float)900 / 7 * i + 100) + 5, (sh * 900 / 25) + 100 + 10, str);
+				if (eh * 900 / 25 > sh * 900 / 25 + 140)
+				{
+					str.Format(_T("%d 원"), p.budget);
+					dc->TextOut((int)((float)900 / 7 * i + 100) + 5, (sh * 900 / 25) + 100 + 40, str);
+				}
 			}
-			
-			
+
 		}
 		ht += oneDay;
 	}
@@ -138,8 +183,9 @@ void ScheduleView::OnDraw(CDC * dc)
 	dc->SetWindowExt(1000, 1000);
 	dc->SetViewportExt(orgViewRect.right, orgViewRect.bottom);
 	DrawBackGround(dc);
-	DrawPlan(dc);
 	DrawTable(dc);
+	DrawPlan(dc);
+	DrawPlanLabel(dc);
 	DrawButton(dc);
 }
 void ScheduleView::OnLButtonDown(CPoint point)
@@ -159,12 +205,10 @@ void ScheduleView::OnLButtonDown(CPoint point)
 	if (Util::IsPointInRect(CRect(100, 100, 1000, 1000), point))
 	{
 		double ch = ((double)point.y - 100 - 900 / 25) / (900 / 25);
-		int cd = (point.x - 100) / (900 / 3);
-		CTime ct = today;
-		if (cd == 0)
-			ct -= oneDay;
-		else if (cd == 2)
-			ct += oneDay;
+		int cd = (int)((point.x - 100) / ((float)900 / 7));
+		CTime ct = today - oneDay - oneDay - oneDay;
+		for (int i = 0; i < cd; i++)
+			ct = ct + oneDay;
 		ct += CTimeSpan(0, (int)ch, (int)((ch - (int)ch) * 60), 0);
 
 		std::vector<Plan> v = PlanData::GetInstance()->FindBorderPlan(ct, ct);
@@ -174,7 +218,6 @@ void ScheduleView::OnLButtonDown(CPoint point)
 		if (v.size() == 1)	//기존에 있는 내용 수정
 		{
 			Plan p = v[0];
-			planDlg.m_color = p.color;
 			planDlg.m_content = p.content;
 			planDlg.m_title = p.title;
 			planDlg.m_fromTime = CTime(p.from.GetYear(), p.from.GetMonth(), p.from.GetDay(), 0, 0, 0);
@@ -200,7 +243,6 @@ void ScheduleView::OnLButtonDown(CPoint point)
 		
 			planDlg.m_toTimeHour = ct.GetHour();
 			planDlg.m_toTimeMin = ct.GetMinute();
-			planDlg.m_color = RGB(123, 123, 255);
 			isNew = true;
 
 		//	calendarView->relatedCalendar = FALSE;
@@ -211,11 +253,10 @@ void ScheduleView::OnLButtonDown(CPoint point)
 			CTime to;
 			CString title;
 			CString content;
-			COLORREF color;
 			double budget;	//원화 기준
 			Plan newPlan = { planDlg.m_fromTime + CTimeSpan(0, planDlg.m_fromTimeHour, planDlg.m_fromTimeMin, 0)
 				, planDlg.m_toTime + CTimeSpan(0, planDlg.m_toTimeHour, planDlg.m_toTimeMin, 0)
-				, planDlg.m_title, planDlg.m_content, planDlg.m_color ,planDlg.m_budget };
+				, planDlg.m_title, planDlg.m_content, planDlg.m_budget };
 			if (isNew)
 				PlanData::GetInstance()->AddPlan(newPlan);
 			else

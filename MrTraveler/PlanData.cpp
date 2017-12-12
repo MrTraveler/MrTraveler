@@ -49,9 +49,9 @@ void PlanData::ChangePlanData(Plan oldPlan, Plan newPlan)
 			break;
 		}
 }
-void PlanData::AddPlan(CTime from, CTime to, CString title, CString content, COLORREF color,int budget)
+void PlanData::AddPlan(CTime from, CTime to, CString title, CString content,int budget)
 {
-	Plan plan = { from, to, title, content, color ,budget};
+	Plan plan = { from, to, title, content, budget};
 	planList.push_back(plan);
 }
 void PlanData::AddPlan(Plan plan)

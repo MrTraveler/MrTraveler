@@ -28,13 +28,10 @@ public:
 	CTime m_fromTime;
 	CTime m_toTime;
 	CStatic m_showColor;
-	COLORREF m_color;
-	afx_msg void OnBnClickedMorecolor();
 	int m_fromTimeHour;
 	int m_fromTimeMin;
 	int m_toTimeHour;
 	int m_toTimeMin;
 	int m_budget;
 	afx_msg void OnBnClickedCancle();
-	afx_msg void OnPaint();
 };
