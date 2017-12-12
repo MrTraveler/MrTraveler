@@ -13,6 +13,7 @@ public:
 	void DrawPlan(CDC * dc);
 	void DrawBackGround(CDC * dc);
 	void DrawButton(CDC * dc);
+	void DrawPlanLabel(CDC * dc);
 
 public:
 	CTime today;

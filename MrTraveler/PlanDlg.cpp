@@ -37,7 +37,6 @@ void PlanDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT2, m_content);
 	DDX_DateTimeCtrl(pDX, IDC_DATETIMEPICKER2, m_fromTime);
 	DDX_DateTimeCtrl(pDX, IDC_DATETIMEPICKER3, m_toTime);
-	DDX_Control(pDX, IDC_SHOWCOLOR, m_showColor);
 	DDX_Text(pDX, IDC_EDIT5, m_fromTimeHour);
 	DDV_MinMaxInt(pDX, m_fromTimeHour, 0, 23);
 	DDX_Text(pDX, IDC_EDIT7, m_fromTimeMin);
@@ -52,37 +51,12 @@ void PlanDlg::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(PlanDlg, CDialogEx)
-	ON_BN_CLICKED(IDC_MORECOLOR, &PlanDlg::OnBnClickedMorecolor)
 	ON_BN_CLICKED(IDCANCLE, &PlanDlg::OnBnClickedCancle)
-	ON_WM_PAINT()
 END_MESSAGE_MAP()
 
 
 // PlanDlg 메시지 처리기입니다.
-
-
-void PlanDlg::OnBnClickedMorecolor()
-{
-	CColorDialog colorDlg;
-	if (colorDlg.DoModal() == IDOK)
-		m_color = colorDlg.GetColor();
-	Invalidate();
-}
-
-
 void PlanDlg::OnBnClickedCancle()
 {
 	EndDialog(IDCANCLE);
-}
-
-
-void PlanDlg::OnPaint()
-{
-	CPaintDC dc(this);
-	CRect rect;
-	CBrush brush(m_color);
-	m_showColor.GetClientRect(&rect);
-	CDC * adc = m_showColor.GetDC();
-	adc->FillRect(rect, &brush);
-	m_showColor.ReleaseDC(adc);
 }
