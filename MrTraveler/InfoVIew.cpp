@@ -69,6 +69,7 @@ void CInfoVIew::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BUTTON_MUL, m_Mul);
 	DDX_Control(pDX, IDC_BUTTON_DIV, m_Div);
 	DDX_Control(pDX, IDC_EDIT1, m_Note);
+	DDX_Control(pDX, IDC_AboutBox, m_AboutBox);
 }
 
 BEGIN_MESSAGE_MAP(CInfoVIew, CFormView)
@@ -82,6 +83,7 @@ BEGIN_MESSAGE_MAP(CInfoVIew, CFormView)
 	ON_EN_CHANGE(IDC_EDITX, &CInfoVIew::OnEnChangeEditx)
 	ON_EN_CHANGE(IDC_EDITY, &CInfoVIew::OnEnChangeEdity)
 	ON_WM_SIZE()
+	ON_BN_CLICKED(IDC_AboutBox, &CInfoVIew::OnBnClickedAboutbox)
 END_MESSAGE_MAP()
 
 
@@ -504,4 +506,22 @@ void CInfoVIew::OnSize(UINT nType, int cx, int cy)
 		Rect.bottom = clientRect.bottom*0.98;
 		m_btnBack.MoveWindow(Rect);
 	}
+	if (m_AboutBox.GetSafeHwnd() != NULL) {
+		CRect Rect;
+		m_AboutBox.GetWindowRect(Rect);
+		ScreenToClient(Rect);
+		Rect.left = clientRect.right*0.01;
+		Rect.right = clientRect.right*0.07;
+		Rect.top = clientRect.bottom*0.94;
+		Rect.bottom = clientRect.bottom*0.98;
+		m_AboutBox.MoveWindow(Rect);
+	}
+}
+
+
+void CInfoVIew::OnBnClickedAboutbox()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CDialog aboutDlg(IDD_ABOUTBOX);
+	aboutDlg.DoModal();
 }

@@ -69,6 +69,8 @@ public:
 	CEdit m_Note;
 	CButton m_btnBack;
 	afx_msg void OnSize(UINT nType, int cx, int cy);
+	CButton m_AboutBox;
+	afx_msg void OnBnClickedAboutbox();
 };
 
 

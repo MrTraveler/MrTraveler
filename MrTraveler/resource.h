@@ -10,7 +10,6 @@
 #define IDR_HTML_GOOGLEMAP              312
 #define IDD_DIALOG2                     316
 #define IDD_DIALOG3                     319
-#define IDB_BITMAP1                     350
 #define IDB_MrTraveler                  350
 #define IDC_EDIT1                       1006
 #define IDC_EDIT2                       1007
@@ -56,6 +55,7 @@
 #define IDC_GExchangeRate               1082
 #define IDC_Calculator                  1083
 #define IDC_GMemo                       1084
+#define IDC_AboutBox                    1085
 #define ID_SWITCHVIEW_MRTRAVELER        32771
 #define ID_SWITCHVIEW_INFO              32772
 #define ID_MRTRAVELER                   32773
@@ -65,9 +65,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        351
+#define _APS_NEXT_RESOURCE_VALUE        352
 #define _APS_NEXT_COMMAND_VALUE         32780
-#define _APS_NEXT_CONTROL_VALUE         1085
+#define _APS_NEXT_CONTROL_VALUE         1086
 #define _APS_NEXT_SYMED_VALUE           320
 #endif
 #endif
