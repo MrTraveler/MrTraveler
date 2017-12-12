@@ -4,7 +4,7 @@
 #include "PlanData.h"
 #include "MrTravelerView.h"
 #include "PlanDlg.h"
-
+#include "resource.h"
 #include "CalendarView.h"
 ScheduleView::ScheduleView()
 {	
@@ -26,8 +26,8 @@ void ScheduleView::DrawBackGround(CDC * dc)
 void ScheduleView::DrawButton(CDC * dc)
 {
 	CBrush brush(RGB(150, 190, 255));
-	Util::DrawImage(dc, _T("img\\LeftArrow.png"), CRect(810, 10, 890, 90));
-	Util::DrawImage(dc, _T("img\\RightArrow.png"), CRect(910, 10, 990, 90));
+	Util::DrawImage(dc, IDB_LEFTARROW, CRect(810, 10, 890, 90));
+	Util::DrawImage(dc, IDB_RIGHTARROW, CRect(910, 10, 990, 90));
 }
 void ScheduleView::DrawTable(CDC * dc)
 {

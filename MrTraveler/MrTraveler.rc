@@ -83,6 +83,24 @@ IDR_MAINFRAME           BITMAP                  "res\\Toolbar.bmp"
 
 IDB_MrTraveler          BITMAP                  "img\\MrTraveler.bmp"
 
+IDB_LEFTARROW           BITMAP                  "img\\LeftArrow.bmp"
+
+IDB_RIGHTARROW          BITMAP                  "img\\RightArrow.bmp"
+
+IDB_SCHEDULELEFTARROW   BITMAP                  "img\\scheduleLeftArrow.bmp"
+
+IDB_SCHEDULERIGHTARROW  BITMAP                  "img\\scheduleRightArrow.bmp"
+
+IDB_ICON1               BITMAP                  "img\\icon\\icon1.bmp"
+
+IDB_ICON2               BITMAP                  "img\\icon\\icon2.bmp"
+
+IDB_ICON3               BITMAP                  "img\\icon\\icon3.bmp"
+
+IDB_ICON4               BITMAP                  "img\\icon\\icon4.bmp"
+
+IDB_ICON5               BITMAP                  "img\\icon\\icon5.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

@@ -4,6 +4,7 @@
 #include "Util.h"
 #include "AccountData.h"
 #include "AccountBookDlg.h"
+#include "resource.h"
 AccountBookView::AccountBookView()
 {
 	CTime today = CTime::GetCurrentTime();
@@ -204,6 +205,6 @@ void AccountBookView::DrawCalander(CDC * dc)
 
 void AccountBookView::DrawButton(CDC * dc)
 {
-	Util::DrawImage(dc, _T("img\\scheduleLeftArrow.png"), CRect(10, 10, 90, 90));
-	Util::DrawImage(dc, _T("img\\scheduleRightArrow.png"), CRect(910, 10, 990, 90));
+	Util::DrawImage(dc, IDB_SCHEDULELEFTARROW, CRect(10, 10, 90, 90));
+	Util::DrawImage(dc, IDB_SCHEDULERIGHTARROW, CRect(910, 10, 990, 90));
 }

@@ -249,10 +249,20 @@
     <None Include="res\MrTraveler.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="img\icon\bitmap1.bmp" />
+    <Image Include="img\icon\icon1.bmp" />
+    <Image Include="img\icon\icon2.bmp" />
+    <Image Include="img\icon\icon3.bmp" />
+    <Image Include="img\icon\icon4.bmp" />
+    <Image Include="img\icon\icon5.bmp" />
+    <Image Include="img\LeftArrow.bmp" />
     <Image Include="img\LeftArrow.png" />
     <Image Include="img\MrTraveler.bmp" />
+    <Image Include="img\RightArrow.bmp" />
     <Image Include="img\RightArrow.png" />
+    <Image Include="img\scheduleLeftArrow.bmp" />
     <Image Include="img\scheduleLeftArrow.png" />
+    <Image Include="img\scheduleRightArrow.bmp" />
     <Image Include="img\scheduleRightArrow.png" />
     <Image Include="res\bitmap1.bmp" />
     <Image Include="res\MrTraveler.ico" />

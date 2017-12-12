@@ -8,13 +8,10 @@ Util::Util()
 Util::~Util()
 {
 }
-void Util::DrawImage(CDC * dc,CString path, CRect rect)
+void Util::DrawImage(CDC * dc,int id, CRect rect)
 {
-	CImage image;
-	image.Load(path);
-
 	CBitmap bmp;
-	bmp.Attach(image.Detach());
+	bmp.LoadBitmap(id);
 	CDC memDC;
 	memDC.CreateCompatibleDC(dc);
 	BITMAP bmpInfo;

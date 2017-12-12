@@ -202,5 +202,35 @@
     <Image Include="img\MrTraveler.bmp">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="img\LeftArrow.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="img\RightArrow.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="img\scheduleLeftArrow.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="img\scheduleRightArrow.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="img\icon\icon1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="img\icon\icon2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="img\icon\icon3.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="img\icon\icon4.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="img\icon\icon5.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="img\icon\bitmap1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
 </Project>
