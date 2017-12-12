@@ -16,6 +16,8 @@ private:
 	static bool instanceFlag;
 public:	//	변수
 	std::vector<Plan> planList;	//이거 저장하면됨
+	CTime startDate;
+	CTime endDate;
 public:
 	static PlanData* GetInstance();
 	std::vector<Plan> FindInPlan(CTime from , CTime to);	//사용하지 않는 함수

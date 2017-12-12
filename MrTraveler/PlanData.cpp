@@ -5,7 +5,8 @@ PlanData * PlanData::instance = NULL;
 bool PlanData::instanceFlag = false;
 PlanData::PlanData()
 {
-
+	startDate = NULL;
+	endDate = NULL;
 }
 PlanData::~PlanData()
 {
