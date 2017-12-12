@@ -8,13 +8,23 @@
 #include "CalendarView.h"
 ScheduleView::ScheduleView()
 {	
-	today = CTime::GetCurrentTime();
-	today = CTime(today.GetYear(), today.GetMonth(), today.GetDay(), 0, 0, 0);
+	ResetToday();
 }
 
 
 ScheduleView::~ScheduleView()
 {
+}
+void ScheduleView::ResetToday()	//데이터 변경하면 이거 실행하면됨 내가 할거임
+{
+	if (PlanData::GetInstance()->startDate != NULL)
+	{
+		today = PlanData::GetInstance()->startDate;
+	}
+	else
+	{
+		today = CTime::GetCurrentTime();
+	}
 }
 void ScheduleView::DrawBackGround(CDC * dc)
 {
@@ -94,7 +104,7 @@ void ScheduleView::DrawPlan(CDC * dc)
 {
 	
 	CTimeSpan oneDay = CTimeSpan(1, 0, 0, 0);
-	CTime ht = today - oneDay - oneDay - oneDay;
+	CTime ht = today;
 	COLORREF colorList[] =
 	{
 		RGB(0X4C,0X69,0X8B),
@@ -135,8 +145,7 @@ void ScheduleView::DrawPlan(CDC * dc)
 void ScheduleView::DrawPlanLabel(CDC * dc)
 {
 	CTimeSpan oneDay = CTimeSpan(1, 0, 0, 0);
-	CTime ht = today - oneDay - oneDay;
-	ht -= oneDay;
+	CTime ht = today;
 	CFont font;
 	font.CreatePointFont(120, _T("맑은 고딕"));
 	dc->SelectObject(&font);
@@ -199,10 +208,17 @@ void ScheduleView::OnLButtonDown(CPoint point)
 	if (!Util::IsPointInRect(CRect(0, 0, 1000, 1000), point))	//마우스가 뷰안에 있지 않을때
 		return;
 	if (Util::IsPointInRect(CRect(810, 10, 890, 90), point))
-		today -= oneDay;
+	{
+		CTime startDate = PlanData::GetInstance()->startDate;
+		if(startDate == NULL || today - oneDay >= startDate)
+			today -= oneDay;
+	}
 	if (Util::IsPointInRect(CRect(910, 10, 990, 90), point))
-		today += oneDay;
-
+	{
+		CTime endDate = PlanData::GetInstance()->endDate;
+		if (endDate == NULL || today + oneDay <= endDate)
+			today += oneDay;
+	}
 	if (Util::IsPointInRect(CRect(100, 100, 1000, 1000), point))
 	{
 		double ch = ((double)point.y - 100 - 900 / 25) / (900 / 25);

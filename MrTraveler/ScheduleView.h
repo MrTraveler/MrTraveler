@@ -14,15 +14,11 @@ public:
 	void DrawBackGround(CDC * dc);
 	void DrawButton(CDC * dc);
 	void DrawPlanLabel(CDC * dc);
-
+	void ResetToday();
 public:
 	CTime today;
 
 	CalendarView* calendarView;
-
-	//PlanDlg planDlg;
-//	int selectedCellX;
-//	int selectedCellY;
 
 };
 
