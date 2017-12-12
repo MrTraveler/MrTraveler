@@ -23,7 +23,6 @@ protected:
 public:
 
 	std::vector<AccountInfo> accountList;
-	afx_msg void OnBnClickedModify();
 	afx_msg void OnBnClickedDelete();
 	afx_msg void OnBnClickedAdd();
 	int day;

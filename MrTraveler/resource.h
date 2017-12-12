@@ -11,6 +11,15 @@
 #define IDD_DIALOG2                     316
 #define IDD_DIALOG3                     319
 #define IDB_MrTraveler                  350
+#define IDB_LEFTARROW                   352
+#define IDB_RIGHTARROW                  353
+#define IDB_SCHEDULELEFTARROW           354
+#define IDB_SCHEDULERIGHTARROW          355
+#define IDB_ICON1                       356
+#define IDB_ICON2                       357
+#define IDB_ICON3                       358
+#define IDB_ICON4                       359
+#define IDB_ICON5                       360
 #define IDC_EDIT1                       1006
 #define IDC_EDIT2                       1007
 #define IDC_DATETIMEPICKER2             1008
@@ -65,7 +74,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        352
+#define _APS_NEXT_RESOURCE_VALUE        362
 #define _APS_NEXT_COMMAND_VALUE         32780
 #define _APS_NEXT_CONTROL_VALUE         1086
 #define _APS_NEXT_SYMED_VALUE           320

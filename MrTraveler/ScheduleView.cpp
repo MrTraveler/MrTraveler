@@ -4,7 +4,7 @@
 #include "PlanData.h"
 #include "MrTravelerView.h"
 #include "PlanDlg.h"
-
+#include "resource.h"
 #include "CalendarView.h"
 ScheduleView::ScheduleView()
 {	
@@ -26,8 +26,8 @@ void ScheduleView::DrawBackGround(CDC * dc)
 void ScheduleView::DrawButton(CDC * dc)
 {
 	CBrush brush(RGB(150, 190, 255));
-	Util::DrawImage(dc, _T("img\\LeftArrow.png"), CRect(810, 10, 890, 90));
-	Util::DrawImage(dc, _T("img\\RightArrow.png"), CRect(910, 10, 990, 90));
+	Util::DrawImage(dc, IDB_LEFTARROW, CRect(810, 10, 890, 90));
+	Util::DrawImage(dc, IDB_RIGHTARROW, CRect(910, 10, 990, 90));
 }
 void ScheduleView::DrawTable(CDC * dc)
 {
@@ -69,7 +69,7 @@ void ScheduleView::DrawTable(CDC * dc)
 	CTime h = today - oneDay - oneDay - oneDay;
 	for (int i = 0; i < 7; i++)
 	{
-		dc->TextOut((int)((float)900 / 7 / 2 * (i * 2 + 1) + 100), 100, h.Format(_T("%m 월 %d 일")));
+		dc->TextOut((int)((float)900 / 7 / 2 * (i * 2 + 1) + 100), 100, h.Format(_T("%m 월 %d 일 %a")));
 		h = h + oneDay;
 	}
 	CFont font2;
@@ -143,6 +143,7 @@ void ScheduleView::DrawPlanLabel(CDC * dc)
 	dc->SetTextAlign(TA_LEFT);
 	dc->SetTextColor(RGB(255,255,255));
 	dc->SetBkMode(TRANSPARENT);
+
 	for (int i = 0; i < 7; i++)
 	{
 		std::vector<Plan> v = PlanData::GetInstance()->FindBorderPlan(ht, ht + oneDay);

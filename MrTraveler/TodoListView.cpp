@@ -4,6 +4,7 @@
 #include "Util.h"
 #include "MrTravelerView.h"
 #include "TodoDlg.h"
+#include "resource.h"
 TodoListView::TodoListView()
 {
 	startDrawY = 0;	//스크롤할시 그리기 시작점	//아직 미구현
@@ -32,9 +33,9 @@ void TodoListView::DrawMetroRect(CDC * dc ,CRect rect, Todo * todo,int color)
 	dc->SetTextColor(RGB(255, 255, 255));
 	dc->SetBkMode(TRANSPARENT);
 	dc->TextOut(rect.left +  130, rect.top + 30, todo->title);
-	CString path;
-	path.Format(_T("img\\icon\\icon%d.bmp"), (todo->icon) + 1);
-	Util::DrawImage(dc, path, CRect(rect.left + 30, rect.top + 30, rect.left + 130, rect.bottom - 30));
+	
+	int iconID[] = { IDB_ICON1,IDB_ICON2,IDB_ICON3,IDB_ICON4,IDB_ICON5 };
+	Util::DrawImage(dc, iconID[todo->icon], CRect(rect.left + 30, rect.top + 30, rect.left + 130, rect.bottom - 30));
 }
 void TodoListView::DrawMetro(CDC * dc)
 {
@@ -123,8 +124,7 @@ void TodoListView::OnLButtonDblClk(CPoint point)
 		selectedMargin = true;
 	else if ((row + col) % 2 == 0 && !Util::IsPointInRect(CRect(15, 15, 651, 235), marginCheckPoint))
 		selectedMargin = true;
-
-	if (!selectedMargin && (TodoData::GetInstance()->todoList.size() >= row * 2 + col))
+	if (!selectedMargin && (TodoData::GetInstance()->todoList.size() > row * 2 + col))
 	{
 		TodoDlg dlg;
 		Todo dtodo = TodoData::GetInstance()->todoList[row * 2 + col];
