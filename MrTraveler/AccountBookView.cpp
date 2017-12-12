@@ -192,7 +192,7 @@ void AccountBookView::DrawCalander(CDC * dc)
 				if (budget == 0)
 					dc->SetTextColor(RGB(120, 120, 120));
 				else if (budget < 0)
-					dc->SetTextColor(RGB(0xD2, 0x1A, 0x1A));
+					dc->SetTextColor(RGB(255, 193, 158)); //진한것(255,94,0), 연한것(242,150,97)
 				else
 					dc->SetTextColor(RGB(0x61,0xBB,0x17));
 				dc->SelectObject(&font5);
