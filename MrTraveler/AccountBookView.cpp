@@ -5,6 +5,7 @@
 #include "AccountData.h"
 #include "AccountBookDlg.h"
 #include "resource.h"
+#include "PlanData.h"
 AccountBookView::AccountBookView()
 {
 	CTime today = CTime::GetCurrentTime();
@@ -24,6 +25,7 @@ void AccountBookView::OnDraw(CDC * dc)
 	CRect orgViewRect = { 0,0,viewRect.right - viewRect.left, viewRect.bottom - viewRect.top };	//view의 원래 크기
 	dc->SetWindowExt(1000, 1000);
 	dc->SetViewportExt(orgViewRect.right, orgViewRect.bottom);
+	DrawPlan(dc);
 	DrawCalander(dc);
 	DrawButton(dc);
 	DrawData(dc);
@@ -192,9 +194,9 @@ void AccountBookView::DrawCalander(CDC * dc)
 				if (budget == 0)
 					dc->SetTextColor(RGB(120, 120, 120));
 				else if (budget < 0)
-					dc->SetTextColor(RGB(255, 193, 158)); //진한것(255,94,0), 연한것(242,150,97)
+					dc->SetTextColor(RGB(0xD2, 0x1A, 0x1A));
 				else
-					dc->SetTextColor(RGB(0x61,0xBB,0x17));
+					dc->SetTextColor(RGB(255, 193, 158)); //진한것(255,94,0), 연한것(242,150,97)
 				dc->SelectObject(&font5);
 				dc->TextOut((int)((float)1000 / 7 * (2 * j + 1) / 2) + 50, 180 + (int)((float)820 / 6 * (i * 2 + 1) / 2) + 30, str);	
 			}
@@ -207,4 +209,32 @@ void AccountBookView::DrawButton(CDC * dc)
 {
 	Util::DrawImage(dc, IDB_SCHEDULELEFTARROW, CRect(10, 10, 90, 90));
 	Util::DrawImage(dc, IDB_SCHEDULERIGHTARROW, CRect(910, 10, 990, 90));
+}
+
+void AccountBookView::DrawPlan(CDC * dc)
+{
+	CTime nowMonth = CTime(year, month, 1, 0, 0, 0);
+	int nowMonthDay = Util::GetMonthDay(year, month);
+	int startWeek = nowMonth.GetDayOfWeek() - 2;	//0 부터 월요일
+	
+	int row = 0;
+	int col = (startWeek + 7) % 7;
+	int h = 0;
+	while(h != nowMonthDay)
+	{
+		bool isPlaned = false;
+		std::vector<Plan> cp = PlanData::GetInstance()->FindBorderPlan(nowMonth + CTimeSpan(h, 0, 0, 1), nowMonth + CTimeSpan(h + 1, 0, 0, 0) - CTimeSpan(0, 0, 0, 1));
+		if (cp.size())
+		{
+			dc->FillRect(CRect((int)((float)1000 / 7 * col), (int)((float)820 / 6 * row + 180), (int)((float)1000 / 7 * (col + 1)), (int)((float)820 / 6 * (row + 1) + 180))
+				, &CBrush(RGB(0xFF, 0xF6, 0xBA)));
+		}
+		++h;
+		++col;
+		if (col == 7)	//주 변환
+		{
+			row += 1;
+			col = 0;
+		}
+	}
 }
