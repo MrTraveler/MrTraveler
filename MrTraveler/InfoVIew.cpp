@@ -5,6 +5,7 @@
 #include "MrTraveler.h"
 #include "InfoVIew.h"
 #include "MainFrm.h"
+#include "ManageData.h"
 
 
 
@@ -84,6 +85,7 @@ BEGIN_MESSAGE_MAP(CInfoVIew, CFormView)
 	ON_EN_CHANGE(IDC_EDITY, &CInfoVIew::OnEnChangeEdity)
 	ON_WM_SIZE()
 	ON_BN_CLICKED(IDC_AboutBox, &CInfoVIew::OnBnClickedAboutbox)
+	ON_BN_CLICKED(IDC_SAVE, &CInfoVIew::OnBnClickedSave)
 END_MESSAGE_MAP()
 
 
@@ -524,4 +526,11 @@ void CInfoVIew::OnBnClickedAboutbox()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	CDialog aboutDlg(IDD_ABOUTBOX);
 	aboutDlg.DoModal();
+}
+
+
+void CInfoVIew::OnBnClickedSave()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CManageData::GetInstance()->SaveData();
 }

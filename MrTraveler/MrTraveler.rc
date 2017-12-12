@@ -303,6 +303,7 @@ BEGIN
     PUSHBUTTON      "/",IDC_BUTTON_DIV,655,163,31,25
     GROUPBOX        "사칙연산 계산기",IDC_Calculator,468,102,253,100
     PUSHBUTTON      "About",IDC_AboutBox,7,453,50,14
+    PUSHBUTTON      "저장",IDC_SAVE,114,452,50,14
 END
 
 

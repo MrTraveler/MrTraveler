@@ -4,7 +4,7 @@
 #include "CWebBrowser2.h"
 
 class CMainFrame;
-
+class CManageData;
 // CInfoVIew Æû ºäÀÔ´Ï´Ù.
 class CMrTravelerParceHtml;
 class CInfoVIew : public CFormView
@@ -71,6 +71,7 @@ public:
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	CButton m_AboutBox;
 	afx_msg void OnBnClickedAboutbox();
+	afx_msg void OnBnClickedSave();
 };
 
 

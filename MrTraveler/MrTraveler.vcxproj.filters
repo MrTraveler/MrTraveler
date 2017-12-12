@@ -96,6 +96,9 @@
     <ClInclude Include="TodoDlg.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="ManageData.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MrTraveler.cpp">
@@ -159,6 +162,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="TodoDlg.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ManageData.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
