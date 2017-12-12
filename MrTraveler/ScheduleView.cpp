@@ -24,6 +24,7 @@ void ScheduleView::ResetToday()	//데이터 변경하면 이거 실행하면됨 내가 할거임
 	else
 	{
 		today = CTime::GetCurrentTime();
+		today = CTime(today.GetYear(), today.GetMonth(), today.GetDay(), 0, 0, 0);
 	}
 }
 void ScheduleView::DrawBackGround(CDC * dc)
@@ -76,7 +77,7 @@ void ScheduleView::DrawTable(CDC * dc)
 	dc->SetTextColor(RGB(255,255,255));
 	//여기 아래부터 나중에 데이터로 자동화
 	CTimeSpan oneDay = CTimeSpan(1, 0, 0, 0);
-	CTime h = today - oneDay - oneDay - oneDay;
+	CTime h = today;
 	for (int i = 0; i < 7; i++)
 	{
 		dc->TextOut((int)((float)900 / 7 / 2 * (i * 2 + 1) + 100), 100, h.Format(_T("%m 월 %d 일 %a")));
@@ -115,12 +116,12 @@ void ScheduleView::DrawPlan(CDC * dc)
 	int k = 0;
 	for (int i = 0; i < 7; i++)
 	{
-		std::vector<Plan> v = PlanData::GetInstance()->FindBorderPlan(ht, ht + oneDay);
+		std::vector<Plan> v = PlanData::GetInstance()->FindBorderPlan(ht + CTimeSpan(0, 0, 0, 1), ht + oneDay - CTimeSpan(0,0,0,1));
 		for (int j = 0; j < v.size(); j++)
 		{
 			
 			Plan p = v[j];
-			
+			wprintf(ht.Format(_T("%y %m %d\n")));
 
 			double sh;	//startHour
 			double eh;	//endHour
@@ -223,7 +224,7 @@ void ScheduleView::OnLButtonDown(CPoint point)
 	{
 		double ch = ((double)point.y - 100 - 900 / 25) / (900 / 25);
 		int cd = (int)((point.x - 100) / ((float)900 / 7));
-		CTime ct = today - oneDay - oneDay - oneDay;
+		CTime ct = today;
 		for (int i = 0; i < cd; i++)
 			ct = ct + oneDay;
 		ct += CTimeSpan(0, (int)ch, (int)((ch - (int)ch) * 60), 0);

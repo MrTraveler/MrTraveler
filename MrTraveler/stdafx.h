@@ -4,7 +4,7 @@
 // 들어 있는 포함 파일입니다.
 
 #pragma once
-//#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")	//MFC에서 콘솔창을 뜨게하는 마법의 코드
+#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")	//MFC에서 콘솔창을 뜨게하는 마법의 코드
 #ifndef VC_EXTRALEAN
 #define VC_EXTRALEAN            // 거의 사용되지 않는 내용은 Windows 헤더에서 제외합니다.
 #endif

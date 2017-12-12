@@ -11,6 +11,7 @@ public:
 	void DrawCalander(CDC * dc);
 	void DrawData(CDC * dc);
 	void DrawButton(CDC * dc);
+	void DrawPlan(CDC * dc);
 public:
 	const CString weekLabel[7] = { _T("Mon"),_T("Tue"),_T("Wed"),_T("Thu"),_T("Fri"),_T("Sat"),_T("Sun") };
 	int year;
