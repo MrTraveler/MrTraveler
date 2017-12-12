@@ -213,28 +213,25 @@ void AccountBookView::DrawButton(CDC * dc)
 
 void AccountBookView::DrawPlan(CDC * dc)
 {
-	CTime nowMonth = CTime(year, month, 1, 0, 0, 0);
-	int nowMonthDay = Util::GetMonthDay(year, month);
-	int startWeek = nowMonth.GetDayOfWeek() - 2;	//0 부터 월요일
-	
-	int row = 0;
-	int col = (startWeek + 7) % 7;
-	int h = 0;
-	while(h != nowMonthDay)
+	if (PlanData::GetInstance()->startDate != NULL)
 	{
-		bool isPlaned = false;
-		std::vector<Plan> cp = PlanData::GetInstance()->FindBorderPlan(nowMonth + CTimeSpan(h, 0, 0, 1), nowMonth + CTimeSpan(h + 1, 0, 0, 0) - CTimeSpan(0, 0, 0, 1));
-		if (cp.size())
+		CTime nowMonth = CTime(year, month, 1, 0, 0, 0);
+		CTime start = PlanData::GetInstance()->startDate;
+		CTime end = PlanData::GetInstance()->endDate;
+		while (1)
 		{
-			dc->FillRect(CRect((int)((float)1000 / 7 * col), (int)((float)820 / 6 * row + 180), (int)((float)1000 / 7 * (col + 1)), (int)((float)820 / 6 * (row + 1) + 180))
-				, &CBrush(RGB(255, 228, 0)));
-		}
-		++h;
-		++col;
-		if (col == 7)	//주 변환
-		{
-			row += 1;
-			col = 0;
+			if (start.GetYear() == year && start.GetMonth() == month)
+			{
+				CTime ct = CTime(year, month, 1, 0, 0, 0);
+				int col = ((ct.GetDayOfWeek() - 2 + 7) % 7 + (start.GetDay() - 1));
+				int row = col / 7;
+				col %= 7;
+				dc->FillRect(CRect((int)((float)1000 / 7 * col), (int)((float)820 / 6 * row + 180), (int)((float)1000 / 7 * (col + 1)), (int)((float)820 / 6 * (row + 1) + 180))
+					, &CBrush(RGB(255, 228, 0)));
+			}
+			if (start.GetYear() == end.GetYear() && start.GetMonth() == end.GetMonth() && start.GetDay() == end.GetDay())
+				break;
+			start = start + CTimeSpan(1, 0, 0, 0);
 		}
 	}
 }

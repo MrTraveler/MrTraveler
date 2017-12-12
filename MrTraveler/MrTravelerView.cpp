@@ -78,7 +78,8 @@ void CMrTravelerView::testinit()	//테스트 용도로 만든거
 	TodoData::GetInstance()->todoList.push_back(todo1);
 	TodoData::GetInstance()->todoList.push_back(todo2);
 
-	
+	PlanData::GetInstance()->AddPlan(CTime(2017, 12, 05, 10, 5, 0), CTime(2017, 12, 06, 10, 5, 0), _T("치킨 뜯기")
+		, _T(""),10000);
 }
 BOOL CMrTravelerView::PreCreateWindow(CREATESTRUCT& cs)
 {
@@ -363,6 +364,8 @@ void CMrTravelerView::OnLButtonUp(UINT nFlags, CPoint point)
 				break;
 			}
 		}
+		PlanData::GetInstance()->startDate = CTime(calendarView->curYear, calendarView->curMonth, calendarView->startDate, 0, 0, 0);
+		PlanData::GetInstance()->endDate = CTime(calendarView->curYear, calendarView->curMonth, calendarView->endDate, 0, 0, 0);
 
 		for (int i = calendarView->startDate; i <= calendarView->endDate; i++) {
 			dc.FillRgn(&calendarView->dateRgn[i], &CBrush(RGB(230, 230, 230)));
