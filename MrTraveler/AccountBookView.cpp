@@ -196,7 +196,7 @@ void AccountBookView::DrawCalander(CDC * dc)
 				else if (budget < 0)
 					dc->SetTextColor(RGB(0xD2, 0x1A, 0x1A));
 				else
-					dc->SetTextColor(RGB(255, 193, 158)); //진한것(255,94,0), 연한것(242,150,97)
+					dc->SetTextColor(RGB(255, 94, 0)); //진한것(255,94,0), 연한것(242,150,97)
 				dc->SelectObject(&font5);
 				dc->TextOut((int)((float)1000 / 7 * (2 * j + 1) / 2) + 50, 180 + (int)((float)820 / 6 * (i * 2 + 1) / 2) + 30, str);	
 			}
@@ -227,7 +227,7 @@ void AccountBookView::DrawPlan(CDC * dc)
 		if (cp.size())
 		{
 			dc->FillRect(CRect((int)((float)1000 / 7 * col), (int)((float)820 / 6 * row + 180), (int)((float)1000 / 7 * (col + 1)), (int)((float)820 / 6 * (row + 1) + 180))
-				, &CBrush(RGB(0xFF, 0xF6, 0xBA)));
+				, &CBrush(RGB(255, 228, 0)));
 		}
 		++h;
 		++col;
