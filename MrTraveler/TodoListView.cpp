@@ -32,7 +32,7 @@ void TodoListView::DrawMetroRect(CDC * dc ,CRect rect, Todo * todo,int color)
 	dc->SelectObject(&font);
 	dc->SetTextColor(RGB(255, 255, 255));
 	dc->SetBkMode(TRANSPARENT);
-	dc->TextOut(rect.left +  130, rect.top + 30, todo->title);
+	dc->TextOut(rect.left +  150, rect.top + 30, todo->title);
 	
 	int iconID[] = { IDB_ICON1,IDB_ICON2,IDB_ICON3,IDB_ICON4,IDB_ICON5 };
 	Util::DrawImage(dc, iconID[todo->icon], CRect(rect.left + 30, rect.top + 30, rect.left + 130, rect.bottom - 30));
