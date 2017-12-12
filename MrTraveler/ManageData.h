@@ -13,9 +13,9 @@ public:
 	~CManageData();
 	int RoadData();
 	int SaveData();
-	PlanData* Plan;
-	TodoData* Todo;
-	AccountData* Account;
+	PlanData* d_Plan;
+	TodoData* d_Todo;
+	AccountData* d_Account;
 	static CManageData *GetInstance();
 	//string MakeString(CString str);
 };

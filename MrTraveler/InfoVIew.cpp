@@ -86,6 +86,7 @@ BEGIN_MESSAGE_MAP(CInfoVIew, CFormView)
 	ON_WM_SIZE()
 	ON_BN_CLICKED(IDC_AboutBox, &CInfoVIew::OnBnClickedAboutbox)
 	ON_BN_CLICKED(IDC_SAVE, &CInfoVIew::OnBnClickedSave)
+	ON_BN_CLICKED(IDC_ROAD, &CInfoVIew::OnBnClickedRoad)
 END_MESSAGE_MAP()
 
 
@@ -533,4 +534,11 @@ void CInfoVIew::OnBnClickedSave()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	CManageData::GetInstance()->SaveData();
+}
+
+
+void CInfoVIew::OnBnClickedRoad()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CManageData::GetInstance()->RoadData();
 }

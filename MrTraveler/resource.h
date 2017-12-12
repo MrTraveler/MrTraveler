@@ -67,6 +67,8 @@
 #define IDC_AboutBox                    1085
 #define IDC_BUTTON2                     1086
 #define IDC_SAVE                        1086
+#define IDC_BUTTON3                     1087
+#define IDC_ROAD                        1087
 #define ID_SWITCHVIEW_MRTRAVELER        32771
 #define ID_SWITCHVIEW_INFO              32772
 #define ID_MRTRAVELER                   32773
@@ -78,7 +80,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        362
 #define _APS_NEXT_COMMAND_VALUE         32780
-#define _APS_NEXT_CONTROL_VALUE         1087
+#define _APS_NEXT_CONTROL_VALUE         1088
 #define _APS_NEXT_SYMED_VALUE           320
 #endif
 #endif

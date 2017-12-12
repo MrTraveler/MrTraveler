@@ -69,14 +69,14 @@ void CMrTravelerView::testinit()	//테스트 용도로 만든거
 	scheduleView = new ScheduleView();
 	calendarView = new CalendarView();
 	accountBookView = new AccountBookView();
-	Todo todo1;
-	todo1.title = _T("Title_1");
-	todo1.icon = 0;
-	Todo todo2;
-	todo2.title = _T("Title_2");
-	todo2.icon = 1;
-	TodoData::GetInstance()->todoList.push_back(todo1);
-	TodoData::GetInstance()->todoList.push_back(todo2);
+	//Todo todo1;
+	//todo1.title = _T("Title_1");
+	//todo1.icon = 0;
+	//Todo todo2;
+	//todo2.title = _T("Title_2");
+	//todo2.icon = 1;
+	//TodoData::GetInstance()->todoList.push_back(todo1);
+	//TodoData::GetInstance()->todoList.push_back(todo2);
 
 	PlanData::GetInstance()->AddPlan(CTime(2017, 12, 05, 10, 5, 0), CTime(2017, 12, 06, 10, 5, 0), _T("치킨 뜯기")
 		, _T(""),10000);
@@ -295,6 +295,7 @@ void CMrTravelerView::OnLButtonDown(UINT nFlags, CPoint point)
 			}
 			*/
 			scheduleView->OnLButtonDown(point);
+			scheduleView->ResetToday();
 			CView::OnLButtonDown(nFlags, point);
 			return;
 		}

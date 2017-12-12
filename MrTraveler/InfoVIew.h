@@ -72,6 +72,7 @@ public:
 	CButton m_AboutBox;
 	afx_msg void OnBnClickedAboutbox();
 	afx_msg void OnBnClickedSave();
+	afx_msg void OnBnClickedRoad();
 };
 
 
