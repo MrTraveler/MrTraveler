@@ -3,6 +3,7 @@
 class PlanData;
 class TodoData;
 class AccountData;
+class CFileDialog;
 class CManageData
 {
 private:

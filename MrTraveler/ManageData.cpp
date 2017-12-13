@@ -27,101 +27,107 @@ CManageData::~CManageData()
 
 int CManageData::RoadData()
 {
-	std::ifstream stream;
-	stream.open("MrTraveler.mt");
-	Json::Value root;
-	stream >> root;
-	Json::Value Size = root["size"];
-	Json::Value day = root["day"];
-	Json::Value clist = root["clist"];
-	Json::Value cnum = root["cnum"];
-	{
-		const char * str = day["Start"].asCString();
-		char x[20];
-		strcpy(x, str);
-		int nYear = atoi(strtok(x, "|"));
-		int nMon = atoi(strtok(NULL, "|"));
-		int nDay = atoi(strtok(NULL, "|"));
-		int nHour = atoi(strtok(NULL, "|"));
-		int nMin = atoi(strtok(NULL, "|"));
-		int nSec = atoi(strtok(NULL, "|"));
-		CTime start(nYear, nMon, nDay, nHour, nMin, nSec);
-		d_Plan->startDate = start;
-	}
-	{
-		const char * str = day["End"].asCString();
-		char x[20];
-		strcpy(x, str);
-		int nYear = atoi(strtok(x, "|"));
-		int nMon = atoi(strtok(NULL, "|"));
-		int nDay = atoi(strtok(NULL, "|"));
-		int nHour = atoi(strtok(NULL, "|"));
-		int nMin = atoi(strtok(NULL, "|"));
-		int nSec = atoi(strtok(NULL, "|"));
-		CTime End(nYear, nMon, nDay, nHour, nMin, nSec);
-		d_Plan->endDate = End;
-	}
-	Json::Value plan = root["Plan"];
-	for (int i = 0; i < Size["Account"].asInt(); i++) {
-		 double budget= plan[i]["budget"].asDouble();
-		const char* contentc = plan[i]["content"].asCString();
-		CString content;
-		content.Format(_T("%s"), contentc);
-		CString title;
-		const char* titlec= plan[i]["title"].asCString();
-		title.Format(_T("%s"), titlec);
-		 CTime from,to;
-		 {
-			 const char * str = plan[i]["from"].asCString();
-			 char x[20];
-			 strcpy(x, str);
-			 int nYear = atoi(strtok(x, "|"));
-			 int nMon = atoi(strtok(NULL, "|"));
-			 int nDay = atoi(strtok(NULL, "|"));
-			 int nHour = atoi(strtok(NULL, "|"));
-			 int nMin = atoi(strtok(NULL, "|"));
-			 int nSec = atoi(strtok(NULL, "|"));
-			 CTime End(nYear, nMon, nDay, nHour, nMin, nSec);
-			 from = End;
-		 }
-		 {
-			 const char * str = plan[i]["to"].asCString();
-			 char x[20];
-			 strcpy(x, str);
-			 int nYear = atoi(strtok(x, "|"));
-			 int nMon = atoi(strtok(NULL, "|"));
-			 int nDay = atoi(strtok(NULL, "|"));
-			 int nHour = atoi(strtok(NULL, "|"));
-			 int nMin = atoi(strtok(NULL, "|"));
-			 int nSec = atoi(strtok(NULL, "|"));
-			 CTime End(nYear, nMon, nDay, nHour, nMin, nSec);
-			 to = End;
-		 }
-		 d_Plan->AddPlan(from,to,title,content,budget);
-	}
-	Json::Value toDo=root["Todo"];
-	for (int i = 0; i < Size["Todo"].asInt(); i++) {
-		Todo todo;
-		todo.icon = toDo[i]["icon"].asInt();
-		todo.title = toDo[i]["title"].asCString();
-		for (int j = 0; j < cnum[i].asInt(); j++) {
-			CString str;
-			const char* tmp= clist[i + j].asCString();
-			str.Format(_T("%s"), tmp);
-			todo.list.push_back(str);
+	TCHAR fileFilter[] = _T("MrTraveler파일(*.mt)|*.mt");
+	TCHAR name[] = _T("MrTraveler.mt");
+	TCHAR Ext[] = _T("mt");
+	CFileDialog dlg(TRUE, Ext, name, OFN_READONLY, fileFilter);
+	if (IDOK == dlg.DoModal()) {
+		std::ifstream stream;
+		stream.open(dlg.GetPathName());
+		Json::Value root;
+		stream >> root;
+		Json::Value Size = root["size"];
+		Json::Value day = root["day"];
+		Json::Value clist = root["clist"];
+		Json::Value cnum = root["cnum"];
+		{
+			const char * str = day["Start"].asCString();
+			char x[20];
+			strcpy(x, str);
+			int nYear = atoi(strtok(x, "|"));
+			int nMon = atoi(strtok(NULL, "|"));
+			int nDay = atoi(strtok(NULL, "|"));
+			int nHour = atoi(strtok(NULL, "|"));
+			int nMin = atoi(strtok(NULL, "|"));
+			int nSec = atoi(strtok(NULL, "|"));
+			CTime start(nYear, nMon, nDay, nHour, nMin, nSec);
+			d_Plan->startDate = start;
 		}
+		{
+			const char * str = day["End"].asCString();
+			char x[20];
+			strcpy(x, str);
+			int nYear = atoi(strtok(x, "|"));
+			int nMon = atoi(strtok(NULL, "|"));
+			int nDay = atoi(strtok(NULL, "|"));
+			int nHour = atoi(strtok(NULL, "|"));
+			int nMin = atoi(strtok(NULL, "|"));
+			int nSec = atoi(strtok(NULL, "|"));
+			CTime End(nYear, nMon, nDay, nHour, nMin, nSec);
+			d_Plan->endDate = End;
+		}
+		Json::Value plan = root["Plan"];
+		for (int i = 0; i < Size["Account"].asInt(); i++) {
+			double budget = plan[i]["budget"].asDouble();
+			const char* contentc = plan[i]["content"].asCString();
+			CString content;
+			content.Format(_T("%s"), contentc);
+			CString title;
+			const char* titlec = plan[i]["title"].asCString();
+			title.Format(_T("%s"), titlec);
+			CTime from, to;
+			{
+				const char * str = plan[i]["from"].asCString();
+				char x[20];
+				strcpy(x, str);
+				int nYear = atoi(strtok(x, "|"));
+				int nMon = atoi(strtok(NULL, "|"));
+				int nDay = atoi(strtok(NULL, "|"));
+				int nHour = atoi(strtok(NULL, "|"));
+				int nMin = atoi(strtok(NULL, "|"));
+				int nSec = atoi(strtok(NULL, "|"));
+				CTime End(nYear, nMon, nDay, nHour, nMin, nSec);
+				from = End;
+			}
+			{
+				const char * str = plan[i]["to"].asCString();
+				char x[20];
+				strcpy(x, str);
+				int nYear = atoi(strtok(x, "|"));
+				int nMon = atoi(strtok(NULL, "|"));
+				int nDay = atoi(strtok(NULL, "|"));
+				int nHour = atoi(strtok(NULL, "|"));
+				int nMin = atoi(strtok(NULL, "|"));
+				int nSec = atoi(strtok(NULL, "|"));
+				CTime End(nYear, nMon, nDay, nHour, nMin, nSec);
+				to = End;
+			}
+			d_Plan->AddPlan(from, to, title, content, budget);
+		}
+		Json::Value toDo = root["Todo"];
+		for (int i = 0; i < Size["Todo"].asInt(); i++) {
+			Todo todo;
+			todo.icon = toDo[i]["icon"].asInt();
+			todo.title = toDo[i]["title"].asCString();
+			for (int j = 0; j < cnum[i].asInt(); j++) {
+				CString str;
+				const char* tmp = clist[i + j].asCString();
+				str.Format(_T("%s"), tmp);
+				todo.list.push_back(str);
+			}
 
 			d_Todo->TodoAdd(todo);
-	}
-	Json::Value account = root["Account"];
-	for (int i = 0; i < Size["Account"].asInt(); i++) {
-		AccountInfo accountinfo;
-		accountinfo.year = account[i]["year"].asInt();
-		accountinfo.month=account[i]["month"].asInt();
-		accountinfo.day=account[i]["day"].asInt();
-		accountinfo.content = account[i]["content"].asCString();
-		accountinfo.money = account[i]["money"].asInt();
-	d_Account->accountList.push_back(accountinfo);
+		}
+		Json::Value account = root["Account"];
+		for (int i = 0; i < Size["Account"].asInt(); i++) {
+			AccountInfo accountinfo;
+			accountinfo.year = account[i]["year"].asInt();
+			accountinfo.month = account[i]["month"].asInt();
+			accountinfo.day = account[i]["day"].asInt();
+			accountinfo.content = account[i]["content"].asCString();
+			accountinfo.money = account[i]["money"].asInt();
+			d_Account->accountList.push_back(accountinfo);
+		}
 	}
 	return 0;
 }
@@ -195,17 +201,22 @@ int CManageData::SaveData()
 	std::string strJson = writer.write(root);
 
 	errno_t err;
-	FILE* JSonFile = NULL;
 
-	//생성된 Json 정보들을 파일에 쓰는 부분입니다.
-	err = fopen_s(&JSonFile, "MrTraveler.mt", "wb");
-
-	if (err == 0) //정상적으로 파일이 생성된 경우
-	{
-		fputs(strJson.c_str(), JSonFile);
-		fclose(JSonFile);
+	TCHAR fileFilter[] = _T("MrTraveler파일(*.mt)|*.mt");
+	TCHAR name[] = _T("MrTraveler.mt");
+	TCHAR Ext[] = _T("mt");
+	CFileDialog dlg(FALSE, Ext, name, OFN_HIDEREADONLY, fileFilter);
+	if (IDOK == dlg.DoModal()) {
+		CString strPathName = dlg.GetPathName();
+		CFile Wfile;
+		if (!Wfile.Open(dlg.GetPathName(), CFile::modeCreate |	CFile::modeWrite))
+		{
+			AfxMessageBox(_T("Can't Create testfile.txt !"));
+			return 0;
+		}
+		Wfile.Write(strJson.c_str(), strJson.size());
+		Wfile.Close();
 	}
-
 
 	return 0;
 }
