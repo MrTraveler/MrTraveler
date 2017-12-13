@@ -25,7 +25,7 @@ public:
 	CRgn prevMonthRgn;
 	CRgn plusButtonRgn;
 	bool dragFlag;
-
+	bool plus = FALSE;
 	int startYear, startMonth, startDate, endYear, endMonth, endDate;
 	bool relatedCalendar = FALSE;
 	CRgn dateRgn[43];
