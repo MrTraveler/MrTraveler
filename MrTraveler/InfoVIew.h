@@ -73,6 +73,8 @@ public:
 	afx_msg void OnBnClickedAboutbox();
 	afx_msg void OnBnClickedSave();
 	afx_msg void OnBnClickedRoad();
+	CButton m_save;
+	CButton m_road;
 };
 
 

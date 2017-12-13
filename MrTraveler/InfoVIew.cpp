@@ -71,6 +71,8 @@ void CInfoVIew::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BUTTON_DIV, m_Div);
 	DDX_Control(pDX, IDC_EDIT1, m_Note);
 	DDX_Control(pDX, IDC_AboutBox, m_AboutBox);
+	DDX_Control(pDX, IDC_SAVE, m_save);
+	DDX_Control(pDX, IDC_ROAD, m_road);
 }
 
 BEGIN_MESSAGE_MAP(CInfoVIew, CFormView)
@@ -518,6 +520,26 @@ void CInfoVIew::OnSize(UINT nType, int cx, int cy)
 		Rect.top = clientRect.bottom*0.94;
 		Rect.bottom = clientRect.bottom*0.98;
 		m_AboutBox.MoveWindow(Rect);
+	}
+	if (m_save.GetSafeHwnd() != NULL) {
+		CRect Rect;
+		m_road.GetWindowRect(Rect);
+		ScreenToClient(Rect);
+		Rect.left = clientRect.right*0.1;
+		Rect.right = clientRect.right*0.16;
+		Rect.top = clientRect.bottom*0.94;
+		Rect.bottom = clientRect.bottom*0.98;
+		m_save.MoveWindow(Rect);
+	}
+	if (m_road.GetSafeHwnd() != NULL) {
+		CRect Rect;
+		m_road.GetWindowRect(Rect);
+		ScreenToClient(Rect);
+		Rect.left = clientRect.right*0.17;
+		Rect.right = clientRect.right*0.23;
+		Rect.top = clientRect.bottom*0.94;
+		Rect.bottom = clientRect.bottom*0.98;
+		m_road.MoveWindow(Rect);
 	}
 }
 
