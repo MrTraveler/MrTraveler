@@ -237,6 +237,7 @@ void CMrTravelerView::setDrag(int i)
 	CClientDC dc(this);
 	isDragged = TRUE;
 	dragFlag = true;
+	calendarView->prev_startDate = calendarView->startDate;
 	calendarView->startDate= i;//드래그 시작 일 리전 인덱스
 	dc.FillRgn(&calendarView->dateRgn[calendarView->startDate], &CBrush(RGB(230, 230, 230)));
 }
@@ -252,7 +253,6 @@ void CMrTravelerView::OnLButtonDown(UINT nFlags, CPoint point)
 	CRect rect;
 	GetClientRect(&rect);
 	rect.bottom = 840;
-
 	//탭 리전 클릭 처리
 	for (int i = 0; i < 5; i++) {
 		if (tapRgn[i].PtInRegion(m_pt)) {
@@ -266,6 +266,7 @@ void CMrTravelerView::OnLButtonDown(UINT nFlags, CPoint point)
 		for (int i = 0; i < calendarView->end_of_mon[calendarView->curMonth - 1]; i++) {
 			if (calendarView->dateRgn[i].PtInRegion(m_pt) && clickedTapIndex == 0) {
 				setDrag(i);
+				//calendarView->plus = FALSE;
 				break;
 			}
 		}
@@ -292,6 +293,11 @@ void CMrTravelerView::OnLButtonDown(UINT nFlags, CPoint point)
 		{
 			calendarView->relatedCalendar = TRUE;
 			calendarView->plus = TRUE;
+			calendarView->fix_start = calendarView->startDate;
+			calendarView->fix_end = calendarView->endDate;
+			PlanData::GetInstance()->startDate = CTime(calendarView->curYear, calendarView->curMonth, calendarView->startDate + 1, 0, 0, 0);
+			PlanData::GetInstance()->endDate = CTime(calendarView->curYear, calendarView->curMonth, calendarView->endDate + 1, 0, 0, 0);
+
 		}
 	}
 	else if (clickedTapIndex == 1 && Util::IsPointInRect(rect, point))	//임시
@@ -359,9 +365,6 @@ void CMrTravelerView::OnLButtonUp(UINT nFlags, CPoint point)
 				break;
 			}
 		}
-		PlanData::GetInstance()->startDate = CTime(calendarView->curYear, calendarView->curMonth, calendarView->startDate+1, 0, 0, 0);
-		PlanData::GetInstance()->endDate = CTime(calendarView->curYear, calendarView->curMonth, calendarView->endDate+1, 0, 0, 0);
-
 		for (int i = calendarView->startDate; i <= calendarView->endDate; i++) {
 			dc.FillRgn(&calendarView->dateRgn[i], &CBrush(RGB(230, 230, 230)));
 		}
