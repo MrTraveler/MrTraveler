@@ -67,7 +67,7 @@ int CManageData::RoadData()
 			d_Plan->endDate = End;
 		}
 		Json::Value plan = root["Plan"];
-		for (int i = 0; i < Size["Account"].asInt(); i++) {
+		for (int i = 0; i < Size["Plan"].asInt(); i++) {
 			double budget = plan[i]["budget"].asDouble();
 			string contentc = plan[i]["content"].asString();
 			CString content=CString::CStringT(CA2CT(contentc.c_str()));
