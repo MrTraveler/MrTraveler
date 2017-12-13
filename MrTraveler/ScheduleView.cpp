@@ -211,15 +211,14 @@ void ScheduleView::OnLButtonDown(CPoint point)
 	if (Util::IsPointInRect(CRect(810, 10, 890, 90), point))
 	{
 		CTime startDate = PlanData::GetInstance()->startDate;
-		startDate = CTime(startDate.GetYear(), startDate.GetMonth(), startDate.GetDay(), 0, 0, 0);
-		if (startDate == NULL || today - oneDay > startDate)
+		if (startDate == NULL || today - oneDay >= (startDate=CTime(startDate.GetYear(),startDate.GetMonth(),startDate.GetDay(),0,0,0)))
 			today -= oneDay;
 	}
 	if (Util::IsPointInRect(CRect(910, 10, 990, 90), point))
 	{
 		CTime endDate = PlanData::GetInstance()->endDate;
 		endDate = CTime(endDate.GetYear(), endDate.GetMonth(), endDate.GetDay(), 0, 0, 0);
-		if (endDate == NULL || today + CTimeSpan(7, 0, 0, 0) < endDate)
+		if (endDate == NULL || today + CTimeSpan(7, 0, 0, 0) <= endDate)
 			today += oneDay;
 	}
 	if (Util::IsPointInRect(CRect(100, 100, 1000, 1000), point))

@@ -52,7 +52,7 @@ CMrTravelerView::CMrTravelerView()
 	clickedTapIndex=0;//클릭된 탭 인덱스
 	dragFlag = false;
 	CMrTravelerParceHtml *x = new CMrTravelerParceHtml();
-	//x->ParceHtml(_T("https://v3.exchangerate-api.com/bulk/3090405efae2c21d79cc569c/KRW"), _T("ExchangeRate.json"));
+	x->ParceHtml(_T("https://v3.exchangerate-api.com/bulk/3090405efae2c21d79cc569c/KRW"), _T("ExchangeRate.json"));
 	testinit();
 	//rgn 생성
 	for (int i = 0; i < 5; i++) 
@@ -297,7 +297,7 @@ void CMrTravelerView::OnLButtonDown(UINT nFlags, CPoint point)
 			calendarView->fix_end = calendarView->endDate;
 			PlanData::GetInstance()->startDate = CTime(calendarView->curYear, calendarView->curMonth, calendarView->startDate + 1, 0, 0, 0);
 			PlanData::GetInstance()->endDate = CTime(calendarView->curYear, calendarView->curMonth, calendarView->endDate + 1, 0, 0, 0);
-
+			scheduleView->ResetToday();
 		}
 	}
 	else if (clickedTapIndex == 1 && Util::IsPointInRect(rect, point))	//임시
