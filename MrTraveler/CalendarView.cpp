@@ -83,7 +83,7 @@ void CalendarView::drawTimeBlock(CDC * pDC){
 	for (int i = 1; i <= week; i++) {
 		if(i==1){
 			blockRgn[idx].CreateRoundRectRgn(firstDay + getDay(mr->startDate), 100 * (getDay(mr->startDate) - 1), 250 + start_week * 200, 100 * (getDay(mr->startDate) - 1) + 100 * (7 - getDay(mr->startDate) + 1), 20, 20);
-			pDC->FillRgn(&blockRgn[idx], &CBrush(RGB(45,7,107)));
+			pDC->FillRgn(&blockRgn[idx], &CBrush(RGB(90,7,107)));
 		}
 		else if(i==week){
 		
@@ -111,7 +111,7 @@ void CalendarView::drawPlusButton(CDC * pDC)
 
 void CalendarView::drawMonthRgn(CDC * pDC) {
 	monthRgn.CreateEllipticRgn((1400 - 150) / 2 + 25, 50 - 50, (1400 - 150) / 2 + 150 + 25, 200 - 50);
-	pDC->FillRgn(&monthRgn, &CBrush(RGB(45,7,107)));
+	pDC->FillRgn(&monthRgn, &CBrush(RGB(90,7,107)));
 }
 
 void CalendarView::drawMonthText(CDC * pDC)
@@ -120,7 +120,7 @@ void CalendarView::drawMonthText(CDC * pDC)
 	font.CreatePointFont(400, _T("바탕체"));
 	CString strMonth;
 	strMonth.Format(_T("%d"), curMonth);
-	pDC->SetBkColor(RGB(45,7,107));
+	pDC->SetBkColor(RGB(90,7,107));
 	pDC->SetTextColor(RGB(255, 255, 255));
 	pDC->SelectObject(&font);
 	if (curMonth > 9)
@@ -133,7 +133,7 @@ void CalendarView::drawDayRgn(CDC * pDC)
 {
 	for (int day = 0; day < 7; day++) {
 		dayRgn[day].CreateRoundRectRgn(day % 7 * 200 + 25, 200, (day % 7 + 1) * 200 + 25, 250, 20, 20);
-		pDC->FillRgn(&dayRgn[day], &CBrush(RGB(45,7,107)));
+		pDC->FillRgn(&dayRgn[day], &CBrush(RGB(90,7,107)));
 	}
 
 }
@@ -143,7 +143,7 @@ void CalendarView::drawDayText(CDC * pDC)
 	for (int day = 0; day < 7; day++) {
 		CFont font;
 		font.CreatePointFont(150, _T("바탕"));
-		pDC->SetBkColor(RGB(45,7,107));
+		pDC->SetBkColor(RGB(90,7,107));
 		pDC->SetTextColor(RGB(255, 255, 255));
 		pDC->SelectObject(&font);
 		if (day == 0)
@@ -185,8 +185,13 @@ void CalendarView::drawDateRgn(CDC * pDC)
 	if (firstDay <= 0)firstDay += 7;
 	for (int day = firstDay - 1; day < end_of_mon[curMonth - 1] + firstDay - 1; day++) {
 		dateRgn[day - firstDay + 1].CreateRoundRectRgn((day) % 7 * 200 + 25, 250 + (day) / 7 * 100, ((day) % 7 + 1) * 200 + 25, 250 + ((day) / 7 + 1) * 100, 20, 20);
-		if((curYear == cTime.GetYear())&&(curMonth == cTime.GetMonth()&&(day - firstDay + 2==curDate))) pDC->FillRgn(&dateRgn[day - firstDay + 1], &CBrush(RGB(222,222,222)));
-		else pDC->FillRgn(&dateRgn[day - firstDay + 1], &CBrush(RGB(255, 255, 255)));
+		if (plus&&day - firstDay + 1>=startDate&&day - firstDay + 1<=endDate) {
+			pDC->FillRgn(&dateRgn[day - firstDay + 1], &CBrush(RGB(245,227,253)));
+		}
+		else {
+			if ((curYear == cTime.GetYear()) && (curMonth == cTime.GetMonth() && (day - firstDay + 2 == curDate))) pDC->FillRgn(&dateRgn[day - firstDay + 1], &CBrush(RGB(222, 222, 222)));
+			else pDC->FillRgn(&dateRgn[day - firstDay + 1], &CBrush(RGB(255, 255, 255)));
+		}
 		pDC->FrameRgn(&dateRgn[day - firstDay + 1], &CBrush(RGB(216,216,216)), 2, 2);
 	}
 }
@@ -206,14 +211,21 @@ void CalendarView::drawDateText(CDC * pDC)
 		font.CreatePointFont(100, _T("바탕"));
 		CString strDate;
 		strDate.Format(_T("%d"), day - firstDay + 2);
-		if ((curYear == cTime.GetYear()) && (curMonth == cTime.GetMonth() && (day - firstDay + 2 == curDate))) {
-			pDC->SetBkColor(RGB(222,222, 222));
-			pDC->SetTextColor(RGB(0, 0, 0));
+		if (plus&&day - firstDay + 1 >= startDate&&day - firstDay + 1 <= endDate) {
+			pDC->SetBkColor(RGB(245,227,253));
+			pDC->SetTextColor(RGB(0,0,0));
 		}
 		else {
-			pDC->SetBkColor(RGB(255, 255, 255));
-			pDC->SetTextColor(RGB(0, 0, 0));
-		}pDC->SelectObject(&font);
+			if ((curYear == cTime.GetYear()) && (curMonth == cTime.GetMonth() && (day - firstDay + 2 == curDate))) {
+				pDC->SetBkColor(RGB(222, 222, 222));
+				pDC->SetTextColor(RGB(0, 0, 0));
+			}
+			else {
+				pDC->SetBkColor(RGB(255, 255, 255));
+				pDC->SetTextColor(RGB(0, 0, 0));
+			}
+		}
+		pDC->SelectObject(&font);
 		pDC->TextOut((day) % 7 * 200 + 25 + 10+10, 250 + (day) / 7 * 100 + 10, strDate);
 	}
 }

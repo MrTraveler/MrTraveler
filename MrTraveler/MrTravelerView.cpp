@@ -153,7 +153,9 @@ void CMrTravelerView::drawTapRgn(CDC * pDC)
 {
 	//CRgn tapRgn[6] 탭 리전 전역변수 선언
 	for (int i = 0; i < 5; i++) {
-		pDC->FillRgn(&tapRgn[i], &CBrush(RGB(45,7,107)));
+		if(clickedTapIndex==i)
+			pDC->FillRgn(&tapRgn[i], &CBrush(RGB(90, 7, 107)));
+		else pDC->FillRgn(&tapRgn[i], &CBrush(RGB(216,216,216)));
 	}
 }
 
@@ -162,8 +164,10 @@ void CMrTravelerView::drawTapText(CDC * pDC)
 	for (int i = 0; i < 6; i++) {
 		CFont font;
 		font.CreatePointFont(100, _T("바탕"));
-		pDC->SetBkColor(RGB(45,7,107));
-		pDC->SetTextColor(RGB(255, 255, 255));
+		if (clickedTapIndex == i) pDC->SetBkColor(RGB(90,7,107));
+		else pDC->SetBkColor(RGB(216, 216, 216));
+		if (clickedTapIndex == i) pDC->SetTextColor(RGB(255, 255, 255));
+		else pDC->SetTextColor(RGB(90,7,107));
 		pDC->SetTextAlign(TA_CENTER);
 		pDC->SelectObject(&font);
 		if (i == 0)
@@ -284,20 +288,10 @@ void CMrTravelerView::OnLButtonDown(UINT nFlags, CPoint point)
 			}
 		}
 		//플러스
-		if (calendarView->plusButtonRgn.PtInRegion(m_pt))	//임시
+		if (calendarView->plusButtonRgn.PtInRegion(m_pt) && clickedTapIndex == 0)	//임시
 		{
 			calendarView->relatedCalendar = TRUE;
-			clickedTapIndex = 1;
-			/*
-			if (calendarView->relatedCalendar) {
-				CTime(calendarView->curYear, calendarView->curYear, endDate, 0, 0, 0);
-				calendarView->relatedCalendar = FALSE;
-			}
-			*/
-			scheduleView->OnLButtonDown(point);
-			scheduleView->ResetToday();
-			CView::OnLButtonDown(nFlags, point);
-			return;
+			calendarView->plus = TRUE;
 		}
 	}
 	else if (clickedTapIndex == 1 && Util::IsPointInRect(rect, point))	//임시
@@ -365,8 +359,8 @@ void CMrTravelerView::OnLButtonUp(UINT nFlags, CPoint point)
 				break;
 			}
 		}
-		PlanData::GetInstance()->startDate = CTime(calendarView->curYear, calendarView->curMonth, calendarView->startDate, 0, 0, 0);
-		PlanData::GetInstance()->endDate = CTime(calendarView->curYear, calendarView->curMonth, calendarView->endDate, 0, 0, 0);
+		PlanData::GetInstance()->startDate = CTime(calendarView->curYear, calendarView->curMonth, calendarView->startDate+1, 0, 0, 0);
+		PlanData::GetInstance()->endDate = CTime(calendarView->curYear, calendarView->curMonth, calendarView->endDate+1, 0, 0, 0);
 
 		for (int i = calendarView->startDate; i <= calendarView->endDate; i++) {
 			dc.FillRgn(&calendarView->dateRgn[i], &CBrush(RGB(230, 230, 230)));
