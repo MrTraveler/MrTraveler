@@ -185,8 +185,8 @@ void CalendarView::drawDateRgn(CDC * pDC)
 	if (firstDay <= 0)firstDay += 7;
 	for (int day = firstDay - 1; day < end_of_mon[curMonth - 1] + firstDay - 1; day++) {
 		dateRgn[day - firstDay + 1].CreateRoundRectRgn((day) % 7 * 200 + 25, 250 + (day) / 7 * 100, ((day) % 7 + 1) * 200 + 25, 250 + ((day) / 7 + 1) * 100, 20, 20);
-		if (plus&&day - firstDay + 1>=startDate&&day - firstDay + 1<=endDate) {
-			pDC->FillRgn(&dateRgn[day - firstDay + 1], &CBrush(RGB(245,227,253)));
+		if (plus&&day - firstDay + 1>=fix_start&&day - firstDay + 1<=fix_end) {
+			pDC->FillRgn(&dateRgn[day - firstDay + 1], &CBrush(RGB(250,241,254)));
 		}
 		else {
 			if ((curYear == cTime.GetYear()) && (curMonth == cTime.GetMonth() && (day - firstDay + 2 == curDate))) pDC->FillRgn(&dateRgn[day - firstDay + 1], &CBrush(RGB(222, 222, 222)));
@@ -211,8 +211,8 @@ void CalendarView::drawDateText(CDC * pDC)
 		font.CreatePointFont(100, _T("바탕"));
 		CString strDate;
 		strDate.Format(_T("%d"), day - firstDay + 2);
-		if (plus&&day - firstDay + 1 >= startDate&&day - firstDay + 1 <= endDate) {
-			pDC->SetBkColor(RGB(245,227,253));
+		if (plus&&day - firstDay + 1 >= fix_start&&day - firstDay + 1 <= fix_end) {
+			pDC->SetBkColor(RGB(250,241,254));
 			pDC->SetTextColor(RGB(0,0,0));
 		}
 		else {
