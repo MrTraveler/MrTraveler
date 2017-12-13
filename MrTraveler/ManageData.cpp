@@ -69,12 +69,10 @@ int CManageData::RoadData()
 		Json::Value plan = root["Plan"];
 		for (int i = 0; i < Size["Account"].asInt(); i++) {
 			double budget = plan[i]["budget"].asDouble();
-			const char* contentc = plan[i]["content"].asCString();
-			CString content;
-			content.Format(_T("%s"), contentc);
-			CString title;
-			const char* titlec = plan[i]["title"].asCString();
-			title.Format(_T("%s"), titlec);
+			string contentc = plan[i]["content"].asString();
+			CString content=CString::CStringT(CA2CT(contentc.c_str()));
+			string titlec = plan[i]["title"].asString();
+			CString title = CString::CStringT(CA2CT(titlec.c_str()));
 			CTime from, to;
 			{
 				const char * str = plan[i]["from"].asCString();
@@ -108,11 +106,12 @@ int CManageData::RoadData()
 		for (int i = 0; i < Size["Todo"].asInt(); i++) {
 			Todo todo;
 			todo.icon = toDo[i]["icon"].asInt();
-			todo.title = toDo[i]["title"].asCString();
+			string titles = toDo[i]["title"].asString();
+			CString strtitle = CString::CStringT(CA2CT(titles.c_str()));
+			todo.title=strtitle;
 			for (int j = 0; j < cnum[i].asInt(); j++) {
-				CString str;
-				const char* tmp = clist[i + j].asCString();
-				str.Format(_T("%s"), tmp);
+				string tmp = clist[i + j].asString();
+				CString str = CString::CStringT(CA2CT(tmp.c_str()));
 				todo.list.push_back(str);
 			}
 
@@ -124,7 +123,9 @@ int CManageData::RoadData()
 			accountinfo.year = account[i]["year"].asInt();
 			accountinfo.month = account[i]["month"].asInt();
 			accountinfo.day = account[i]["day"].asInt();
-			accountinfo.content = account[i]["content"].asCString();
+			string str= account[i]["content"].asString();
+			CString constr = CString::CStringT(CA2CT(str.c_str()));
+			accountinfo.content = constr;
 			accountinfo.money = account[i]["money"].asInt();
 			d_Account->accountList.push_back(accountinfo);
 		}
@@ -231,4 +232,6 @@ CManageData * CManageData::GetInstance()
 	}
 	return CManageData::instance;
 }
+
+
 

@@ -18,6 +18,5 @@ public:
 	TodoData* d_Todo;
 	AccountData* d_Account;
 	static CManageData *GetInstance();
-	//string MakeString(CString str);
 };
 
