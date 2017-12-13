@@ -3,7 +3,7 @@
 // CalendarView 뷰입니다.
 
 class CMrTravelerView;
-
+class PlanData;
 class CalendarView : public CView
 {
 	DECLARE_DYNCREATE(CalendarView)
@@ -34,6 +34,7 @@ public:
 	CRgn blockRgn[31];
 	int idx = 0;
 	CFont font;
+	PlanData* Plan;
 public:
 	virtual void OnDraw(CDC* pDC);      // 이 뷰를 그리기 위해 재정의되었습니다.
 	void drawCalendar(CDC* pDC);

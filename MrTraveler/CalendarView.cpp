@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "MrTraveler.h"
 #include "CalendarView.h"
+#include "PlanData.h"
 
 
 // CalendarView
@@ -174,7 +175,9 @@ void CalendarView::drawDayText(CDC * pDC)
 
 void CalendarView::drawDateRgn(CDC * pDC)
 {
-
+	plus=TRUE;
+	fix_start=PlanData::GetInstance()->startDate.GetDay()-1;
+	fix_end=PlanData::GetInstance()->endDate.GetDay()-1;
 	//월별 일수 및 윤년 처리
 	if (!(curYear % 4) && ((curYear % 100) || !(curYear % 400))) end_of_mon[1] = 29;
 
